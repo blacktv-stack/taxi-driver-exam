@@ -1,0 +1,5694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>전국 택시운전자격시험 3초 벼락치기 CBT</title>
+  <!-- 토스 공식 폰트 Pretendard CDN -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <style>
+    :root {
+      --toss-blue: #3182f6;
+      --toss-blue-hover: #1b64da;
+      --toss-blue-light: #e8f3ff;
+      --toss-yellow: #ffc300;
+      --toss-yellow-bg: rgba(255, 195, 0, 0.12);
+      --toss-gray-bg: #f2f4f6;
+      --toss-card-bg: #ffffff;
+      --toss-border: #e5e8eb;
+      --toss-border-subtle: #f0f2f4;
+      --text-primary: #191f28;
+      --text-secondary: #4e5968;
+      --text-muted: #8b95a1;
+      --toss-green: #0ca678;
+      --toss-green-bg: #e6fcf5;
+      --toss-red: #f03e3e;
+      --toss-red-bg: #fff5f5;
+      --radius-card: 22px;
+      --radius-btn: 16px;
+      --radius-pill: 9999px;
+      --font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: var(--font-family);
+    }
+
+    body {
+      background-color: var(--toss-gray-bg);
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .app-viewport {
+      width: 100%;
+      max-width: 440px;
+      min-height: 100vh;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+      padding-bottom: 90px; /* Space for sticky bottom banner */
+    }
+
+    /* Top Sticky Header */
+    .top-header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+      border-bottom: 1px solid var(--toss-border-subtle);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-icon {
+      font-size: 22px;
+    }
+
+    .brand-text {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: -0.4px;
+    }
+
+    .point-badge {
+      background-color: var(--toss-blue-light);
+      color: var(--toss-blue);
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Regional Selector Pill Strip */
+    .region-strip {
+      background: #f8faff;
+      border-bottom: 1px solid #e2edfd;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .region-select-trigger {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1.5px solid #c9e0ff;
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(49, 130, 246, 0.12);
+      transition: all 0.15s ease;
+    }
+
+    .region-select-trigger:active {
+      transform: scale(0.96);
+      background: #f0f6ff;
+    }
+
+    .region-name-txt {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--toss-blue);
+    }
+
+    .region-hint {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* Segment Navigation Tabs */
+    .mode-nav-wrap {
+      padding: 12px 20px 4px;
+      background: #ffffff;
+    }
+
+    .mode-nav {
+      display: flex;
+      background: var(--toss-gray-bg);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .mode-tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 750;
+      padding: 10px 0;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .mode-tab-btn.active {
+      background: #ffffff;
+      color: var(--toss-blue);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-weight: 800;
+    }
+
+    /* Main Container */
+    .main-content {
+      padding: 16px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Hero Banner */
+    .hero-banner-card {
+      background: linear-gradient(135deg, #f8faff 0%, #eaf2ff 100%);
+      border: 1px solid #dbe8fc;
+      border-radius: var(--radius-card);
+      padding: 18px 20px;
+      position: relative;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .ts-badge {
+      background: var(--toss-blue);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .hero-sub-txt {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--toss-blue);
+    }
+
+    .hero-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.35;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* Question Card Box */
+    .question-card {
+      background: #ffffff;
+      border: 1.5px solid var(--toss-border);
+      border-radius: var(--radius-card);
+      padding: 22px 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .q-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .q-subject-tag {
+      background: var(--toss-yellow-bg);
+      color: #b7791f;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+    }
+
+    .q-step-txt {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--toss-blue);
+    }
+
+    .q-stem-text {
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.48;
+      letter-spacing: -0.3px;
+    }
+
+    /* Option Items */
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--toss-gray-bg);
+      border: 1.5px solid transparent;
+      padding: 14px 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .option-item:active {
+      transform: scale(0.985);
+    }
+
+    .option-num-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid var(--toss-border);
+    }
+
+    .option-item.correct {
+      background: var(--toss-green-bg);
+      border-color: var(--toss-green);
+      color: #087f5b;
+    }
+    .option-item.correct .option-num-circle {
+      background: var(--toss-green);
+      color: #ffffff;
+      border-color: var(--toss-green);
+    }
+
+    .option-item.wrong {
+      background: var(--toss-red-bg);
+      border-color: var(--toss-red);
+      color: #c92a2a;
+    }
+    .option-item.wrong .option-num-circle {
+      background: var(--toss-red);
+      color: #ffffff;
+      border-color: var(--toss-red);
+    }
+
+    /* Instant Feedback Explanation Box */
+    .explanation-box {
+      display: none;
+      background: #f8faff;
+      border: 1px solid #dbe8fc;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-top: 4px;
+    }
+
+    .explanation-box.show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .exp-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--toss-blue);
+      margin-bottom: 6px;
+    }
+
+    .exp-body-text {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* Next / Submit Button (TDS 56px) */
+    .btn-toss-primary {
+      width: 100%;
+      height: 56px;
+      background-color: var(--toss-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-btn);
+      font-size: 17px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(49, 130, 246, 0.3);
+      transition: all 0.15s ease;
+      margin-top: 4px;
+    }
+
+    .btn-toss-primary:active {
+      transform: scale(0.985);
+      background-color: var(--toss-blue-hover);
+    }
+
+    .btn-toss-primary:disabled {
+      background-color: #e5e8eb;
+      color: #b0b8c1;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Mock Exam Timer & OMR Strip */
+    .mock-hud-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--toss-gray-bg);
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .mock-timer {
+      color: var(--toss-red);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mock-answered-cnt {
+      color: var(--toss-blue);
+    }
+
+    /* Region Selector Modal */
+    .region-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 250;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .region-modal-backdrop.open {
+      display: flex;
+    }
+
+    .region-bottom-sheet {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 24px 24px 0 0;
+      padding: 22px 20px 34px;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+      animation: sheetUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes sheetUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .sheet-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .sheet-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .region-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      overflow-y: auto;
+      padding-bottom: 10px;
+    }
+
+    .region-btn {
+      background: var(--toss-gray-bg);
+      border: 1.5px solid transparent;
+      padding: 12px 6px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .region-btn.active {
+      background: var(--toss-blue-light);
+      border-color: var(--toss-blue);
+      color: var(--toss-blue);
+    }
+
+    .region-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Result Modal Backdrop & Dialog */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .result-dialog {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      width: 100%;
+      max-width: 400px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .result-score-badge {
+      display: inline-block;
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--toss-blue);
+      line-height: 1;
+      margin: 10px 0 4px;
+    }
+
+    .result-pass-status {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .result-pass-status.pass {
+      color: var(--toss-green);
+    }
+    .result-pass-status.fail {
+      color: var(--toss-red);
+    }
+
+    
+    /* TS Official Disclaimer Notice Banner */
+    .disclaimer-banner {
+      margin: 10px 16px 14px 16px;
+      background: #fff8e6;
+      border: 1.5px solid #ffe3a3;
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+
+    .disclaimer-icon {
+      font-size: 16px;
+      line-height: 1;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .disclaimer-text {
+      font-size: 12.5px;
+      color: #944a00;
+      font-weight: 550;
+    }
+
+    .disclaimer-text strong {
+      color: #733700;
+      font-weight: 800;
+    }
+
+    /* Interstitial Fullscreen Ad Modal */
+    .interstitial-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 20, 28, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .interstitial-modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .interstitial-card {
+      width: 100%;
+      max-width: 360px;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .interstitial-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .interstitial-badge {
+      background: #e5e8eb;
+      color: #4e5968;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .interstitial-close-btn {
+      background: transparent;
+      border: 1px solid var(--toss-border);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .interstitial-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .interstitial-icon {
+      font-size: 54px;
+      margin-bottom: 12px;
+    }
+
+    .interstitial-brand {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--toss-blue);
+      margin-bottom: 6px;
+    }
+
+    .interstitial-headline {
+      font-size: 18px;
+      font-weight: 850;
+      color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .interstitial-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 20px;
+    }
+
+    .interstitial-cta-btn {
+      width: 100%;
+      height: 52px;
+      background: var(--toss-blue);
+      color: #ffffff;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(49, 130, 246, 0.35);
+    }
+
+    /* Sticky Bottom Large Responsive Banner Ad (92px height spec) */
+    .sticky-bottom-banner {
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+      min-height: 88px;
+      background: linear-gradient(135deg, #121824 0%, #1c2638 100%);
+      border-top: 1.5px solid #2d3b52;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 95;
+      box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sticky-bottom-banner:active {
+      background: #192231;
+    }
+
+    .banner-ad-badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: #9aa5b5;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+
+    .banner-text-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .banner-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .banner-subtitle {
+      font-size: 11.5px;
+      color: #8b95a1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .banner-cta-btn {
+      background: var(--toss-blue);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: rgba(25, 31, 40, 0.94);
+      color: #ffffff;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 750;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 999;
+      white-space: nowrap;
+    }
+
+    .toast-box.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  
+    /* ── TDS 모의고사 성적표 (합격 예측 리포트) ── */
+    .result-dialog.report-dialog-mode {
+      max-width: 420px;
+      padding: 14px 14px 18px;
+      background: #f2f4f6;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .report-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 20px 18px 16px;
+      text-align: left;
+      border: 1px solid #f0f2f4;
+      box-shadow: 0 2px 10px rgba(25, 31, 40, 0.04);
+      margin-bottom: 12px;
+    }
+
+    .report-brand-tag {
+      font-size: 11.5px;
+      font-weight: 750;
+      color: #8b95a1;
+      letter-spacing: -0.1px;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .report-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .report-region-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 10px;
+      background: #e8f3ff;
+      color: #3182f6;
+      font-size: 12px;
+      font-weight: 800;
+      border-radius: var(--radius-pill);
+    }
+
+    .report-date {
+      font-size: 12px;
+      font-weight: 700;
+      color: #8b95a1;
+    }
+
+    .report-score-block {
+      margin-bottom: 16px;
+    }
+
+    .report-score-line {
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+
+    .report-score-num {
+      font-size: 54px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: #191f28;
+      line-height: 1;
+    }
+
+    .report-score-unit {
+      font-size: 20px;
+      font-weight: 800;
+      color: #191f28;
+    }
+
+    .report-score-max {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #8b95a1;
+      margin-left: 5px;
+    }
+
+    .report-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 10px;
+      height: 30px;
+      padding: 0 12px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .report-status-badge.pass { background: #e8f3ff; color: #1b64da; }
+    .report-status-badge.fail { background: #fff1f0; color: #f04452; }
+
+    .report-caption {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 650;
+      color: #8b95a1;
+    }
+
+    .report-name-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 0;
+      border-top: 1px solid #f2f4f6;
+      border-bottom: 1px solid #f2f4f6;
+      margin-bottom: 14px;
+    }
+
+    .report-name-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #8b95a1;
+    }
+
+    .report-name-value {
+      font-size: 15px;
+      font-weight: 800;
+      color: #191f28;
+    }
+
+    .report-name-edit {
+      margin-left: auto;
+      background: #f2f4f6;
+      border: none;
+      border-radius: var(--radius-pill);
+      height: 26px;
+      padding: 0 10px;
+      font-size: 11.5px;
+      font-weight: 750;
+      color: #4e5968;
+      cursor: pointer;
+    }
+
+    .report-subjects {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .report-subject-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .report-subject-name {
+      font-size: 13px;
+      font-weight: 750;
+      color: #4e5968;
+    }
+
+    .report-subject-val {
+      font-size: 13px;
+      font-weight: 850;
+      color: #191f28;
+    }
+
+    .report-subject-val em {
+      font-style: normal;
+      font-size: 11px;
+      font-weight: 700;
+      color: #b0b8c1;
+      margin-left: 5px;
+    }
+
+    .report-track {
+      height: 8px;
+      background: #f2f4f6;
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .report-fill {
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: #3182f6;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .report-fill.low { background: #f04452; }
+
+    .report-disclaimer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #f2f4f6;
+      font-size: 10.5px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #b0b8c1;
+      word-break: keep-all;
+    }
+
+    .report-save-btn { background-color: #3182f6; }
+
+    .report-review-btn {
+      width: 100%;
+      height: 46px;
+      margin-top: 8px;
+      background: #e8f3ff;
+      color: #1b64da;
+      border: none;
+      border-radius: var(--radius-btn);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .report-sub-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .report-sub-btn {
+      flex: 1;
+      height: 42px;
+      border-radius: var(--radius-btn);
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .report-sub-btn.primary { background: #ffffff; border: none; color: var(--text-primary); }
+    .report-sub-btn.ghost { background: transparent; border: 1px solid #e5e8eb; color: var(--text-secondary); }
+
+  </style>
+</head>
+<body>
+
+  <div class="app-viewport">
+    <header class="top-header">
+      <div class="brand-box">
+        <span class="brand-icon">🚕</span>
+        <span class="brand-text">택시면허 CBT</span>
+      </div>
+      <div class="region-select-trigger" onclick="openRegionSheet()" style="padding: 5px 12px; margin: 0; background: var(--toss-blue-light); border: none; border-radius: var(--radius-pill);">
+        <span style="font-size: 13px;">📍</span>
+        <span class="region-name-txt" id="currentRegionLabel" style="font-size: 13px; font-weight: 800; color: var(--toss-blue);">서울특별시</span>
+        <span style="font-size: 10px; color: var(--toss-blue); margin-left: 2px;">▼</span>
+      </div>
+    </header>
+
+    <!-- Top Mode Navigation Tabs -->
+    <div class="mode-nav-wrap" style="padding: 10px 16px 6px;">
+      <div class="mode-nav" style="background: var(--toss-gray-bg); padding: 4px; border-radius: 14px; display: flex; gap: 4px;">
+        <button class="mode-tab-btn active" id="tabBtnSpeed" onclick="switchMode('speed')" style="font-size: 13px; padding: 9px 0;">
+          ⚡ 10문 벼락치기
+        </button>
+        <button class="mode-tab-btn" id="tabBtnMock" onclick="switchMode('mock')" style="font-size: 13px; padding: 9px 0;">
+          📝 40문 모의고사
+        </button>
+        <button class="mode-tab-btn" id="tabBtnNotes" onclick="switchMode('notes')" style="font-size: 13px; padding: 9px 0;">
+          💡 오답노트 (<span id="wrongCountBadge">0</span>)
+        </button>
+      </div>
+    </div>
+
+    <!-- Slim Notice Bar (한국교통안전공단 비공식 참고 모의고사 안내) -->
+    <div class="disclaimer-banner" style="margin: 2px 16px 6px; padding: 6px 12px; font-size: 11.5px; border-radius: 8px; display: flex; align-items: center; gap: 6px; background: #f8f9fa; border: 1px solid #e9ecef; color: var(--text-secondary);">
+      <span style="font-size: 12px;">ℹ️</span>
+      <div class="disclaimer-text" style="font-size: 11.5px; line-height: 1.35;">
+        본 서비스는 공식 시험이 아니며, 시험 준비를 위한 <strong>참고용 모의고사</strong>입니다.
+      </div>
+    </div>
+
+    <main class="main-content" style="padding: 0 16px 20px;">
+
+      <!-- Speed Quiz View -->
+      <div id="viewSpeed">
+        <div class="question-card" id="speedCard" style="margin-top: 4px; padding: 20px 18px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div class="q-header-row" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="q-subject-tag" id="speedSubjectTag">1과목 법규</span>
+              <span class="ts-badge" id="heroRegionSub" style="font-size: 11px; padding: 3px 8px; border-radius: 6px; background: #eef4ff; color: var(--toss-blue); font-weight: 750;">서울 맞춤 기출</span>
+            </div>
+            <span class="q-step-txt" id="speedStepTxt" style="font-size: 13.5px; font-weight: 800; color: var(--toss-blue);">1 / 10 문제</span>
+          </div>
+
+          <div class="q-stem-text" id="speedStemText">문제 로딩 중...</div>
+
+          <div class="option-list" id="speedOptionList"></div>
+
+          <div class="explanation-box" id="speedExpBox">
+            <div class="exp-title-row">
+              <span>💡</span> <span id="speedExpTitle">핵심 팩트 해설</span>
+            </div>
+            <div class="exp-body-text" id="speedExpBody">해설 내용</div>
+          </div>
+
+          <button class="btn-toss-primary" id="btnSpeedNext" onclick="nextSpeedQuestion()" disabled>
+            <span>다음 문제 풀기</span> <span>→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mock Exam View -->
+      <div id="viewMock" style="display: none;">
+        <div class="mock-hud-strip" style="background: #f8faff; border-radius: 14px; padding: 10px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e8f0fe;">
+          <div class="mock-timer" style="font-size: 13.5px; font-weight: 800; color: var(--toss-red); display: flex; align-items: center; gap: 4px;">
+            <span>⏱️</span> <span id="mockTimerDisplay">30:00</span>
+          </div>
+          <div class="mock-answered-cnt" style="font-size: 13px; font-weight: 800; color: var(--toss-blue);">
+            진행: <span id="mockProgressTxt">1 / 40 문제</span>
+          </div>
+        </div>
+
+        <!-- Visual Progress Bar -->
+        <div style="height: 6px; background: #e5e8eb; border-radius: 3px; margin: 0 0 12px; overflow: hidden;">
+          <div id="mockProgressBar" style="width: 2.5%; height: 100%; background: var(--toss-blue); transition: width 0.25s ease;"></div>
+        </div>
+
+        <div class="question-card" id="mockCard" style="padding: 20px 18px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+          <div class="q-header-row" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span class="q-subject-tag" id="mockSubjectTag">1과목 법규</span>
+            <span class="q-step-txt" id="mockStepTxt" style="font-size: 13.5px; font-weight: 800; color: var(--text-secondary);">제 1 문</span>
+          </div>
+
+          <div class="q-stem-text" id="mockStemText" style="font-size: 16.5px; line-height: 1.5; font-weight: 750; margin: 0 0 16px; color: var(--text-primary);">문제 로딩 중...</div>
+
+          <div class="option-list" id="mockOptionList" style="display: flex; flex-direction: column; gap: 9px;"></div>
+
+          <div style="display: flex; gap: 10px; margin-top: 14px;">
+            <button class="btn-toss-primary" style="flex: 1; height: 48px; background: #e5e8eb; color: var(--text-primary); border-radius: 14px;" onclick="prevMockQuestion()" id="btnMockPrev">
+              <span>←</span> 이전
+            </button>
+            <button class="btn-toss-primary" style="flex: 2; height: 48px; border-radius: 14px;" onclick="nextMockQuestion()" id="btnMockNext">
+              다음 <span>→</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-toss-primary" style="background: var(--toss-green); box-shadow: 0 4px 14px rgba(12, 166, 120, 0.3); margin-top: 12px; height: 50px; font-size: 15px; border-radius: 14px;" onclick="submitMockExam()">
+          <span>🏁</span> 모의고사 시험 종료 및 채점하기
+        </button>
+      </div>
+
+      <!-- Wrong Notes View -->
+      <div id="viewNotes" style="display: none;">
+        <div class="hero-banner-card" style="background: #fff9db; border-color: #ffec99;">
+          <div class="hero-title" style="color: #d9480f;">취약 오답 집중 클리닉</div>
+          <div class="hero-desc">내가 틀렸던 문제만 1초 만에 다시 풀어 완벽히 숙지합니다.</div>
+        </div>
+
+        <div id="notesContainer" style="display: flex; flex-direction: column; gap: 12px;"></div>
+      </div>
+
+    </main>
+
+    <!-- Sticky Bottom Responsive Banner Ad -->
+    <aside class="sticky-bottom-banner" id="bottomAdBanner" onclick="handleClickBannerAd()">
+      <span class="banner-ad-badge">AD</span>
+      <div class="banner-text-wrap">
+        <div class="banner-title" id="bannerAdTitle">
+          <span>🚗</span> 현대해상 다이렉트 자동차보험
+        </div>
+        <div class="banner-subtitle" id="bannerAdSubtitle">
+          자사 오프라인 대비 평균 15.4% 저렴!
+        </div>
+      </div>
+      <div class="banner-cta-btn" id="bannerAdCta">확인 ></div>
+    </aside>
+
+  </div>
+
+  <!-- Regional Selector Bottom Sheet Modal -->
+  <div class="region-modal-backdrop" id="regionModalBackdrop" onclick="closeRegionSheet(event)">
+    <div class="region-bottom-sheet" onclick="event.stopPropagation()">
+      <div class="sheet-title">📍 응시 지역을 선택하세요</div>
+      <div class="sheet-desc">선택한 지역에 맞게 4과목 지리 기출문제가 자동으로 변경됩니다.</div>
+
+      <div class="region-grid" id="regionGrid"></div>
+
+      <button style="width: 100%; height: 50px; background: var(--toss-gray-bg); border: none; border-radius: var(--radius-btn); font-size: 15px; font-weight: 800; color: var(--text-secondary); margin-top: 14px; cursor: pointer;" onclick="closeRegionSheet()">
+        닫기
+      </button>
+    </div>
+  </div>
+
+  <!-- Result Modal: 모의고사 성적표 (합격 예측 리포트) -->
+  <div class="modal-backdrop" id="resultModal">
+    <div class="result-dialog report-dialog-mode" id="resultDialogBox">
+
+      <div class="report-card">
+        <div class="report-brand-tag">🚕 택시면허 3초 CBT · 모의고사 성적표</div>
+
+        <div class="report-meta-row">
+          <span class="report-region-badge" id="reportRegionBadge">서울</span>
+          <span class="report-date" id="reportExamDate">2026.11.16</span>
+        </div>
+
+        <div class="report-score-block">
+          <div class="report-score-line">
+            <span class="report-score-num" id="reportScore">90</span>
+            <span class="report-score-unit">점</span>
+            <span class="report-score-max">/ 100점 만점</span>
+          </div>
+          <div class="report-status-badge pass" id="reportStatusBadge">합격 예측권 🎯</div>
+          <div class="report-caption" id="reportCaption">⚡ 10문 벼락치기 · 10문 중 9문 정답</div>
+        </div>
+
+        <div class="report-name-row">
+          <span class="report-name-label">응시자</span>
+          <span class="report-name-value" id="reportUserName">김정열 님</span>
+          <button type="button" class="report-name-edit" onclick="editReportName()" title="응시자 이름 수정">✏️ 이름 수정</button>
+        </div>
+
+        <div class="report-subjects" id="reportSubjects"></div>
+
+        <p class="report-disclaimer">본 리포트는 모의고사 학습 기록이며 공식 자격증이나 시험 합격 증명이 아닙니다.</p>
+      </div>
+
+      <button class="btn-toss-primary report-save-btn" onclick="generateAndSaveReport()">
+        <span>📄</span> 성적표 저장하기
+      </button>
+
+      <button class="report-review-btn" id="btnReportReview" onclick="goToNotesAndClose()" style="display: none;">
+        📝 오답노트로 취약 문항 복습하기
+      </button>
+
+      <div class="report-sub-actions">
+        <button class="report-sub-btn primary" onclick="retryExam()">🔄 다시 풀기</button>
+        <button class="report-sub-btn ghost" onclick="closeModal()">닫기</button>
+      </div>
+
+    </div>
+  </div>
+
+  <canvas id="reportCanvas" width="1080" height="1080" style="display: none;"></canvas>
+
+  <!-- Interstitial Fullscreen Ad Modal (모의고사 채점 전면 광고 슬롯) -->
+  <div class="interstitial-modal-backdrop" id="interstitialModal">
+    <div class="interstitial-card">
+      <div class="interstitial-header">
+        <span class="interstitial-badge">SPONSOR AD</span>
+        <button class="interstitial-close-btn" id="btnInterstitialClose" onclick="closeInterstitialAd()">
+          닫기 (3)
+        </button>
+      </div>
+      <div class="interstitial-content" onclick="handleClickInterstitialAd()">
+        <div class="interstitial-icon">🚕</div>
+        <div class="interstitial-brand">카카오 T 블루 택시기사 특별 채용</div>
+        <div class="interstitial-headline">택시면허 취득 즉시<br>첫 달 정착지원금 최대 100만 원!</div>
+        <div class="interstitial-desc">원하는 시간에 자유롭게 운행하는 카카오 T 블루 가맹기사 채용 상담 신청하기</div>
+        <div class="interstitial-cta-btn">지원 혜택 자세히 보기 ➔</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-box" id="toastBox">
+    <span id="toastIcon">🎯</span>
+    <span id="toastMsg">10문제 완독 완료! 합격 스탬프 +1</span>
+  </div>
+
+  <!-- Exit Confirmation Modal (토스 검수 필수 규격) -->
+  <div class="modal-backdrop" id="exitModal" style="display: none; align-items: center; justify-content: center; z-index: 9999;">
+    <div class="modal-card" style="text-align: center; max-width: 320px; padding: 26px 20px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.18);">
+      <div style="font-size: 40px; margin-bottom: 12px;">🚕</div>
+      <div style="font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 8px;" id="exitModalTitle">
+        택시면허 CBT를 종료할까요?
+      </div>
+      <div style="font-size: 14px; color: var(--text-secondary); line-height: 1.45; margin-bottom: 22px;" id="exitModalDesc">
+        언제든 다시 돌아와 학습할 수 있어요.
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button style="flex: 1; height: 48px; border-radius: 14px; border: none; background: var(--toss-gray-bg); color: var(--text-secondary); font-size: 15px; font-weight: 700; cursor: pointer;" onclick="closeExitModal()">
+          취소
+        </button>
+        <button style="flex: 1; height: 48px; border-radius: 14px; border: none; background: var(--toss-blue); color: #ffffff; font-size: 15px; font-weight: 700; cursor: pointer;" onclick="confirmExit()">
+          종료하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- 16 Nationwide Regions ---
+    const REGIONS = [
+      { key: "seoul", name: "서울" },
+      { key: "gyeonggi", name: "경기" },
+      { key: "incheon", name: "인천" },
+      { key: "busan", name: "부산" },
+      { key: "daegu", name: "대구" },
+      { key: "daejeon", name: "대전" },
+      { key: "gwangju", name: "광주" },
+      { key: "ulsan", name: "울산" },
+      { key: "sejong", name: "세종" },
+      { key: "gangwon", name: "강원" },
+      { key: "chungbuk", name: "충북" },
+      { key: "chungnam", name: "충남" },
+      { key: "jeonbuk", name: "전북" },
+      { key: "jeonnam", name: "전남" },
+      { key: "gyeongbuk", name: "경북" },
+      { key: "gyeongnam", name: "경남" },
+      { key: "jeju", name: "제주" }
+    ];
+
+    
+    const REGION_FULL_NAMES = {
+      "서울": "서울특별시",
+      "경기": "경기도",
+      "인천": "인천광역시",
+      "부산": "부산광역시",
+      "대구": "대구광역시",
+      "대전": "대전광역시",
+      "광주": "광주광역시",
+      "울산": "울산광역시",
+      "세종": "세종특별자치시",
+      "강원": "강원특별자치도",
+      "충북": "충청북도",
+      "충남": "충청남도",
+      "전북": "전북특별자치도",
+      "전남": "전라남도",
+      "경북": "경상북도",
+      "경남": "경상남도",
+      "제주": "제주특별자치도"
+    };
+
+    let currentRegion = localStorage.getItem('taxi_region') || 'seoul';
+    // --- Nationwide Common Question Banks ---
+    const LAW_QUESTIONS = [
+
+  {
+    "id": 101,
+    "subject": "1과목 법규",
+    "stem": "여객자동차 운수사업법령상 택시 운수종사자의 정당한 사유 없는 '승차거부'에 해당하지 않는 경우는?",
+    "options": [
+      "목적지를 듣고 빈차가 아니라고 거짓말하는 경우",
+      "승차 후 승객이 목적지를 변경하자 중도에 강제 하차시키는 경우",
+      "만취하여 폭언을 하거나 차내를 훼손할 우려가 현저한 승객의 승차를 거부하는 경우",
+      "교대시간이라는 핑계로 행선지가 반대 방향인 승객을 태우지 않는 경우"
+    ],
+    "answer": 2,
+    "explanation": "만취 폭언, 구토 등 차내 훼손 우려가 현저한 승객이나 인화성 물질 소지자는 정당한 승차거부 사유에 해당합니다."
+  },
+  {
+    "id": 102,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 '음주운전' 처벌 기준에 해당하는 혈중알코올농도 최저 기준치는?",
+    "options": [
+      "0.02%",
+      "0.03%",
+      "0.05%",
+      "0.08%"
+    ],
+    "answer": 1,
+    "explanation": "도로교통법 제44조에 따라 혈중알코올농도 0.03% 이상부터 음주운전 처벌 대상이 됩니다."
+  },
+  {
+    "id": 103,
+    "subject": "1과목 법규",
+    "stem": "어린이 보호구역(스쿨존) 내에서 자동차 주행 시 준수해야 하는 법정 최고 제한속도는?",
+    "options": [
+      "시속 20km 이내",
+      "시속 30km 이내",
+      "시속 40km 이내",
+      "시속 50km 이내"
+    ],
+    "answer": 1,
+    "explanation": "스쿨존 내 제한속도는 시속 30km 이내로 제한됩니다."
+  },
+  {
+    "id": 104,
+    "subject": "1과목 법규",
+    "stem": "교통사고처리 특례법상 12대 중과실 사고에 해당하지 않는 것은?",
+    "options": [
+      "신호위반",
+      "중앙선 침범",
+      "제한속도 시속 15km 초과 운전",
+      "보도(인도) 침범"
+    ],
+    "answer": 2,
+    "explanation": "속도위반 중과실은 법정 제한속도를 '시속 20km 초과'하여 운전한 경우에 해당합니다."
+  },
+  {
+    "id": 105,
+    "subject": "1과목 법규",
+    "stem": "제1종 보통 운전면허가 취소된 사람의 택시운전자격 처분 기준으로 올바른 것은?",
+    "options": [
+      "택시운전자격도 당연히 취소된다",
+      "택시운전자격은 1년간 정지된다",
+      "과태료 50만 원 부과 후 자격은 유지된다",
+      "별도의 청문 심사를 거쳐 유지 여부를 결정한다"
+    ],
+    "answer": 0,
+    "explanation": "운전면허가 취소되면 법률상 택시운전자격도 당연 취소 처분됩니다."
+  },
+  {
+    "id": 106,
+    "subject": "1과목 법규",
+    "stem": "택시 미터기를 사용하지 않고 사전에 승객과 구두로 합의한 금액을 징수하는 행위에 대한 처벌은?",
+    "options": [
+      "부당요금 징수 행위로 과태료 및 자격정지 처분 대상",
+      "승객의 사전 동의가 있으면 합법",
+      "할증 시간대에만 예외적으로 허용",
+      "장거리 운행 시에는 자율 계약 인정"
+    ],
+    "answer": 0,
+    "explanation": "여객자동차 운수사업법상 정당한 사유 없이 미터기 미사용 또는 부당요금 청구는 엄격히 금지됩니다."
+  },
+  {
+    "id": 107,
+    "subject": "1과목 법규",
+    "stem": "일반 택시 운수종사자가 다른 승객을 추가로 태우는 '합승 행위'에 대한 규정으로 올바른 것은?",
+    "options": [
+      "기존 승객의 동의가 있더라도 택시 합승은 원칙적으로 금지된다",
+      "기존 승객의 동의만 있으면 자유롭게 합승 가능",
+      "출퇴근 시간대에는 자율적으로 합승 허용",
+      "요금을 각각 30% 할인해 주면 합승 가능"
+    ],
+    "answer": 0,
+    "explanation": "택시 합승 행위는 승객의 동의 여부와 관계없이 법률령상 원칙적으로 엄격히 금지됩니다."
+  },
+  {
+    "id": 108,
+    "subject": "1과목 법규",
+    "stem": "법인택시 회사가 운수종사자가 아닌 제3자에게 차량을 임대하여 운행하게 하는 이른바 '도급택시'에 대한 설명으로 옳은 것은?",
+    "options": [
+      "명백한 불법 행위로 면허 취소 및 형사처벌 대상이다",
+      "야간 시간대 한정으로 합법적으로 운영 가능",
+      "회사와 운전자 간 민사 계약이 있으면 유효",
+      "지자체 등록 시 합법 도급 인정"
+    ],
+    "answer": 0,
+    "explanation": "명의이용 및 전대, 도급택시 행위는 운수사업법상 면허 취소 사유에 해당하는 중대 불법 행위입니다."
+  },
+  {
+    "id": 109,
+    "subject": "1과목 법규",
+    "stem": "택시운전자격증의 차내 게시 위치로 올바른 것은?",
+    "options": [
+      "승객이 쉽게 볼 수 있는 앞좌석 대시보드 우측 앞면",
+      "운전석 뒤편 헤드레스트 뒷면",
+      "차량 글로브박스(사물함) 내부 보관",
+      "트렁크 내부 게시판"
+    ],
+    "answer": 0,
+    "explanation": "택시운전자격증은 탑승한 승객이 전방에서 쉽게 확인할 수 있는 조수석 대시보드 앞면에 게시해야 합니다."
+  },
+  {
+    "id": 110,
+    "subject": "1과목 법규",
+    "stem": "법인택시(일반승용)의 법정 기본 차령(운행 가능 연한) 기준으로 올바른 것은?",
+    "options": [
+      "기본 4년 (임시검사 합격 시 최대 2년 연장 가능)",
+      "기본 2년",
+      "기본 7년",
+      "기본 10년"
+    ],
+    "answer": 0,
+    "explanation": "법인택시 중형 승용차량의 기본 차령은 4년이며, 차량 안전검사 합격 시 최대 2년까지 연장할 수 있습니다."
+  },
+  {
+    "id": 111,
+    "subject": "1과목 법규",
+    "stem": "개인택시운송사업 면허를 양수(인수)하기 위해 갖추어야 하는 운전경력 기준은?",
+    "options": [
+      "신청일 기준 최근 5년 무사고 운전경력 (또는 안전보건공단 5일 교육 이수 등 법정 요건 충족)",
+      "운전면허 취득 후 1년 경과",
+      "만 65세 이상 운전자만 가능",
+      "과거 10년간 교통사고 이력이 전혀 없을 것"
+    ],
+    "answer": 0,
+    "explanation": "개인택시 면허 양수는 최근 5년 이상 무사고 운전경력 또는 관련 교육 이수 요건을 갖추어야 합니다."
+  },
+  {
+    "id": 112,
+    "subject": "1과목 법규",
+    "stem": "고속도로에서 '갓길' 통행이 예외적으로 허용되는 경우에 해당하는 것은?",
+    "options": [
+      "차량 고장이나 사고 등 긴급 부득이한 사유가 발생한 경우",
+      "승객이 고속철도 환승에 늦었다고 재촉하는 경우",
+      "출퇴근 시간대 정체가 극심한 경우",
+      "택시 빈차 상태로 가스 충전소에 급히 갈 때"
+    ],
+    "answer": 0,
+    "explanation": "고속도로 갓길 통행은 고장, 사고, 긴급자동차 통행 등 법령상 예외 사유 외에는 엄격히 금지됩니다."
+  },
+  {
+    "id": 113,
+    "subject": "1과목 법규",
+    "stem": "교차로 진입 전 정지선을 앞두고 황색 신호등이 켜졌을 때 운전자의 올바른 조치는?",
+    "options": [
+      "정지선이나 횡단보도 직전에 정지해야 한다",
+      "가속페달을 밟아 신속히 교차로를 통과한다",
+      "비상등을 켜고 서행 통과한다",
+      "경음기를 울리며 통과한다"
+    ],
+    "answer": 0,
+    "explanation": "정지선 진입 전 황색등 점등 시에는 정지선 직전에 정지하는 것이 원칙입니다."
+  },
+  {
+    "id": 114,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 중앙선 침범이 예외적으로 위반에 해당하지 않는 정당한 사유는?",
+    "options": [
+      "도로 파손, 공사 등 도로 장애물로 인해 차로 통행이 불가능한 경우",
+      "앞차가 너무 느리게 주행하는 경우",
+      "택시 승객이 건너편 목적지를 가리킨 경우",
+      "차로가 한산하여 편도 1차선에서 추월할 때"
+    ],
+    "answer": 0,
+    "explanation": "공사나 파손 등 불가피한 장애물로 정상 통행이 불가능한 경우에만 중앙선 침범이 예외적으로 인정됩니다."
+  },
+  {
+    "id": 115,
+    "subject": "1과목 법규",
+    "stem": "운전 중 운전자의 휴대전화 사용이 예외적으로 허용되는 경우는?",
+    "options": [
+      "차량이 완전히 정지해 있는 상태인 경우",
+      "시속 30km 이하로 서행 중인 경우",
+      "승객의 호출 전화를 받는 경우",
+      "내비게이션 화면을 조작하면서 손에 들고 통화할 때"
+    ],
+    "answer": 0,
+    "explanation": "도로교통법 제49조에 따라 자동차가 정지하고 있는 경우나 긴급신고 시에만 휴대전화 사용이 허용됩니다."
+  },
+  {
+    "id": 116,
+    "subject": "1과목 법규",
+    "stem": "여객자동차 운수사업법상 택시 운전자격의 취소 사유에 해당하지 않는 것은?",
+    "options": [
+      "음주운전으로 운전면허가 취소된 경우",
+      "다른 사람에게 택시운전자격증을 대여한 경우",
+      "정당한 사유 없이 1회 승차거부를 한 경우",
+      "특정강력범죄로 금고 이상의 형의 집행유예를 선고받은 경우"
+    ],
+    "answer": 2,
+    "explanation": "승차거부 1회는 경고 또는 과태료 처분 대상이며, 2년 내 3회 적발 시 자격취소 처분이 내려집니다. 1회만으로는 자격취소 사유가 아닙니다."
+  },
+  {
+    "id": 117,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 교차로 우회전 시 전방 차량 신호등이 적색일 때 올바른 통행 방법은?",
+    "options": [
+      "서행하며 보행자가 없으면 통과한다.",
+      "반드시 횡단보도 앞에서 일시정지 후 보행자 유무를 확인하고 서행 통과한다.",
+      "우측 깜빡이를 켜고 즉시 통과한다.",
+      "전방 보행신호가 적색일 때만 일시정지한다."
+    ],
+    "answer": 1,
+    "explanation": "전방 차량 신호가 적색일 때는 보행자 유무와 관계없이 반드시 횡단보도 정지선 앞에서 일시정지(속도 0km/h)한 후 통과해야 합니다."
+  },
+  {
+    "id": 118,
+    "subject": "1과목 법규",
+    "stem": "여객자동차 운수사업법령상 택시 운수종사자의 차내 흡연에 관한 규정으로 옳은 것은?",
+    "options": [
+      "승객이 동의하면 흡연할 수 있다.",
+      "승객이 탑승하지 않은 빈차 상태에서는 흡연이 가능하다.",
+      "승객의 탑승 여부와 관계없이 택시 차내에서는 전면 금연이다.",
+      "창문을 열고 운행하는 경우에는 흡연이 허용된다."
+    ],
+    "answer": 2,
+    "explanation": "여객자동차운수사업법에 따라 택시 운수종사자는 승객 탑승 여부와 상관없이 차내에서 일체 흡연이 금지되며, 위반 시 10만 원의 과태료가 부과됩니다."
+  },
+  {
+    "id": 119,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 술에 취한 상태에서의 운전(음주운전) 측정 요구에 불응한 사람에 대한 벌칙은?",
+    "options": [
+      "1년 이하의 징역이나 500만원 이하의 벌금",
+      "1년 이상 5년 이하의 징역이나 500만원 이상 2천만원 이하의 벌금",
+      "3년 이하의 징역이나 1천만원 이하의 벌금",
+      "과태료 100만원 부과"
+    ],
+    "answer": 1,
+    "explanation": "경찰공무원의 정당한 음주측정 요구에 불응할 경우 1년 이상 5년 이하의 징역이나 500만원 이상 2천만원 이하의 벌금에 처해집니다."
+  },
+  {
+    "id": 120,
+    "subject": "1과목 법규",
+    "stem": "도로교통법령상 일반도로(주거·상업·공업지역)의 기본 법정 최고속도는? (안전속도 5030)",
+    "options": [
+      "시속 40km 이내",
+      "시속 50km 이내",
+      "시속 60km 이내",
+      "시속 70km 이내"
+    ],
+    "answer": 1,
+    "explanation": "안전속도 5030 정책에 따라 도시부 일반도로의 기본 최고속도는 시속 50km 이내, 이면도로는 시속 30km 이내입니다."
+  },
+  {
+    "id": 121,
+    "subject": "1과목 법규",
+    "stem": "여객자동차 운수사업법상 택시 운전종사자가 승객에게 부당한 운임을 받는 행위에 해당하는 것은?",
+    "options": [
+      "심야할증 시간에 정해진 할증률을 적용한 경우",
+      "시계외 운행 시 규정된 시계외 할증을 적용한 경우",
+      "미터기를 켜지 않고 사전에 승객과 합의한 정액 요금을 받는 행위",
+      "유료도로 통행료를 승객에게 실비 청구한 경우"
+    ],
+    "answer": 2,
+    "explanation": "미터기 미사용 및 사전 요금 합의(도급제 요금)는 부당요금 징수 행위로 엄격히 금지됩니다."
+  },
+  {
+    "id": 122,
+    "subject": "1과목 법규",
+    "stem": "택시 운전자격 취득을 위해 요구되는 제1종 또는 제2종 보통 운전면허의 최소 보유 경력은?",
+    "options": [
+      "6개월 이상",
+      "1년 이상",
+      "2년 이상",
+      "3년 이상"
+    ],
+    "answer": 1,
+    "explanation": "택시운전자격 시험 응시를 위해서는 1종 보통 또는 2종 보통 운전면허 경력이 1년 이상이어야 합니다."
+  },
+  {
+    "id": 123,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 앞지르기(추월)가 금지된 장소가 아닌 것은?",
+    "options": [
+      "교차로",
+      "터널 안",
+      "다리 위",
+      "편도 3차로 일반도로의 직선 구간"
+    ],
+    "answer": 3,
+    "explanation": "교차로, 터널 안, 다리 위, 도로의 구부러진 곳, 비탈길 고갯마루 부근은 앞지르기 금지 장소입니다."
+  },
+  {
+    "id": 124,
+    "subject": "1과목 법규",
+    "stem": "여객자동차운수사업법상 만 65세 이상 고령 택시운수종사자가 받아야 하는 자격유지검사의 검사 주기는?",
+    "options": [
+      "만 65세 이상 70세 미만: 3년마다 / 만 70세 이상: 1년마다",
+      "만 65세 이상 70세 미만: 5년마다 / 만 70세 이상: 3년마다",
+      "연령과 관계없이 매년 1회",
+      "만 70세 이상부터 2년마다"
+    ],
+    "answer": 0,
+    "explanation": "자격유지검사는 65세 이상 70세 미만은 3년 주기, 70세 이상은 매 1년 주기로 수검해야 합니다."
+  },
+  {
+    "id": 125,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 정차(停車)의 정의로 옳은 것은?",
+    "options": [
+      "운전자가 차를 떠나 즉시 운전할 수 없는 상태",
+      "차량이 5분을 초과하지 아니하고 멈추어 있는 것으로서 주차 외의 정지 상태",
+      "승객의 하차를 위해 30분 동안 대기하는 상태",
+      "신호대기로 멈추어 있는 모든 상태"
+    ],
+    "answer": 1,
+    "explanation": "정차는 운전자가 5분을 초과하지 아니하고 차를 정지시키는 것으로서 주차 외의 정지 상태를 말합니다."
+  },
+  {
+    "id": 126,
+    "subject": "1과목 법규",
+    "stem": "여객자동차 운수사업법상 사업구역 외 영업에 관한 설명 중 옳은 것은?",
+    "options": [
+      "타 시·도에서 대기하며 승객을 유치하여 영업할 수 있다.",
+      "사업구역 내에서 승차한 승객을 사업구역 밖으로 운송하는 것은 허용된다.",
+      "사업구역 외에서는 어떠한 경우에도 승객을 태울 수 없다.",
+      "전국 모든 지역에서 자유롭게 배회 영업이 가능하다."
+    ],
+    "answer": 1,
+    "explanation": "관내에서 승객을 태우고 관외로 이동하는 운송과, 관외로 나갔다가 관내로 돌아오는 승객(귀로 승객)을 태우는 것은 적법합니다."
+  },
+  {
+    "id": 127,
+    "subject": "1과목 법규",
+    "stem": "도로교통법령상 황색 점멸신호와 적색 점멸신호의 교차로 통행방법 차이로 옳은 것은?",
+    "options": [
+      "황색점멸은 일시정지, 적색점멸은 서행",
+      "황색점멸은 다른 교통에 주의하며 서행, 적색점멸은 정지선 앞에서 일시정지 후 통행",
+      "둘 다 무조건 일시정지해야 한다.",
+      "둘 다 서행으로 통과하면 된다."
+    ],
+    "answer": 1,
+    "explanation": "황색점멸은 서행하며 진행, 적색점멸은 반드시 일시정지(속도 0)한 후 안전을 확인하고 진행해야 합니다."
+  },
+  {
+    "id": 128,
+    "subject": "1과목 법규",
+    "stem": "택시 미터기의 검정 유효기간으로 옳은 것은?",
+    "options": [
+      "1년",
+      "2년",
+      "3년",
+      "5년"
+    ],
+    "answer": 0,
+    "explanation": "자동차용 택시미터의 수리검정 및 사용검정 유효기간은 1년입니다."
+  },
+  {
+    "id": 129,
+    "subject": "1과목 법규",
+    "stem": "도로교통법상 어린이 통학버스가 도로에 정차하여 어린이가 타고 내리는 중일 때 옆 차로 차량의 올바른 조치는?",
+    "options": [
+      "서행하며 경음기를 울려 주의를 준다.",
+      "어린이 통학버스에 이르기 전에 일시정지하여 안전을 확인한 후 서행한다.",
+      "속도를 높여 신속히 지나간다.",
+      "반대편 차로 차량은 전혀 주의할 필요가 없다."
+    ],
+    "answer": 1,
+    "explanation": "어린이 통학버스가 점멸등을 작동하며 정차 중일 때는 통학버스에 이르기 전에 일시정지하여 안전을 확인한 후 서행해야 합니다."
+  },
+  {
+    "id": 130,
+    "subject": "1과목 법규",
+    "stem": "택시운전자격증을 다른 사람에게 빌려주어 운전하게 한 경우의 행정처분 기준은?",
+    "options": [
+      "경고",
+      "자격정지 30일",
+      "자격정지 90일",
+      "자격취소"
+    ],
+    "answer": 3,
+    "explanation": "택시운전자격증을 타인에게 대여한 경우 1차 위반 시 곧바로 자격이 취소됩니다."
+  }
+
+];
+
+    const SAFETY_QUESTIONS = [
+
+  {
+    "id": 201,
+    "subject": "2과목 안전",
+    "stem": "비가 내리거나 노면이 젖어 있을 때, 또는 폭설 시의 감속 운행 기준으로 올바른 것은?",
+    "options": [
+      "폭설로 가시거리가 100m 이내이거나 노면 결빙 시 최고제한속도의 50% 감속",
+      "노면이 젖어 있을 때는 최고제한속도의 10% 감속",
+      "타이어 공기압을 30% 낮추고 급브레이크를 밟는다",
+      "차간거리는 맑은 날과 동일하게 유지한다"
+    ],
+    "answer": 0,
+    "explanation": "폭설, 안개 등으로 가시거리가 100m 이내이거나 노면이 얼어붙은 경우 50%를 감속해야 합니다."
+  },
+  {
+    "id": 202,
+    "subject": "2과목 안전",
+    "stem": "야간 주행 중 마주 오는 차량의 전조등 불빛으로 인해 도로의 보행자가 순간적으로 보이지 않게 되는 현상은?",
+    "options": [
+      "증발(현혹) 현상",
+      "베이퍼 록 현상",
+      "페이드 현상",
+      "수막 현상"
+    ],
+    "answer": 0,
+    "explanation": "마주 오는 차량의 전조등 빛이 겹쳐 중앙선 부근 보행자가 안 보이는 현상을 '증발 현상'이라고 합니다."
+  },
+  {
+    "id": 203,
+    "subject": "2과목 안전",
+    "stem": "비 오는 날 고속 주행 시 타이어와 노면 사이에 수막이 형성되어 접지력을 상실하는 현상과 예방법은?",
+    "options": [
+      "수막현상(하이드로플래닝) - 타이어 마모 확인 및 감속 운행",
+      "베이퍼 록 - 풋브레이크 연속 조작",
+      "페이드 현상 - 타이어 공기압 50% 감압",
+      "스탠딩 웨이브 - 급제동 반복"
+    ],
+    "answer": 0,
+    "explanation": "물웅덩이나 젖은 노면에서 접지력을 잃는 현상을 수막현상이라 하며, 감속과 타이어 마모 관리가 필수입니다."
+  },
+  {
+    "id": 204,
+    "subject": "2과목 안전",
+    "stem": "긴 내리막길에서 브레이크를 과도하게 연속 사용하여 브레이크액에 기포가 생겨 페달이 푹 꺼지는 현상은?",
+    "options": [
+      "베이퍼 록(Vapor Lock) 현상",
+      "페이드(Fade) 현상",
+      "수막 현상",
+      "스탠딩 웨이브 현상"
+    ],
+    "answer": 0,
+    "explanation": "브레이크 오일 과열로 기포가 발생해 유압 전달이 안 되는 현상을 베이퍼 록이라고 합니다."
+  },
+  {
+    "id": 205,
+    "subject": "2과목 안전",
+    "stem": "브레이크 패드나 라이닝이 마찰열로 인해 마찰력이 급격히 떨어져 제동이 밀리는 현상은?",
+    "options": [
+      "페이드(Fade) 현상",
+      "베이퍼 록 현상",
+      "증발 현상",
+      "하이드로플래닝 현상"
+    ],
+    "answer": 0,
+    "explanation": "라이닝 과열로 마찰계수가 감소하여 제동력이 떨어지는 현상을 페이드 현상이라고 부릅니다."
+  },
+  {
+    "id": 206,
+    "subject": "2과목 안전",
+    "stem": "경사가 심한 긴 내리막길을 주행할 때 제동 장치를 안전하게 사용하는 방법은?",
+    "options": [
+      "저단 기어를 체결하여 엔진브레이크와 풋브레이크를 병용한다",
+      "변속기를 중립(N)에 두고 풋브레이크만 밟는다",
+      "주차 브레이크(사이드)를 계속 당겨서 주행한다",
+      "시동을 끄고 탄력 주행으로 내려온다"
+    ],
+    "answer": 0,
+    "explanation": "내리막길에서는 저단 기어 엔진브레이크를 주 제동으로 사용하고 풋브레이크를 보조로 사용해야 안전합니다."
+  },
+  {
+    "id": 207,
+    "subject": "2과목 안전",
+    "stem": "고속도로에서 차량 고장 또는 사고로 정차했을 때 후방 안전조치 방법으로 올바른 것은?",
+    "options": [
+      "비상등을 켜고 안전삼각대를 설치한 뒤 가드레일 밖 안전지대로 대피한다",
+      "차 안에서 안전벨트를 매고 견인차를 기다린다",
+      "차량 바로 뒤에서 수신호를 하며 서 있는다",
+      "트렁크만 열어두고 차도 중앙에 서 있는다"
+    ],
+    "answer": 0,
+    "explanation": "2차 사고 예방을 위해 비상등 작동 후 탑승자 전원이 가드레일 밖 안전지대로 즉시 대피해야 합니다."
+  },
+  {
+    "id": 208,
+    "subject": "2과목 안전",
+    "stem": "자동차 타이어 트레드의 안전 마모한계선 홈 깊이 기준치는?",
+    "options": [
+      "1.6mm",
+      "0.8mm",
+      "2.5mm",
+      "3.0mm"
+    ],
+    "answer": 0,
+    "explanation": "타이어 마모한계선은 홈 깊이 1.6mm이며, 이에 도달하면 제동력이 급감하므로 즉시 교체해야 합니다."
+  },
+  {
+    "id": 209,
+    "subject": "2과목 안전",
+    "stem": "회전교차로(Roundabout) 통행 우선권에 관한 설명으로 올바른 것은?",
+    "options": [
+      "이미 회전교차로 내부를 돌고 있는 회전 차량이 우선이다",
+      "진입하려는 차량이 회전 차량보다 항상 우선이다",
+      "배기량이 큰 대형차가 우선이다",
+      "속도가 빠른 차량이 우선 통행한다"
+    ],
+    "answer": 0,
+    "explanation": "회전교차로는 이미 진입하여 회전 중인 차량에게 통행 우선권이 있으며 진입차량은 양보해야 합니다."
+  },
+  {
+    "id": 210,
+    "subject": "2과목 안전",
+    "stem": "교차로 녹색 신호 시 앞쪽 차로 정체로 교차로 내 정지가 예상될 때의 올바른 조치는?",
+    "options": [
+      "녹색 신호라도 교차로에 진입하지 않고 정지선에 대기한다 (꼬리물기 금지)",
+      "앞차에 밀착하여 최대한 교차로 안으로 밀고 들어간다",
+      "경음기를 연속으로 울리며 통과한다",
+      "차로를 급변경하여 우회전 차로로 빠져나간다"
+    ],
+    "answer": 0,
+    "explanation": "신호가 녹색이라도 다른 차의 통행에 방해가 될 우려가 있으면 정지선을 넘지 말아야 합니다(꼬리물기 금지)."
+  },
+  {
+    "id": 211,
+    "subject": "2과목 안전",
+    "stem": "겨울철 빙판길에서 차 뒷바퀴가 오른쪽으로 미끄러질 때 올바른 핸들 조작법은?",
+    "options": [
+      "핸들을 미끄러지는 방향인 오른쪽으로 부드럽게 튼다 (카운터 스티어)",
+      "핸들을 반대 방향인 왼쪽으로 급하게 꺾는다",
+      "핸들을 꽉 잡고 급브레이크를 끝까지 밟는다",
+      "변속기를 즉시 후진(R)에 넣는다"
+    ],
+    "answer": 0,
+    "explanation": "스핀 방지를 위해 차 뒷부분이 미끄러지는 방향과 같은 방향으로 핸들을 풀어주어야 차체 중심이 잡힙니다."
+  },
+  {
+    "id": 212,
+    "subject": "2과목 안전",
+    "stem": "터널 내부 주행 중 화재가 발생하여 차량 운행이 불가능할 때의 올바른 대처는?",
+    "options": [
+      "엔진을 끄고 차 키를 꽂아둔 채 신속히 비상구로 대피한다",
+      "차량 문을 잠그고 차 안에서 구조를 기다린다",
+      "차를 돌려 역주행으로 터널을 빠져나온다",
+      "비상등을 끄고 트렁크에서 짐을 꺼낸다"
+    ],
+    "answer": 0,
+    "explanation": "소방차량 통행 및 피난 유도를 위해 시동을 끄고 키를 꽂아둔 상태로 비상통로를 따라 대피해야 합니다."
+  },
+  {
+    "id": 213,
+    "subject": "2과목 안전",
+    "stem": "야간 운행 중 마주 오는 차량이 상향등(하이빔)을 켠 채 다가올 때의 안전 조치는?",
+    "options": [
+      "시선을 도로 우측 가장자리 차선으로 돌려 눈부심을 피한다",
+      "맞대응으로 내 상향등을 켜고 정면을 응시한다",
+      "즉시 급제동하여 도로 한가운데 정지한다",
+      "눈을 감았다 떴다 하며 가속한다"
+    ],
+    "answer": 0,
+    "explanation": "현혹 현상을 피하기 위해 시선을 마주 오는 불빛에서 피해 우측 도로 흰색 실선에 두어야 합니다."
+  },
+  {
+    "id": 214,
+    "subject": "2과목 안전",
+    "stem": "사이렌을 울리며 긴급 출동하는 구급차나 소방차가 뒤에서 접근할 때 올바른 양보 방법은?",
+    "options": [
+      "도로 우측 가장자리로 피하여 진로를 양보한다",
+      "긴급자동차보다 빠르게 속도를 높여 앞서 달린다",
+      "주행 차로 한가운데에 비상등 켜고 그대로 선다",
+      "왼쪽 중앙선 쪽으로 바짝 붙는다"
+    ],
+    "answer": 0,
+    "explanation": "교차로를 피해 도로 우측 가장자리로 일시 정지하거나 서행하여 긴급차량에 길을 터주어야 합니다."
+  },
+  {
+    "id": 215,
+    "subject": "2과목 안전",
+    "stem": "고속도로에서 시속 100km로 주행할 때 안전한 차간거리 기준치는?",
+    "options": [
+      "약 100m 이상",
+      "약 30m 이상",
+      "약 50m 이상",
+      "차량 2대 길이(약 10m)"
+    ],
+    "answer": 0,
+    "explanation": "고속도로에서는 주행 시속 수치와 동일한 거리(시속 100km면 100m)를 안전거리로 확보하는 것이 정석입니다."
+  },
+  {
+    "id": 216,
+    "subject": "2과목 안전운행",
+    "stem": "비 오는 날 고속 주행 시 타이어가 수막 위로 떠올라 조향과 제동이 불가능해지는 현상은?",
+    "options": [
+      "베이퍼록(Vapor Lock) 현상",
+      "수막현상(Hydroplaning)",
+      "페이드(Fade) 현상",
+      "스탠딩 웨이브(Standing Wave) 현상"
+    ],
+    "answer": 1,
+    "explanation": "물웅덩이를 고속 주행할 때 물의 배수가 원활하지 않아 타이어가 물 위에 뜨는 현상을 수막현상이라고 합니다."
+  },
+  {
+    "id": 217,
+    "subject": "2과목 안전운행",
+    "stem": "긴 내리막길에서 풋브레이크를 과도하게 연속 사용하여 마찰열로 브레이크액이 끓어 기포가 생기는 현상은?",
+    "options": [
+      "페이드 현상",
+      "베이퍼록 현상",
+      "수막현상",
+      "오버스티어 현상"
+    ],
+    "answer": 1,
+    "explanation": "브레이크액이 과열되어 비등(끓음)하면서 오일 라인 내에 기포가 생겨 페달을 밟아도 스펀지처럼 푹 꺼지는 현상이 베이퍼록입니다."
+  },
+  {
+    "id": 218,
+    "subject": "2과목 안전운행",
+    "stem": "야간 주행 중 마주 오는 반대편 차량의 전조등 빛 때문에 도로 중앙의 보행자가 일시적으로 보이지 않게 되는 현상은?",
+    "options": [
+      "증발 현상(현혹 현상)",
+      "착시 현상",
+      "터널 시야 현상",
+      "잔상 효과"
+    ],
+    "answer": 0,
+    "explanation": "마주 오는 전조등 불빛이 교차할 때 그 중간에 있는 보행자가 빛에 묻혀 사라진 것처럼 보이지 않는 현상을 증발현상이라고 합니다."
+  },
+  {
+    "id": 219,
+    "subject": "2과목 안전운행",
+    "stem": "빙판길이나 눈길(블랙아이스)에서 차량 미끄러짐을 방지하기 위한 가장 올바른 운전법은?",
+    "options": [
+      "미끄러질 때 핸들을 반대 방향으로 급하게 꺾는다.",
+      "풋브레이크를 힘껏 끝까지 밟는다.",
+      "기어 단수를 낮추어 엔진브레이크를 활용하고 핸들은 미끄러지는 방향으로 부드럽게 유지한다.",
+      "타이어 공기압을 최대치로 높인다."
+    ],
+    "answer": 2,
+    "explanation": "빙판길 급제동은 스핀(회전)을 유발하므로 엔진브레이크를 단계적으로 낮추어 감속해야 합니다."
+  },
+  {
+    "id": 220,
+    "subject": "2과목 안전운행",
+    "stem": "고속도로에서 차량 고장이나 사고 발생 시 2차 사고를 예방하기 위한 올바른 대처 순서는?",
+    "options": [
+      "차 안에 그대로 앉아서 보험사를 기다린다.",
+      "비상등을 켜고 트렁크를 연 뒤 승객과 운전자 모두 가드레일 밖 안전지대로 신속히 대피한다.",
+      "고속도로 한복판에 서서 삼각대를 설치한다.",
+      "차량 뒤쪽에서 수신호를 하며 서 있는다."
+    ],
+    "answer": 1,
+    "explanation": "고속도로 2차 사고 치사율은 일반사고의 6배에 달하므로, 비상등 점등 후 즉시 도로 밖 안전지대(가드레일 밖)로 대피해야 합니다."
+  },
+  {
+    "id": 221,
+    "subject": "2과목 안전운행",
+    "stem": "자동차 타이어 마모한계선 트레드 홈 깊이의 법정 기준 마지노선은?",
+    "options": [
+      "0.8mm",
+      "1.6mm",
+      "2.4mm",
+      "3.2mm"
+    ],
+    "answer": 1,
+    "explanation": "타이어 트레드 마모한계선의 법정 기준은 1.6mm입니다. 1.6mm 이하로 마모되면 제동거리가 급증하고 파열 위험이 커집니다."
+  },
+  {
+    "id": 222,
+    "subject": "2과목 안전운행",
+    "stem": "안개가 짙게 낀 도로를 주행할 때 가장 적절한 운행 요령은?",
+    "options": [
+      "상향등(하이빔)을 켜서 전방을 비춘다.",
+      "안개등과 하향등을 켜고, 위험 시 경음기를 가볍게 울려 존재를 알린다.",
+      "비상등을 끄고 앞차의 후미등만 바짝 쫓아간다.",
+      "신속히 안개 구간을 벗어나기 위해 과속한다."
+    ],
+    "answer": 1,
+    "explanation": "안개 시 상향등을 켜면 빛이 수증기에 난반사되어 앞이 더 안 보입니다. 안개등과 하향등을 켜고 안전거리를 확보해야 합니다."
+  },
+  {
+    "id": 223,
+    "subject": "2과목 안전운행",
+    "stem": "차량 운전 중 위험을 인지하고 브레이크 페달을 밟아 실제 제동이 걸리기 시작할 때까지 이동한 거리는?",
+    "options": [
+      "제동거리",
+      "공주거리",
+      "정지거리",
+      "안전거리"
+    ],
+    "answer": 1,
+    "explanation": "위험 인지 후 브레이크 페달이 작동하기까지의 거리를 공주거리, 실제 브레이크 작동 후 멈추기까지의 거리를 제동거리라 하며, 둘을 합친 것이 정지거리입니다."
+  },
+  {
+    "id": 224,
+    "subject": "2과목 안전운행",
+    "stem": "자동차 배터리 방전 시 다른 차량 배터리와 점프 케이블을 연결하는 올바른 순서는?",
+    "options": [
+      "방전차 (-) -> 정상차 (-) -> 정상차 (+) -> 방전차 (+)",
+      "방전차 (+) -> 정상차 (+) -> 정상차 (-) -> 방전차 엔진 블록(접지)",
+      "정상차 (-) -> 방전차 (-) -> 정상차 (+) -> 방전차 (+)",
+      "순서에 관계없이 아무 극이나 연결"
+    ],
+    "answer": 1,
+    "explanation": "점프 케이블은 (+)극을 먼저 연결(방전차 -> 정상차)하고, (-)극을 나중에 연결(정상차 -> 방전차 차체 접지)해야 쇼트 스파크를 방지합니다."
+  },
+  {
+    "id": 225,
+    "subject": "2과목 안전운행",
+    "stem": "터널 안 주행 중 차량 화재가 발생하여 더 이상 주행할 수 없을 때 올바른 조치는?",
+    "options": [
+      "차 문을 잠그고 열쇠를 소지한 채 대피한다.",
+      "갓길에 주차하고 엔진을 끈 뒤 차키를 꽂아둔 채 피난 유도등을 따라 비상구로 대피한다.",
+      "불이 꺼질 때까지 차 안에서 대기한다.",
+      "후진으로 터널 밖으로 빠져나간다."
+    ],
+    "answer": 1,
+    "explanation": "소방차 진입 및 긴급 견인을 위해 차키를 차량에 꽂아둔 채 비상등을 켜고 비상구(소화전, 비상벨)로 대피해야 합니다."
+  },
+  {
+    "id": 226,
+    "subject": "2과목 안전운행",
+    "stem": "대형 차량(버스, 트럭) 우회전 시 안쪽 뒷바퀴가 안쪽 앞바퀴보다 더 안쪽 궤적을 그리며 회전하는 현상은?",
+    "options": [
+      "내륜차(內輪差)",
+      "외륜차(外輪差)",
+      "오버행",
+      "휠베이스 차이"
+    ],
+    "answer": 0,
+    "explanation": "우회전 시 뒷바퀴가 앞바퀴보다 안쪽을 파고드는 것을 내륜차라 하며, 대형차 옆에 택시나 이륜차가 붙어있을 때 끼임 사고의 주원인입니다."
+  },
+  {
+    "id": 227,
+    "subject": "2과목 안전운행",
+    "stem": "친환경 경제운전(에코 드라이빙)을 실천하는 요령으로 옳지 않은 것은?",
+    "options": [
+      "급출발, 급가속, 급제동의 3급을 피한다.",
+      "신호대기 시 기어를 N(중립)으로 두거나 공회전을 줄인다.",
+      "불필요한 트렁크 짐을 비워 차량 중량을 줄인다.",
+      "출발 시 급가속하여 최고 단수로 빠르게 도달한다."
+    ],
+    "answer": 3,
+    "explanation": "출발 시 급가속은 연료 소모를 극대화하므로 첫 5초간 시속 20km까지 부드럽게 가속하는 것이 에코드라이빙 요령입니다."
+  },
+  {
+    "id": 228,
+    "subject": "2과목 안전운행",
+    "stem": "고속도로 주행 중 타이어 펑크(파열)가 발생했을 때 운전자의 대처법으로 옳은 것은?",
+    "options": [
+      "급브레이크를 밟아 즉시 그 자리에 정차한다.",
+      "핸들을 꽉 쥐고 직진 상태를 유지하며 풋브레이크 대신 서서히 감속하여 갓길로 이동한다.",
+      "기어를 중립으로 빼고 사이드브레이크를 당긴다.",
+      "핸들을 반대편으로 급히 돌린다."
+    ],
+    "answer": 1,
+    "explanation": "타이어 펑크 시 급제동하면 차량이 전복되므로, 핸들을 직진으로 꽉 쥐고 액셀에서 발을 떼며 서서히 감속해야 합니다."
+  },
+  {
+    "id": 229,
+    "subject": "2과목 안전운행",
+    "stem": "여름철 장마철 빗길 운전 시 수막현상을 예방하기 위한 타이어 공기압 관리 요령은?",
+    "options": [
+      "평상시보다 공기압을 10~15% 높여준다.",
+      "접지면을 넓히기 위해 공기압을 20% 낮춘다.",
+      "공기압은 계절과 상관없이 절대 손대지 않는다.",
+      "앞바퀴만 공기압을 완전히 뺀다."
+    ],
+    "answer": 0,
+    "explanation": "빗길에는 타이어 공기압을 평소보다 10~15% 높여야 타이어 홈이 벌어져 배수력이 향상되고 수막현상을 방지할 수 있습니다."
+  },
+  {
+    "id": 230,
+    "subject": "2과목 안전운행",
+    "stem": "운전자의 피로와 졸음운전 방지를 위한 가장 올바른 방법은?",
+    "options": [
+      "에너지 음료를 마시고 쉼 없이 목적지까지 달린다.",
+      "2시간 운전 시 최소 15~20분 이상 휴게소나 졸음쉼터에서 휴식을 취한다.",
+      "창문을 닫고 난방 온도를 높인다.",
+      "라디오 볼륨을 최대치로 키운다."
+    ],
+    "answer": 1,
+    "explanation": "졸음운전 예방의 유일하고 가장 확실한 방법은 2시간 운전마다 휴게소나 졸음쉼터에서 취하는 충분한 휴식과 스트레칭입니다."
+  }
+
+];
+
+    const SERVICE_QUESTIONS = [
+
+  {
+    "id": 301,
+    "subject": "3과목 서비스",
+    "stem": "승객이 택시 내에 휴대폰이나 지갑을 두고 내렸을 때 운수종사자의 올바른 조치는?",
+    "options": [
+      "가까운 경찰관서나 유실물 종합포털(lost112)에 지체 없이 신고·인계한다",
+      "승객이 찾으러 올 때까지 1개월간 개인 보관한다",
+      "주인이 안 나타나면 임의로 처분한다",
+      "승객에게 반환 시 물품 가액의 20%를 수고비로 의무 청구한다"
+    ],
+    "answer": 0,
+    "explanation": "유실물법에 따라 습득한 분실물은 지체 없이 경찰서나 관련 기관에 인계해야 합니다."
+  },
+  {
+    "id": 302,
+    "subject": "3과목 서비스",
+    "stem": "휠체어를 이용하는 교통약자(장애인) 승객이 승차를 요청할 때 올바른 운수종사자의 태도는?",
+    "options": [
+      "승객의 승하차를 돕고 휠체어를 트렁크에 안전하게 적재하며 추가요금을 받지 않는다",
+      "시간이 오래 걸린다는 이유로 승차를 거절한다",
+      "휠체어 적재 수수료로 현금 5,000원을 추가 청구한다",
+      "보호자가 없으면 탑승할 수 없다고 안내한다"
+    ],
+    "answer": 0,
+    "explanation": "교통약자의 이동 편의를 친절히 돕고 휠체어 적재에 따른 별도 부당요금을 청구해서는 안 됩니다."
+  },
+  {
+    "id": 303,
+    "subject": "3과목 서비스",
+    "stem": "승객이 택시 요금을 지불한 후 영수증 발급을 요구했을 때의 올바른 조치는?",
+    "options": [
+      "카드 결제기나 영수증 발급기에서 영수증을 즉시 출력하여 교부한다",
+      "소액 요금인 경우 영수증 발급을 거절한다",
+      "영수증 종이 비용을 별도로 요구한다",
+      "구두로만 금액을 확인해 준다"
+    ],
+    "answer": 0,
+    "explanation": "운수종사자는 승객이 요구할 때 운임 영수증을 성실히 발급·교부해야 할 법적 의무가 있습니다."
+  },
+  {
+    "id": 304,
+    "subject": "3과목 서비스",
+    "stem": "택시 기본요금 거리(소액)를 이용한 승객이 신용카드로 결제하고자 할 때 올바른 응대는?",
+    "options": [
+      "금액과 상관없이 신용카드 결제를 친절히 수납한다",
+      "금액이 적으니 현금만 가능하다고 거절한다",
+      "카드 결제 시 카드 수수료 10%를 승객에게 얹어 받는다",
+      "다음 승객을 태울 때까지 현금을 찾아오라고 대기시킨다"
+    ],
+    "answer": 0,
+    "explanation": "여신전문금융업법상 카드 결제 거부 및 수수료 전가 행위는 엄격한 불법 처벌 대상입니다."
+  },
+  {
+    "id": 305,
+    "subject": "3과목 서비스",
+    "stem": "택시 차량 내부에서의 흡연에 대한 국민건강증진법령 및 운수사업법 규정은?",
+    "options": [
+      "승객 탑승 여부와 관계없이 차내에서는 전자담배를 포함하여 상시 전면 금연이다",
+      "승객이 없을 때 창문을 열고 피우는 것은 허용된다",
+      "전자담배는 냄새가 적으므로 차내 흡연이 허용된다",
+      "야간 교대시간에는 차내 흡연 가능"
+    ],
+    "answer": 0,
+    "explanation": "영업용 택시는 승객 유무와 상관없이 실내 전체가 상시 금연구역으로 지정되어 있습니다."
+  },
+  {
+    "id": 306,
+    "subject": "3과목 서비스",
+    "stem": "승객 탑승 시 택시 운수종사자의 바른 인사 및 목적지 확인 태도는?",
+    "options": [
+      "밝은 목소리로 인사하고 목적지를 정중히 확인한 뒤 최적 경로를 상의한다",
+      "승객이 먼저 말할 때까지 아무 말 없이 대기한다",
+      "승객의 목적지를 듣고 거리가 짧으면 한숨을 쉰다",
+      "승객의 동의 없이 운전자 마음대로 고속화도로나 유료터널로 우회한다"
+    ],
+    "answer": 0,
+    "explanation": "승객에게 친절한 인사 후 목적지와 선호 경로를 상호 확인하는 것이 전문 서비스의 기본입니다."
+  },
+  {
+    "id": 307,
+    "subject": "3과목 서비스",
+    "stem": "승객과의 대화 중 불필요한 민원이나 시비를 예방하기 위해 피해야 할 화제는?",
+    "options": [
+      "정치, 종교, 편향적 사회적 이슈 및 사적 프라이버시 질문",
+      "목적지까지의 주행 경로 및 예상 도착시간 안내",
+      "차내 에어컨/히터 온도 상태 확인",
+      "라디오 음량 크기 조절에 대한 문의"
+    ],
+    "answer": 0,
+    "explanation": "정치, 종교 등 주관적이고 민감한 화제는 승객과의 불필요한 감정 충돌을 유발하므로 삼가야 합니다."
+  },
+  {
+    "id": 308,
+    "subject": "3과목 서비스",
+    "stem": "무더운 여름철 차내 냉방기(에어컨) 작동 시 올바른 서비스 자세는?",
+    "options": [
+      "승객에게 온도가 적당한지 여쭙고 승객의 희망에 따라 풍량과 온도를 조절한다",
+      "기름값을 아끼기 위해 창문만 열고 에어컨 가동을 거부한다",
+      "운전자의 체감 온도에만 맞춰 최저 온도를 고집한다",
+      "에어컨 가동 시 에어컨 할증료 1,000원을 추가 청구한다"
+    ],
+    "answer": 0,
+    "explanation": "승객의 쾌적한 이동을 위해 차내 온도와 환경은 승객의 기호에 맞추어 유연하게 조절해야 합니다."
+  },
+  {
+    "id": 309,
+    "subject": "3과목 서비스",
+    "stem": "심정지 승객 발생 시 심폐소생술(CPR)의 올바른 가슴압박 위치와 속도는?",
+    "options": [
+      "가슴뼈(흉골) 아래쪽 1/2 지점, 분당 100~120회 속도로 깊이 약 5cm 압박",
+      "명치 끝 부분을 분당 60회 속도로 가볍게 압박",
+      "가슴 왼쪽 심장 위를 분당 150회 이상으로 매우 빠르게 압박",
+      "배꼽 부위를 체중을 실어 강하게 압박"
+    ],
+    "answer": 0,
+    "explanation": "CPR 흉부압박은 가슴 중앙 흉골 하부 1/2 부위를 분당 100~120회, 깊이 5cm로 강하고 빠르게 실시합니다."
+  },
+  {
+    "id": 310,
+    "subject": "3과목 서비스",
+    "stem": "자동심장충격기(AED) 사용 시 2개의 패드를 환자 몸에 부착하는 올바른 위치는?",
+    "options": [
+      "오른쪽 빗장뼈(쇄골) 아래 1개, 왼쪽 젖꼭지 아래 겨드랑이선 1개",
+      "가슴 정중앙에 2개를 나란히 부착",
+      "환자의 등 뒤 척추 좌우에 1개씩 부착",
+      "배꼽 위쪽과 아래쪽에 1개씩 부착"
+    ],
+    "answer": 0,
+    "explanation": "AED 패드는 심장을 관통하는 전류 흐름을 위해 우측 쇄골 하부와 좌측 유두 하부 겨드랑이에 부착합니다."
+  },
+  {
+    "id": 311,
+    "subject": "3과목 서비스",
+    "stem": "차량 화재 발생 시 휴대용 소화기를 사용하는 올바른 요령은?",
+    "options": [
+      "바람을 등지고 서서 안전핀을 뽑은 후 노즐을 불길의 뿌리 쪽을 향해 비질하듯 분사한다",
+      "바람이 불어오는 쪽을 향해 서서 높은 허공에 분사한다",
+      "손잡이를 꽉 쥔 채로 안전핀을 힘껏 당겨 뽑는다",
+      "불꽃의 가장 높은 꼭대기 부분을 향해 집중 분사한다"
+    ],
+    "answer": 0,
+    "explanation": "소화기는 바람을 등지고 불길의 하단 발화점을 향해 좌우로 쓸어내듯 골고루 분사해야 효과적입니다."
+  },
+  {
+    "id": 312,
+    "subject": "3과목 서비스",
+    "stem": "고령 승객이 탑승 중 갑작스러운 어지럼증과 호흡 곤란을 호소할 때의 적절한 응급처치는?",
+    "options": [
+      "안전한 곳에 정차하고 의복 단추를 풀어 호흡을 돕고 즉시 119에 구조를 요청한다",
+      "의식이 흐린 승객에게 억지로 물이나 약을 먹인다",
+      "승객의 손가락을 바늘로 딴다",
+      "목적지까지 속도를 내어 가속 질주한다"
+    ],
+    "answer": 0,
+    "explanation": "안전하게 정차하여 편안한 자세와 호흡을 확보하고 의식이 불명확할 때는 흡인 위험이 있으므로 음식물을 주지 말아야 합니다."
+  },
+  {
+    "id": 313,
+    "subject": "3과목 서비스·응급",
+    "stem": "심정지 환자 발견 시 심폐소생술(CPR)의 가슴압박 분당 권장 속도와 압박 깊이는?",
+    "options": [
+      "분당 60~80회, 깊이 2~3cm",
+      "분당 80~100회, 깊이 3~4cm",
+      "분당 100~120회, 깊이 약 5cm",
+      "분당 130~150회, 깊이 7~8cm"
+    ],
+    "answer": 2,
+    "explanation": "성인 심폐소생술 시 가슴압박 속도는 분당 100~120회, 깊이는 약 5cm(최대 6cm를 넘지 않음)로 강하고 빠르게 압박해야 합니다."
+  },
+  {
+    "id": 314,
+    "subject": "3과목 서비스·응급",
+    "stem": "자동심장충격기(AED)의 2개 전극 패드를 환자 신체에 부착하는 정확한 위치는?",
+    "options": [
+      "오른쪽 쇄골(빗장뼈) 아래와 왼쪽 젖꼭지 아래 겨드랑이선",
+      "가슴 정중앙과 복부 배꼽 부위",
+      "양쪽 쇄골 바로 위",
+      "환자의 등 뒤 양쪽 견갑골"
+    ],
+    "answer": 0,
+    "explanation": "패드1은 오른쪽 빗장뼈(쇄골) 바로 아래, 패드2는 왼쪽 젖꼭지 아래 중간 겨드랑이선에 부착합니다."
+  },
+  {
+    "id": 315,
+    "subject": "3과목 서비스·응급",
+    "stem": "승객이 차내에 물건(지갑, 휴대폰 등)을 두고 내렸을 때 택시 운전자의 올바른 유실물 처리 절차는?",
+    "options": [
+      "3개월간 보관 후 주인이 안 나타나면 임의 처분한다.",
+      "신속히 승객에게 연락하거나 가까운 경찰서(파출소) 또는 경찰청 유실물종합포털(LOST112)에 접수한다.",
+      "유실물 습득료를 받기 전까지는 돌려주지 않는다.",
+      "폐차 시까지 트렁크에 넣어둔다."
+    ],
+    "answer": 1,
+    "explanation": "유실물법에 따라 습득한 타인의 물건은 지체 없이 경찰서에 제출하거나 경찰청 유실물 포털(lost112)에 신고해야 하며, 횡령 시 점유이탈물횡령죄가 성립합니다."
+  },
+  {
+    "id": 316,
+    "subject": "3과목 서비스·응급",
+    "stem": "음식물 섭취 중 기도가 완전히 막혀 말을 못 하고 목을 감싸 쥐는 환자에게 실시하는 응급처치는?",
+    "options": [
+      "하임리히법(복부 밀쳐올리기)",
+      "등을 세게 때리며 물을 마시게 한다.",
+      "환자를 거꾸로 매달아 흔든다.",
+      "심장충격기를 사용한다."
+    ],
+    "answer": 0,
+    "explanation": "의식이 있는 기도폐쇄 환자에게는 뒤에서 양팔로 감싸 쥐고 명치와 배꼽 중간을 주먹으로 안쪽 위로 강하게 밀쳐올리는 하임리히법을 적용합니다."
+  },
+  {
+    "id": 317,
+    "subject": "3과목 서비스·응급",
+    "stem": "심폐소생술(CPR) 진행 시 가슴압박과 인공호흡의 표준 시행 비율은?",
+    "options": [
+      "가슴압박 15회 : 인공호흡 1회",
+      "가슴압박 30회 : 인공호흡 2회",
+      "가슴압박 50회 : 인공호흡 5회",
+      "가슴압박만 하고 인공호흡은 절대 금지"
+    ],
+    "answer": 1,
+    "explanation": "기본 소생술의 표준 주기는 가슴압박 30회 후 인공호흡 2회를 반복하는 30:2 비율입니다."
+  },
+  {
+    "id": 318,
+    "subject": "3과목 서비스·응급",
+    "stem": "교통사고로 뜨거운 냉각수나 엔진 열에 화상을 입은 환자의 올바른 응급처치는?",
+    "options": [
+      "화상 부위에 즉시 얼음팩을 직접 문지른다.",
+      "소주나 된장을 발라 열을 뺀다.",
+      "흐르는 깨끗한 찬물로 15~20분간 환부를 식혀준다.",
+      "물집을 바늘로 터뜨려 소독약을 바른다."
+    ],
+    "answer": 2,
+    "explanation": "화상 부위는 흐르는 깨끗하고 미지근하거나 시원한 물로 15~20분 식혀야 하며, 얼음을 직접 대면 동상 및 조직 손상을 유발합니다."
+  },
+  {
+    "id": 319,
+    "subject": "3과목 서비스·응급",
+    "stem": "휠체어를 이용하는 장애인이나 거동이 불편한 교통약자 승객 탑승 시 운전자의 올바른 태도는?",
+    "options": [
+      "승차 시간이 오래 걸리므로 승차를 거부한다.",
+      "차에서 내려 안전한 승차를 돕고 휠체어를 접어 트렁크에 실어 드린다.",
+      "추가 수고비(팁)를 요구한다.",
+      "승객 스스로 탈 때까지 운전석에서 기다린다."
+    ],
+    "answer": 1,
+    "explanation": "교통약자의 이동편의 증진법에 따라 운전자는 장애인 승객의 승하차를 적극 보조해야 하며, 휠체어 적재 거부는 승차거부에 해당합니다."
+  },
+  {
+    "id": 320,
+    "subject": "3과목 서비스·응급",
+    "stem": "외국인 승객이 목적지를 한국어로 설명하지 못할 때 가장 유용한 정부 공공 통역 서비스 번호는?",
+    "options": [
+      "112 (경찰청)",
+      "119 (소방청)",
+      "1330 (한국관광통역안내전화)",
+      "114 (전화번호안내)"
+    ],
+    "answer": 2,
+    "explanation": "1330 한국관광공사 통역안내 서비스는 24시간 연중무휴 영어, 일본어, 중국어 등 다국어 3자 통역을 무료 제공합니다."
+  },
+  {
+    "id": 321,
+    "subject": "3과목 서비스·응급",
+    "stem": "출혈이 심한 교통사고 부상자에게 가장 우선적으로 실시해야 하는 지혈법은?",
+    "options": [
+      "상처 부위를 소독약에 담근다.",
+      "깨끗한 거즈나 수건으로 상처 부위를 직접 강하게 압박하는 직접압박법",
+      "팔다리를 끈으로 완전히 묶어 피를 통하지 않게 한다.",
+      "환자를 똑바로 눕히고 머리를 높여준다."
+    ],
+    "answer": 1,
+    "explanation": "지혈의 제1원칙은 깨끗한 헝겊이나 거즈를 상처에 대고 손바닥으로 체중을 실어 누르는 직접압박법입니다."
+  },
+  {
+    "id": 322,
+    "subject": "3과목 서비스·응급",
+    "stem": "자동심장충격기(AED)가 심장 리듬을 분석하거나 전기 충격을 전달할 때 반드시 취해야 할 행동은?",
+    "options": [
+      "환자의 손을 꼭 잡아 안정시킨다.",
+      "가슴압박을 멈추지 않고 계속한다.",
+      "\"모두 물러서세요!\"라고 외치며 환자와 아무도 접촉하지 않도록 한다.",
+      "환자의 인공호흡을 실시한다."
+    ],
+    "answer": 2,
+    "explanation": "심장충격기 작동 시 전류가 흘러 구조자도 감전될 수 있으므로 전원 접촉을 금지해야 합니다."
+  },
+  {
+    "id": 323,
+    "subject": "3과목 서비스·응급",
+    "stem": "승객과 운행 경로 문제로 이견이 발생했을 때 운전자의 가장 바람직한 소통 방법은?",
+    "options": [
+      "내 경험이 더 많으니 무조건 내 경로를 고집한다.",
+      "승객에게 선호하는 경로나 내비게이션 안내 경로를 정중히 확인하고 양해를 구한다.",
+      "말없이 미터기 요금을 더 청구한다.",
+      "승객과의 대화를 일체 거부한다."
+    ],
+    "answer": 1,
+    "explanation": "경로 선택은 승객의 권리이므로 사전에 내비게이션 추천 경로와 승객의 선호 경로를 상호 확인하는 것이 분쟁 예방의 기본입니다."
+  },
+  {
+    "id": 324,
+    "subject": "3과목 서비스·응급",
+    "stem": "골절이 의심되는 부상자를 발견했을 때 응급처치 원칙으로 옳지 않은 것은?",
+    "options": [
+      "부러진 뼈를 제자리로 맞추기 위해 강제로 잡아당긴다.",
+      "부상 부위를 움직이지 않도록 부목으로 고정한다.",
+      "상처 부위의 혈액 순환 상태를 확인한다.",
+      "쇼크를 예방하기 위해 체온을 유지해 준다."
+    ],
+    "answer": 0,
+    "explanation": "골절 부위의 뼈를 임의로 맞추려 하면 신경과 혈관이 손상되므로 절대 변형된 뼈를 억지로 맞추어서는 안 됩니다."
+  },
+  {
+    "id": 325,
+    "subject": "3과목 서비스·응급",
+    "stem": "택시 서비스 품질 향상을 위한 승객 하차 시 배웅 인사말로 가장 적절한 것은?",
+    "options": [
+      "\"빨리 내리세요.\"",
+      "\"잊으신 물건 없는지 확인하시고, 안전한 하루 되십시오.\"",
+      "\"잔돈은 팁으로 주시는 거죠?\"",
+      "묵묵부답으로 문만 닫는다."
+    ],
+    "answer": 1,
+    "explanation": "하차 시 소지품 확인 안내와 안전 인사는 유실물 예방과 고객 만족도를 높이는 핵심 서비스 에티켓입니다."
+  },
+  {
+    "id": 326,
+    "subject": "3과목 서비스·응급",
+    "stem": "의식을 잃고 쓰러진 환자 발견 시 가장 먼저 취해야 하는 조치는?",
+    "options": [
+      "즉시 환자에게 인공호흡을 불어넣는다.",
+      "환자의 어깨를 가볍게 두드리며 의식을 확인하고 반응을 살핀다.",
+      "환자를 일으켜 세워 물을 마시게 한다.",
+      "주머니에서 신분증을 꺼내 확인한다."
+    ],
+    "answer": 1,
+    "explanation": "응급구조의 첫 단계는 현장 안전 확인 후 환자의 어깨를 두드리며 의식 및 호흡 상태를 확인하는 것입니다."
+  },
+  {
+    "id": 327,
+    "subject": "3과목 서비스·응급",
+    "stem": "여름철 밀폐된 차내에서 발생하기 쉬운 열사병 환자 발생 시 대처법으로 옳은 것은?",
+    "options": [
+      "시원한 그늘이나 에어컨이 있는 곳으로 이동시키고 옷을 헐렁하게 해 체온을 낮춘다.",
+      "환자가 의식이 없어도 억지로 물을 입에 부어 넣는다.",
+      "두꺼운 모포를 덮어 땀을 흘리게 한다.",
+      "즉시 뜨거운 물에 목욕시킨다."
+    ],
+    "answer": 0,
+    "explanation": "열사병은 체온 조절 중추가 마비된 상태이므로 즉시 환자를 시원한 환경으로 옮기고 젖은 물수건 등으로 신속히 체온을 내려야 합니다. 의식 없는 환자에게 음료를 먹이면 질식 위험이 있습니다."
+  }
+
+];
+
+    const COMMON_QUESTIONS = [...LAW_QUESTIONS, ...SAFETY_QUESTIONS, ...SERVICE_QUESTIONS];
+
+    // --- 17 Regional Geography Question Banks (10 questions each = 170 questions) ---
+    const REGIONAL_GEOGRAPHY = {
+      "seoul": [
+            {
+                  "id": 1001,
+                  "subject": "4과목 서울지리",
+                  "stem": "서울시 강서구 방화동에 인접하며, 국내선 및 단거리 국제선이 운항하는 공항은?",
+                  "options": [
+                        "인천국제공항",
+                        "김포국제공항",
+                        "원주공항",
+                        "양양공항"
+                  ],
+                  "answer": 1,
+                  "explanation": "서울 강서구 방화동과 공항동 일대에 위치한 공항은 김포국제공항입니다."
+            },
+            {
+                  "id": 1002,
+                  "subject": "4과목 서울지리",
+                  "stem": "서울 강남권과 서남부(관악·금천·강서)를 동서로 빠르게 연결하는 주요 도시고속도로는?",
+                  "options": [
+                        "내부순환로",
+                        "강남순환도시고속도로",
+                        "동부간선도로",
+                        "북부간선도로"
+                  ],
+                  "answer": 1,
+                  "explanation": "서울 남부권을 동서로 직결하는 유료 도시고속도로는 강남순환로입니다."
+            },
+            {
+                  "id": 1003,
+                  "subject": "4과목 서울지리",
+                  "stem": "호남선·전라선 KTX 및 일반열차의 주요 시·종착역으로 용산구에 위치한 역은?",
+                  "options": [
+                        "서울역",
+                        "청량리역",
+                        "용산역",
+                        "수서역"
+                  ],
+                  "answer": 2,
+                  "explanation": "호남선과 전라선 고속철도의 중심 기착역은 용산역입니다."
+            },
+            {
+                  "id": 1004,
+                  "subject": "4과목 서울지리",
+                  "stem": "올림픽대로 서쪽 끝 종점에서 직결되는 도로망과 공항 방면은?",
+                  "options": [
+                        "인천국제공항고속도로(신공항)",
+                        "경부고속도로",
+                        "중부내륙고속도로",
+                        "서해안고속도로"
+                  ],
+                  "answer": 0,
+                  "explanation": "올림픽대로 서단은 신공항영업소를 거쳐 인천공항고속도로와 연결됩니다."
+            },
+            {
+                  "id": 1005,
+                  "subject": "4과목 서울지리",
+                  "stem": "강남역 사거리에서 삼성역 무역센터 사거리를 잇는 금융·IT 비즈니스의 중심 도로는?",
+                  "options": [
+                        "테헤란로",
+                        "도산대로",
+                        "영동대로",
+                        "강남대로"
+                  ],
+                  "answer": 0,
+                  "explanation": "강남 테헤란밸리를 가로지르는 메인 간선도로는 테헤란로입니다."
+            },
+            {
+                  "id": 1006,
+                  "subject": "4과목 서울지리",
+                  "stem": "서울 종로 도심과 한남대교·강남 방면을 최단거리로 연결하며 혼잡통행료를 징수하는 터널은?",
+                  "options": [
+                        "남산 1호 및 3호 터널",
+                        "자하문터널",
+                        "구기터널",
+                        "홍지문터널"
+                  ],
+                  "answer": 0,
+                  "explanation": "남산 1호·3호 터널은 도심 교통 분산을 위해 혼잡통행료를 징수합니다."
+            },
+            {
+                  "id": 1007,
+                  "subject": "4과목 서울지리",
+                  "stem": "마포구 상암동에 위치하며 주요 지상파·종편 방송국 및 미디어 IT 기업이 집적된 복합단지는?",
+                  "options": [
+                        "디지털미디어시티(DMC)",
+                        "가산디지털단지",
+                        "문정법조단지",
+                        "마곡M밸리"
+                  ],
+                  "answer": 0,
+                  "explanation": "상암동 일대에 조성된 미디어·엔터테인먼트 특화지구는 DMC입니다."
+            },
+            {
+                  "id": 1008,
+                  "subject": "4과목 서울지리",
+                  "stem": "영등포역 인근에 위치하며 백화점, 쇼핑몰, 영화관이 복합된 서남권 대형 쇼핑몰은?",
+                  "options": [
+                        "타임스퀘어",
+                        "코엑스몰",
+                        "스타필드 고양",
+                        "아이파크몰 용산"
+                  ],
+                  "answer": 0,
+                  "explanation": "영등포역 북측 경방 부지에 조성된 랜드마크 복합몰은 타임스퀘어입니다."
+            },
+            {
+                  "id": 1009,
+                  "subject": "4과목 서울지리",
+                  "stem": "중구 을지로 옛 동대문운동장 부지에 세계적 건축가 자하 하디드가 설계한 곡선형 랜드마크는?",
+                  "options": [
+                        "동대문디자인플라자(DDP)",
+                        "세운상가",
+                        "D타워",
+                        "서울스퀘어"
+                  ],
+                  "answer": 0,
+                  "explanation": "패션 패션타운과 전시의 중심 역할을 하는 비정형 은빛 건축물은 DDP입니다."
+            },
+            {
+                  "id": 1010,
+                  "subject": "4과목 서울지리",
+                  "stem": "송파구 잠실동에 위치하며 지상 123층, 높이 555m에 달하는 대한민국 최고층 빌딩은?",
+                  "options": [
+                        "롯데월드타워",
+                        "63스퀘어",
+                        "IFC서울",
+                        "파크원"
+                  ],
+                  "answer": 0,
+                  "explanation": "잠실역 사거리에 우뚝 솟은 국내 최고층 랜드마크 타워는 롯데월드타워입니다."
+            }
+      ],
+      "gyeonggi": [
+            {
+                  "id": 1101,
+                  "subject": "4과목 경기지리",
+                  "stem": "경기도 남부의 철도 교통 요충지로 경부선, 수인분당선, 1호선, KTX가 정차하는 대형 환승역은?",
+                  "options": [
+                        "수원역",
+                        "평택역",
+                        "오산역",
+                        "안양역"
+                  ],
+                  "answer": 0,
+                  "explanation": "경부선 및 경기 남부 광역교통의 최대 환승 중심지는 수원역입니다."
+            },
+            {
+                  "id": 1102,
+                  "subject": "4과목 경기지리",
+                  "stem": "성남시 분당구에 위치하며, 주요 IT 기업과 벤처기업이 밀집한 테크노밸리는?",
+                  "options": [
+                        "판교테크노밸리",
+                        "광교테크노밸리",
+                        "동탄테크노밸리",
+                        "일산테크노밸리"
+                  ],
+                  "answer": 0,
+                  "explanation": "국내 유수의 IT·게임 기업 본사가 집결한 곳은 판교테크노밸리입니다."
+            },
+            {
+                  "id": 1103,
+                  "subject": "4과목 경기지리",
+                  "stem": "고양시 일산서구에 위치한 국내 최대 규모의 국제 전시장 컨벤션 센터는?",
+                  "options": [
+                        "킨텍스(KINTEX)",
+                        "코엑스",
+                        "벡스코",
+                        "엑스코"
+                  ],
+                  "answer": 0,
+                  "explanation": "경기도 고양시 대화동에 위치한 국내 최대 전시면적의 컨벤션센터는 킨텍스입니다."
+            },
+            {
+                  "id": 1104,
+                  "subject": "4과목 경기지리",
+                  "stem": "수원 영통구와 용인 수지구 일대에 걸쳐 조성된 수도권 남부 대표 도심 호수공원은?",
+                  "options": [
+                        "광교호수공원",
+                        "일산호수공원",
+                        "동탄호수공원",
+                        "은파호수공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "원천호수와 신대호수로 이루어진 대형 수변공원은 광교호수공원입니다."
+            },
+            {
+                  "id": 1105,
+                  "subject": "4과목 경기지리",
+                  "stem": "용인시 처인구 포곡읍에 위치한 국내 최대 규모의 테마파크 및 동물원 시설은?",
+                  "options": [
+                        "에버랜드",
+                        "서울랜드",
+                        "롯데월드",
+                        "레고랜드"
+                  ],
+                  "answer": 0,
+                  "explanation": "용인에 위치한 대표적인 대형 유원지 및 리조트는 에버랜드입니다."
+            },
+            {
+                  "id": 1106,
+                  "subject": "4과목 경기지리",
+                  "stem": "평택시 포승읍에 위치하며 대중국 교역 및 자동차 수출입 화물의 서해안 중심 거점 항만은?",
+                  "options": [
+                        "평택항",
+                        "인천항",
+                        "대산항",
+                        "군산항"
+                  ],
+                  "answer": 0,
+                  "explanation": "경기 남부 서해안의 국제 무역 거점 항만은 평택항(평택·당진항)입니다."
+            },
+            {
+                  "id": 1107,
+                  "subject": "4과목 경기지리",
+                  "stem": "광주시 남한산성면에 위치하며 병자호란의 역사가 깃든 유네스코 세계문화유산 산성은?",
+                  "options": [
+                        "남한산성",
+                        "북한산성",
+                        "행주산성",
+                        "화성행궁"
+                  ],
+                  "answer": 0,
+                  "explanation": "수도권 동남부 성남·광주·하남에 걸쳐 있는 세계유산은 남한산성입니다."
+            },
+            {
+                  "id": 1108,
+                  "subject": "4과목 경기지리",
+                  "stem": "의정부시 발곡역에서 탑석역을 연결하며 경기 북부 도심을 운행하는 고무차륜 무인 경전철은?",
+                  "options": [
+                        "의정부경전철",
+                        "용인경전철",
+                        "김포골드라인",
+                        "신림선"
+                  ],
+                  "answer": 0,
+                  "explanation": "의정부 도심을 동서로 관통하는 광역 무인 궤도교통은 의정부경전철입니다."
+            },
+            {
+                  "id": 1109,
+                  "subject": "4과목 경기지리",
+                  "stem": "시흥시 정왕동 서해안에 위치하며 빨간등대와 조개구이 어촌체험으로 유명한 관광명소는?",
+                  "options": [
+                        "오이도",
+                        "제부도",
+                        "대부도",
+                        "영흥도"
+                  ],
+                  "answer": 0,
+                  "explanation": "시흥 4호선 오이도역과 연계되는 서해 갯벌 랜드마크는 오이도입니다."
+            },
+            {
+                  "id": 1110,
+                  "subject": "4과목 경기지리",
+                  "stem": "하남시 신장동 미사대로 인근에 위치한 수도권 동부권 초대형 복합 쇼핑 테마파크는?",
+                  "options": [
+                        "스타필드 하남",
+                        "스타필드 고양",
+                        "스타필드 수원",
+                        "스타필드 안성"
+                  ],
+                  "answer": 0,
+                  "explanation": "한강변과 검단산 진입로에 자리잡은 대형 복합몰은 스타필드 하남입니다."
+            }
+      ],
+      "incheon": [
+            {
+                  "id": 1201,
+                  "subject": "4과목 인천지리",
+                  "stem": "영종도에 위치하며, 대한민국의 관문 역할을 하는 대표 허브 국제공항은?",
+                  "options": [
+                        "인천국제공항",
+                        "김포국제공항",
+                        "김해국제공항",
+                        "제주국제공항"
+                  ],
+                  "answer": 0,
+                  "explanation": "인천 중구 영종도에 위치한 국가 대표 허브공항은 인천국제공항입니다."
+            },
+            {
+                  "id": 1202,
+                  "subject": "4과목 인천지리",
+                  "stem": "인천 송도국제도시와 영종도 인천국제공항을 직접 연결하는 국내 최장 교량은?",
+                  "options": [
+                        "영종대교",
+                        "인천대교",
+                        "강화대교",
+                        "초지대교"
+                  ],
+                  "answer": 1,
+                  "explanation": "총연장 21.38km로 서해 바다를 가로지르는 사장교는 인천대교입니다."
+            },
+            {
+                  "id": 1203,
+                  "subject": "4과목 인천지리",
+                  "stem": "인천 미추홀구와 부평구를 관통하여 서울 신월IC로 이어지는 우리나라 최초의 고속도로는?",
+                  "options": [
+                        "경인고속도로",
+                        "제2경인고속도로",
+                        "제3경인고속화도로",
+                        "수도권제1순환고속도로"
+                  ],
+                  "answer": 0,
+                  "explanation": "1968년 개통된 우리나라 제1호 고속도로는 경인고속도로입니다."
+            },
+            {
+                  "id": 1204,
+                  "subject": "4과목 인천지리",
+                  "stem": "연수구 송도국제도시 중심부에 위치하며 해수를 끌어와 수상택시를 운행하는 대형 공원은?",
+                  "options": [
+                        "송도 센트럴파크",
+                        "월미공원",
+                        "자유공원",
+                        "청라호수공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "이국적인 고층 빌딩 숲과 어우러진 해수공원은 송도 센트럴파크입니다."
+            },
+            {
+                  "id": 1205,
+                  "subject": "4과목 인천지리",
+                  "stem": "인천역 바로 맞은편 북성동에 위치하며 한국 자장면의 발상지이자 전통 중화거리는?",
+                  "options": [
+                        "인천 차이나타운",
+                        "신포국제시장",
+                        "개항장 문화지구",
+                        "동화마을"
+                  ],
+                  "answer": 0,
+                  "explanation": "개항기 화교들의 정착으로 형성된 붉은 패루가 있는 거리는 차이나타운입니다."
+            },
+            {
+                  "id": 1206,
+                  "subject": "4과목 인천지리",
+                  "stem": "중구 북성동 바닷가에 위치하며 문화의 거리, 유람선, 디스코팡팡 놀이공원으로 유명한 유원지는?",
+                  "options": [
+                        "월미도",
+                        "을왕리",
+                        "동막해변",
+                        "무의도"
+                  ],
+                  "answer": 0,
+                  "explanation": "바다 조망과 모노레일(월미바다열차)이 운행하는 인천 대표 관광지는 월미도입니다."
+            },
+            {
+                  "id": 1207,
+                  "subject": "4과목 인천지리",
+                  "stem": "중구 항동에 위치하며 백령도, 연평도, 대청도 등 서해 5도 및 연안 도서로 출항하는 항만 터미널은?",
+                  "options": [
+                        "인천항 연안여객터미널",
+                        "인천항 국제여객터미널",
+                        "남항 유람선 선착장",
+                        "영종진 선착장"
+                  ],
+                  "answer": 0,
+                  "explanation": "서해 도서 주민과 관광객이 배를 타는 국내선 중심 터미널은 연안여객터미널입니다."
+            },
+            {
+                  "id": 1208,
+                  "subject": "4과목 인천지리",
+                  "stem": "미추홀구 문학동에 위치하며 야구장, 축구장, 수영장을 갖춘 대규모 복합 경기장 단지는?",
+                  "options": [
+                        "인천문학경기장",
+                        "인천아시아드주경기장",
+                        "도원체육관",
+                        "계양체육관"
+                  ],
+                  "answer": 0,
+                  "explanation": "2002년 월드컵 경기가 열렸던 미추홀구의 대표 경기장은 문학경기장입니다."
+            },
+            {
+                  "id": 1209,
+                  "subject": "4과목 인천지리",
+                  "stem": "인천 부평구에 위치하며 단일 면적 기준으로 기네스북에 등재된 국내 최대 규모 지하상가는?",
+                  "options": [
+                        "부평역 지하도상가",
+                        "주안역 지하상가",
+                        "동인천역 지하상가",
+                        "강남역 지하상가"
+                  ],
+                  "answer": 0,
+                  "explanation": "1호선과 인천1호선 환승지 부평역 하부에 형성된 초대형 상가는 부평역 지하상가입니다."
+            },
+            {
+                  "id": 1210,
+                  "subject": "4과목 인천지리",
+                  "stem": "인천 서구 경서동·연희동 일대에 커낼웨이(수로)와 호수공원을 중심으로 조성된 경제자유구역은?",
+                  "options": [
+                        "청라국제도시",
+                        "송도국제도시",
+                        "영종하늘도시",
+                        "검단신도시"
+                  ],
+                  "answer": 0,
+                  "explanation": "중앙 수로와 청라호수공원이 상징인 서구의 국제도시는 청라국제도시입니다."
+            }
+      ],
+      "busan": [
+            {
+                  "id": 1301,
+                  "subject": "4과목 부산지리",
+                  "stem": "해운대구 우동과 수영구 남천동을 해상으로 연결하는 부산의 랜드마크 교량은?",
+                  "options": [
+                        "광안대교",
+                        "남항대교",
+                        "부산항대교",
+                        "을숙도대교"
+                  ],
+                  "answer": 0,
+                  "explanation": "다이아몬드 브릿지로 불리는 복층 해상 현수교는 광안대교입니다."
+            },
+            {
+                  "id": 1302,
+                  "subject": "4과목 부산지리",
+                  "stem": "경부고속선 KTX와 SRT의 시·종착역이자 부산 원도심 동구에 위치한 관문역은?",
+                  "options": [
+                        "부산역",
+                        "구포역",
+                        "부전역",
+                        "센텀역"
+                  ],
+                  "answer": 0,
+                  "explanation": "부산 동구 초량동에 위치한 고속철도 종착역은 부산역입니다."
+            },
+            {
+                  "id": 1303,
+                  "subject": "4과목 부산지리",
+                  "stem": "부산 강서구 대저동에 위치한 부산·경남권 중심 국제공항은?",
+                  "options": [
+                        "김해국제공항",
+                        "사천공항",
+                        "울산공항",
+                        "포항공항"
+                  ],
+                  "answer": 0,
+                  "explanation": "부산 강서구 대저2동에 소재한 동남권 관문 공항은 김해국제공항입니다."
+            },
+            {
+                  "id": 1304,
+                  "subject": "4과목 부산지리",
+                  "stem": "해운대구 중동·우동 일대에 걸쳐 백사장과 동백섬을 품은 대한민국 대표 해수욕장은?",
+                  "options": [
+                        "해운대해수욕장",
+                        "광안리해수욕장",
+                        "송도해수욕장",
+                        "다대포해수욕장"
+                  ],
+                  "answer": 0,
+                  "explanation": "여름철 수많은 피서객이 찾는 대한민국 제1의 해수욕장은 해운대입니다."
+            },
+            {
+                  "id": 1305,
+                  "subject": "4과목 부산지리",
+                  "stem": "중구 남포동 남항 바닷가에 위치하며 '오이소, 보이소, 사이소'로 유명한 국내 최대 어시장은?",
+                  "options": [
+                        "자갈치시장",
+                        "국제시장",
+                        "부평깡통시장",
+                        "동래시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "부산의 역사와 활력을 상징하는 대표 수산물 어시장은 자갈치시장입니다."
+            },
+            {
+                  "id": 1306,
+                  "subject": "4과목 부산지리",
+                  "stem": "영도구 남단에 위치하며 울창한 송림과 기암괴석, 등대전망대로 유명한 해안 명승지는?",
+                  "options": [
+                        "태종대",
+                        "몰운대",
+                        "이기대",
+                        "해운대"
+                  ],
+                  "answer": 0,
+                  "explanation": "다누비 열차가 운행하며 오륙도와 대마도를 조망할 수 있는 곳은 태종대입니다."
+            },
+            {
+                  "id": 1307,
+                  "subject": "4과목 부산지리",
+                  "stem": "해운대구 우동 센텀시티에 위치하며 부산국제모터쇼, 지스타 등 대형 전시회가 열리는 곳은?",
+                  "options": [
+                        "벡스코(BEXCO)",
+                        "코엑스",
+                        "킨텍스",
+                        "엑스코"
+                  ],
+                  "answer": 0,
+                  "explanation": "신세계 센텀시티 맞은편의 대형 전시장 복합시설은 벡스코입니다."
+            },
+            {
+                  "id": 1308,
+                  "subject": "4과목 부산지리",
+                  "stem": "부산진구 부전동에 위치하며 부산 도시철도 1호선과 2호선이 교차하는 부산 최대의 도심 번화가는?",
+                  "options": [
+                        "서면역 사거리",
+                        "남포동 광복로",
+                        "덕천교차로",
+                        "연산교차로"
+                  ],
+                  "answer": 0,
+                  "explanation": "부산의 중심 상권이자 교통 환승의 중심지는 서면입니다."
+            },
+            {
+                  "id": 1309,
+                  "subject": "4과목 부산지리",
+                  "stem": "부산역 뒤편 옛 부두 부지를 오페라하우스와 친수공원 마리나로 탈바꿈하는 대규모 개발구역은?",
+                  "options": [
+                        "북항 재개발 구역",
+                        "남항 물류단지",
+                        "신항만 배후단지",
+                        "에코델타시티"
+                  ],
+                  "answer": 0,
+                  "explanation": "부산역과 연결된 대규모 해양 문화 수변 재개발지는 북항입니다."
+            },
+            {
+                  "id": 1310,
+                  "subject": "4과목 부산지리",
+                  "stem": "금정구 장전동과 북구 화명동을 잇는 금정산 관통 유료 도시고속터널은?",
+                  "options": [
+                        "산성터널",
+                        "만덕2터널",
+                        "백양터널",
+                        "수정산터널"
+                  ],
+                  "answer": 0,
+                  "explanation": "금정산을 동서로 직결하여 만덕로 정체를 획기적으로 줄인 터널은 산성터널입니다."
+            }
+      ],
+      "daegu": [
+            {
+                  "id": 1401,
+                  "subject": "4과목 대구지리",
+                  "stem": "KTX·SRT 복합환승센터와 신세계백화점이 직결된 대구 동구의 핵심 교통 허브역은?",
+                  "options": [
+                        "동대구역",
+                        "대구역",
+                        "서대구역",
+                        "반월당역"
+                  ],
+                  "answer": 0,
+                  "explanation": "고속철도와 고속버스가 한 건물에서 환승되는 대구 최대의 관문역은 동대구역입니다."
+            },
+            {
+                  "id": 1402,
+                  "subject": "4과목 대구지리",
+                  "stem": "대구 시내를 남북으로 관통하며 도심 교통난을 해소하는 대표 도시고속도로는?",
+                  "options": [
+                        "신천대로",
+                        "앞산순환로",
+                        "달구벌대로",
+                        "범안로"
+                  ],
+                  "answer": 0,
+                  "explanation": "신천 하천변을 따라 남북을 빠르게 잇는 전용도로는 신천대로입니다."
+            },
+            {
+                  "id": 1403,
+                  "subject": "4과목 대구지리",
+                  "stem": "대구 동구 지저동에 위치하며 군 공항과 함께 민항기가 취항하는 공항은?",
+                  "options": [
+                        "대구국제공항",
+                        "포항공항",
+                        "울산공항",
+                        "사천공항"
+                  ],
+                  "answer": 0,
+                  "explanation": "대구 도심 동북부에 인접한 국제선 공항은 대구국제공항입니다."
+            },
+            {
+                  "id": 1404,
+                  "subject": "4과목 대구지리",
+                  "stem": "중구 대신동에 위치하며 조선시대 3대 시장 중 하나로 손꼽히는 영남 최대의 전통시장은?",
+                  "options": [
+                        "서문시장",
+                        "칠성시장",
+                        "팔달시장",
+                        "염매시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "섬유 원단 및 칼국수, 야시장으로 전국적인 명성을 가진 곳은 서문시장입니다."
+            },
+            {
+                  "id": 1405,
+                  "subject": "4과목 대구지리",
+                  "stem": "수성구 두산동에 위치하며 음악분수와 수변 산책로, 유원지가 조성된 대구 대표 호수공원은?",
+                  "options": [
+                        "수성못",
+                        "송해공원",
+                        "성암못",
+                        "달창저수지"
+                  ],
+                  "answer": 0,
+                  "explanation": "수성구의 대표적인 힐링 수변 명소이자 번화가는 수성못입니다."
+            },
+            {
+                  "id": 1406,
+                  "subject": "4과목 대구지리",
+                  "stem": "달서구 두류공원 내에 위치하며 대구 랜드마크 83타워와 놀이시설을 갖춘 대형 테마파크는?",
+                  "options": [
+                        "이월드",
+                        "스파밸리",
+                        "대구힐크레스트",
+                        "화원유원지"
+                  ],
+                  "answer": 0,
+                  "explanation": "두류타워(83타워)와 롤러코스터 등 놀이기구가 밀집한 도심 테마파크는 이월드입니다."
+            },
+            {
+                  "id": 1407,
+                  "subject": "4과목 대구지리",
+                  "stem": "대구 도시철도 1호선과 2호선이 교차하는 유일한 도심 중심 환승역은?",
+                  "options": [
+                        "반월당역",
+                        "명덕역",
+                        "청라언덕역",
+                        "중앙로역"
+                  ],
+                  "answer": 0,
+                  "explanation": "대구의 정중앙 번화가 동성로와 직결되는 지하 환승 허브는 반월당역입니다."
+            },
+            {
+                  "id": 1408,
+                  "subject": "4과목 대구지리",
+                  "stem": "대구 동구 팔공산 관봉 정상에 위치하며 '한 가지 소원은 반드시 들어준다'는 석조여래좌상은?",
+                  "options": [
+                        "갓바위",
+                        "동화사 마애불",
+                        "파계사 원통전",
+                        "부인사 삼층석탑"
+                  ],
+                  "answer": 0,
+                  "explanation": "머리에 평평한 돌을 갓처럼 쓰고 있는 관봉 석조여래좌상은 갓바위입니다."
+            },
+            {
+                  "id": 1409,
+                  "subject": "4과목 대구지리",
+                  "stem": "남구 대명동 앞산에 위치하며 케이블카를 타고 올라가 대구 분지 시가지를 한눈에 내려다보는 곳은?",
+                  "options": [
+                        "앞산전망대",
+                        "와룡산전망대",
+                        "비슬산전망대",
+                        "최정산전망대"
+                  ],
+                  "answer": 0,
+                  "explanation": "대구의 야경과 파노라마 뷰를 감상하는 명소는 앞산전망대입니다."
+            },
+            {
+                  "id": 1410,
+                  "subject": "4과목 대구지리",
+                  "stem": "달성군 다사읍 낙동강과 금호강이 만나는 강정고령보 인근에 위치한 은빛 외관의 물 문화관은?",
+                  "options": [
+                        "디아크(The ARC)",
+                        "낙동강에코센터",
+                        "물누리관",
+                        "강문화전시관"
+                  ],
+                  "answer": 0,
+                  "explanation": "세계적인 건축가 하니 라시드가 설계한 물 문화관 랜드마크는 디아크입니다."
+            }
+      ],
+      "daejeon": [
+            {
+                  "id": 1501,
+                  "subject": "4과목 대전지리",
+                  "stem": "카이스트(KAIST) 및 수많은 정부출연 연구기관이 집적된 대전의 과학연구 도시는?",
+                  "options": [
+                        "대덕연구개발특구",
+                        "오송바이오밸리",
+                        "오창과학단지",
+                        "세종테크노밸리"
+                  ],
+                  "answer": 0,
+                  "explanation": "유성구 도룡동·신성동 일대에 위치한 국가 핵심 연구개발 중심지는 대덕특구입니다."
+            },
+            {
+                  "id": 1502,
+                  "subject": "4과목 대전지리",
+                  "stem": "경부선 KTX·SRT가 정차하며 원도심 동구 중앙로에 위치한 대전의 대표역은?",
+                  "options": [
+                        "대전역",
+                        "서대전역",
+                        "신탄진역",
+                        "유성역"
+                  ],
+                  "answer": 0,
+                  "explanation": "경부선 철도의 핵심이자 원도심의 관문은 대전역입니다."
+            },
+            {
+                  "id": 1503,
+                  "subject": "4과목 대전지리",
+                  "stem": "대전 유성구에 위치하며 전국적으로 유명한 천연 온천 관광특구는?",
+                  "options": [
+                        "유성온천",
+                        "수안보온천",
+                        "온양온천",
+                        "도고온천"
+                  ],
+                  "answer": 0,
+                  "explanation": "유성구 봉명동 일대의 유명 온천거리는 유성온천입니다."
+            },
+            {
+                  "id": 1504,
+                  "subject": "4과목 대전지리",
+                  "stem": "중구 오류동에 위치하며 호남선 KTX 및 일반열차를 이용할 수 있는 대전 서남부의 철도역은?",
+                  "options": [
+                        "서대전역",
+                        "대전역",
+                        "가수원역",
+                        "서대전네거리역"
+                  ],
+                  "answer": 0,
+                  "explanation": "호남선 고속철도와 일반열차가 정차하는 대전 서남부 관문역은 서대전역입니다."
+            },
+            {
+                  "id": 1505,
+                  "subject": "4과목 대전지리",
+                  "stem": "유성구 도룡동에 위치하며 한빛탑과 신세계 아트앤사이언스가 위치한 1993 엑스포 개최 부지는?",
+                  "options": [
+                        "엑스포과학공원",
+                        "뿌리공원",
+                        "오월드",
+                        "국립중앙과학관"
+                  ],
+                  "answer": 0,
+                  "explanation": "꿈돌이와 한빛탑이 상징인 대전의 과학문화 명소는 엑스포과학공원입니다."
+            },
+            {
+                  "id": 1506,
+                  "subject": "4과목 대전지리",
+                  "stem": "서구 만년동 둔산 도심에 위치한 전국 최대 규모의 도심 인공수목원은?",
+                  "options": [
+                        "한밭수목원",
+                        "장태산자연휴양림",
+                        "보문산공원",
+                        "유림공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "정부대전청사와 예술의전당 사이에 조성된 대형 도심 수목원은 한밭수목원입니다."
+            },
+            {
+                  "id": 1507,
+                  "subject": "4과목 대전지리",
+                  "stem": "동구 대전역 인근에 위치하며 중부권 최대 규모의 점포를 자랑하는 유서 깊은 전통시장은?",
+                  "options": [
+                        "대전 중앙시장",
+                        "도마큰시장",
+                        "유성시장",
+                        "문창시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "대전역 앞 원도심에 대규모로 형성된 중심 전통시장은 대전 중앙시장입니다."
+            },
+            {
+                  "id": 1508,
+                  "subject": "4과목 대전지리",
+                  "stem": "중구 은행동 으능정이 문화의 거리에 위치한 대전의 대표적인 제과점이자 전국구 빵집 본점은?",
+                  "options": [
+                        "성심당",
+                        "이성당",
+                        "삼송빵집",
+                        "옵스"
+                  ],
+                  "answer": 0,
+                  "explanation": "튀김소보로와 부추빵 등으로 유명한 대전의 대표 명소는 성심당 본점입니다."
+            },
+            {
+                  "id": 1509,
+                  "subject": "4과목 대전지리",
+                  "stem": "유성구 구암동 유성IC 인근에 조성된 유성권 복합 버스터미널 시설은?",
+                  "options": [
+                        "유성복합터미널",
+                        "대전복합터미널",
+                        "서남부터미널",
+                        "둔산고속버스정류소"
+                  ],
+                  "answer": 0,
+                  "explanation": "유성구민과 연구단지 승객의 시외·고속 환승 편의를 위한 터미널은 유성복합터미널입니다."
+            },
+            {
+                  "id": 1510,
+                  "subject": "4과목 대전지리",
+                  "stem": "대덕구 장동에 위치하며 피톤치드 숲속에서 맨발로 황토를 밟으며 힐링하는 전국적 트레킹 코스는?",
+                  "options": [
+                        "계족산 황톳길",
+                        "보문산 등산로",
+                        "구봉산 구름다리",
+                        "식장산 해맞이길"
+                  ],
+                  "answer": 0,
+                  "explanation": "14.5km에 이르는 명품 붉은 황톳길이 조성된 산은 계족산입니다."
+            }
+      ],
+      "gwangju": [
+            {
+                  "id": 1601,
+                  "subject": "4과목 광주지리",
+                  "stem": "호남고속철도 KTX와 SRT가 정차하는 광주광역시 광산구 소재의 핵심 관문역은?",
+                  "options": [
+                        "광주송정역",
+                        "광주역",
+                        "극락강역",
+                        "서광주역"
+                  ],
+                  "answer": 0,
+                  "explanation": "호남선 고속철도 개통 이후 광주의 제1 철도 관문이 된 역은 광주송정역입니다."
+            },
+            {
+                  "id": 1602,
+                  "subject": "4과목 광주지리",
+                  "stem": "광주 서구 광천동에 위치한 전국 최대 규모의 종합 버스터미널 복합시설은?",
+                  "options": [
+                        "유스퀘어(광천터미널)",
+                        "송정시외버스터미널",
+                        "남광주터널",
+                        "첨단시외버스정류소"
+                  ],
+                  "answer": 0,
+                  "explanation": "신세계백화점과 극장, 문화관이 결합된 초대형 터미널은 유스퀘어입니다."
+            },
+            {
+                  "id": 1603,
+                  "subject": "4과목 광주지리",
+                  "stem": "광주 시내 북구와 광산구를 신속하게 연결하는 주요 도시고속도로는?",
+                  "options": [
+                        "제2순환로",
+                        "빛고을대로",
+                        "무진대로",
+                        "상무대로"
+                  ],
+                  "answer": 0,
+                  "explanation": "광주 도심 외곽을 둥글게 순환하는 유료 고속화도로는 제2순환로입니다."
+            },
+            {
+                  "id": 1604,
+                  "subject": "4과목 광주지리",
+                  "stem": "동구 옛 전남도청 부지에 아시아 문화 교류 및 예술 전시를 위해 건립된 초대형 복합문화공간은?",
+                  "options": [
+                        "국립아시아문화전당(ACC)",
+                        "광주비엔날레전시관",
+                        "광주예술의전당",
+                        "빛고을시민문화관"
+                  ],
+                  "answer": 0,
+                  "explanation": "5·18 민주광장 뒤편에 대규모로 조성된 문화시설은 국립아시아문화전당입니다."
+            },
+            {
+                  "id": 1605,
+                  "subject": "4과목 광주지리",
+                  "stem": "광주와 화순·담양에 걸쳐 우뚝 솟아 있으며 서석대와 입석대 주상절리로 유명한 국립공원은?",
+                  "options": [
+                        "무등산 국립공원",
+                        "지리산 국립공원",
+                        "월출산 국립공원",
+                        "내장산 국립공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "광주의 진산이자 유네스코 세계지질공원으로 지정된 산은 무등산입니다."
+            },
+            {
+                  "id": 1606,
+                  "subject": "4과목 광주지리",
+                  "stem": "서구 치평동에 위치하며 광주광역시청과 KBS, 금융기관이 밀집한 계획 행정·상업중심지는?",
+                  "options": [
+                        "상무지구",
+                        "수완지구",
+                        "첨단지구",
+                        "금남로 도심"
+                  ],
+                  "answer": 0,
+                  "explanation": "옛 상무대 군사기지 부지를 신도심으로 개발한 광주 행정 중심지는 상무지구입니다."
+            },
+            {
+                  "id": 1607,
+                  "subject": "4과목 광주지리",
+                  "stem": "서구 마륵동에 위치하며 호남권의 주요 무역 전시회와 박람회가 열리는 전문 전시컨벤션센터는?",
+                  "options": [
+                        "김대중컨벤션센터",
+                        "엑스코",
+                        "코엑스",
+                        "세코"
+                  ],
+                  "answer": 0,
+                  "explanation": "상무지구 인근 지하철 김대중컨벤션센터역 앞에 위치한 전문 전시장은 김대중컨벤션센터입니다."
+            },
+            {
+                  "id": 1608,
+                  "subject": "4과목 광주지리",
+                  "stem": "광주송정역 바로 맞은편에 위치하며 레트로 감성과 청년 야시장 먹거리로 특화된 전통시장은?",
+                  "options": [
+                        "1913송정역시장",
+                        "양동시장",
+                        "남광주시장",
+                        "말바우시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "KTX 탑승 전 관광객들이 많이 찾는 골목형 특화시장은 1913송정역시장입니다."
+            },
+            {
+                  "id": 1609,
+                  "subject": "4과목 광주지리",
+                  "stem": "광산구 비아동과 북구 오룡동 일대에 광산업, 인공지능(AI) 데이터센터가 집중된 국가산업단지는?",
+                  "options": [
+                        "광주첨단과학산업단지",
+                        "하남일반산업단지",
+                        "본촌산업단지",
+                        "평동산업단지"
+                  ],
+                  "answer": 0,
+                  "explanation": "GIST(광주과학기술원) 및 국가 AI 집적단지가 들어선 산업지구는 첨단지구입니다."
+            },
+            {
+                  "id": 1610,
+                  "subject": "4과목 광주지리",
+                  "stem": "북구 임동에 위치하며 프로야구 KIA 타이거즈의 홈구장으로 쓰이는 최신식 야구장은?",
+                  "options": [
+                        "광주기아챔피언스필드",
+                        "광주무등경기장",
+                        "사직야구장",
+                        "라이온즈파크"
+                  ],
+                  "answer": 0,
+                  "explanation": "임동 옛 무등야구장 자리에 새롭게 지어진 야구장은 광주기아챔피언스필드입니다."
+            }
+      ],
+      "ulsan": [
+            {
+                  "id": 1701,
+                  "subject": "4과목 울산지리",
+                  "stem": "울산 울주군 삼남읍에 위치하며 경부고속선 KTX·SRT가 정차하는 울산의 고속철도역은?",
+                  "options": [
+                        "울산역(통도사)",
+                        "태화강역",
+                        "호계역",
+                        "남창역"
+                  ],
+                  "answer": 0,
+                  "explanation": "경부고속선 전용 역사로 울주군 삼남면에 위치한 관문역은 울산역입니다."
+            },
+            {
+                  "id": 1702,
+                  "subject": "4과목 울산지리",
+                  "stem": "울산 중구와 남구를 가로지르며 십리대숲이 있는 대한민국 제2호 국가정원은?",
+                  "options": [
+                        "태화강 국가정원",
+                        "순천만 국가정원",
+                        "울산대공원",
+                        "선암호수공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "은빛 백로와 대나무 숲길이 장관을 이루는 도심 생태정원은 태화강 국가정원입니다."
+            },
+            {
+                  "id": 1703,
+                  "subject": "4과목 울산지리",
+                  "stem": "북구 양정동에 위치하며 단일 공장 기준으로 세계 최대 규모의 완성차 제조공장은?",
+                  "options": [
+                        "현대자동차 울산공장",
+                        "기아 오토랜드 광주",
+                        "르노코리아 부산공장",
+                        "KG모빌리티 평택공장"
+                  ],
+                  "answer": 0,
+                  "explanation": "자체 선적 부두까지 보유한 세계 최대 규모 자동차 조립 생산단지는 현대차 울산공장입니다."
+            },
+            {
+                  "id": 1704,
+                  "subject": "4과목 울산지리",
+                  "stem": "동구 일산동에 위치하며 기암괴석과 해상 출렁다리, 울창한 해송림이 어우러진 해안공원은?",
+                  "options": [
+                        "대왕암공원",
+                        "간절곶공원",
+                        "슬도",
+                        "주전몽돌해변"
+                  ],
+                  "answer": 0,
+                  "explanation": "문무대왕 왕비의 호국전설이 깃든 동구의 대표 해안 명소는 대왕암공원입니다."
+            },
+            {
+                  "id": 1705,
+                  "subject": "4과목 울산지리",
+                  "stem": "울주군 서생면에 위치하며 한반도 동해안 육지에서 새해 해가 가장 먼저 뜨는 일출 명소는?",
+                  "options": [
+                        "간절곶",
+                        "호미곶",
+                        "정동진",
+                        "성산일출봉"
+                  ],
+                  "answer": 0,
+                  "explanation": "거대한 소망우체통과 하얀 등대가 서 있는 한반도 최동단 일출지는 간절곶입니다."
+            },
+            {
+                  "id": 1706,
+                  "subject": "4과목 울산지리",
+                  "stem": "남구 매암동과 동구 일산동을 바다 위로 연결하는 단경간 현수교 교량은?",
+                  "options": [
+                        "울산대교",
+                        "명촌교",
+                        "학성교",
+                        "태화교"
+                  ],
+                  "answer": 0,
+                  "explanation": "울산만 바다를 가로질러 남구와 동구를 빠르게 연결하는 다리는 울산대교입니다."
+            },
+            {
+                  "id": 1707,
+                  "subject": "4과목 울산지리",
+                  "stem": "남구 매암동 장생포에 위치하며 포경 역사와 고래박물관, 생태체험관이 있는 특화구역은?",
+                  "options": [
+                        "장생포 고래문화특구",
+                        "방어진항",
+                        "정자항",
+                        "주전어촌체험마을"
+                  ],
+                  "answer": 0,
+                  "explanation": "국내 유일의 고래 전문 박물관과 모노레일이 운행되는 곳은 장생포입니다."
+            },
+            {
+                  "id": 1708,
+                  "subject": "4과목 울산지리",
+                  "stem": "남구 삼산동 울산고속버스터미널 인근에 위치하며 백화점과 금융가가 밀집한 울산 최대 번화가는?",
+                  "options": [
+                        "삼산동 디자인거리",
+                        "성남동 시계탑거리",
+                        "무거동 대학가",
+                        "달동 음식거리"
+                  ],
+                  "answer": 0,
+                  "explanation": "롯데백화점, 현대백화점과 관람차가 있는 울산 최고의 중심 상권은 삼산동입니다."
+            },
+            {
+                  "id": 1709,
+                  "subject": "4과목 울산지리",
+                  "stem": "남구 옥동에 위치하며 프로축구 울산 HD FC의 홈구장으로 쓰이는 대형 종합경기장은?",
+                  "options": [
+                        "울산문수축구경기장",
+                        "울산종합운동장",
+                        "동천체육관",
+                        "문수야구장"
+                  ],
+                  "answer": 0,
+                  "explanation": "문수산 자락 문수호반에 아름답게 지어진 경기장은 문수경기장입니다."
+            },
+            {
+                  "id": 1710,
+                  "subject": "4과목 울산지리",
+                  "stem": "동구 방어동에 위치하며 동해 남부의 대표적인 국가어항이자 신선한 해산물이 집결하는 항구는?",
+                  "options": [
+                        "방어진항",
+                        "정자항",
+                        "강동항",
+                        "온산항"
+                  ],
+                  "answer": 0,
+                  "explanation": "울산 동구의 유서 깊은 대형 어항은 방어진항입니다."
+            }
+      ],
+      "sejong": [
+            {
+                  "id": 1801,
+                  "subject": "4과목 세종지리",
+                  "stem": "국무총리실 및 주요 중앙정부 행정부처가 집결해 있는 세종시의 핵심 정부 시설은?",
+                  "options": [
+                        "정부세종청사",
+                        "세종시청",
+                        "정부대전청사",
+                        "국책연구단지"
+                  ],
+                  "answer": 0,
+                  "explanation": "어진동에 옥상정원과 함께 대규모로 조성된 중앙행정청사는 정부세종청사입니다."
+            },
+            {
+                  "id": 1802,
+                  "subject": "4과목 세종지리",
+                  "stem": "세종시 남측과 북측 생활권을 금강 위로 연결하는 국내 최장 원형 복층 보행전용 교량은?",
+                  "options": [
+                        "금강보행교(이응다리)",
+                        "한두리대교",
+                        "햇무리교",
+                        "아람찬교"
+                  ],
+                  "answer": 0,
+                  "explanation": "세종대왕의 한글 자음 'ㅇ'을 형상화한 국내 최장 원형 다리는 이응다리(금강보행교)입니다."
+            },
+            {
+                  "id": 1803,
+                  "subject": "4과목 세종지리",
+                  "stem": "연기면 세종동에 위치하며 무대섬과 수상 레저, 산책로를 갖춘 국내 최대 규모의 도심 인공호수는?",
+                  "options": [
+                        "세종호수공원",
+                        "일산호수공원",
+                        "광교호수공원",
+                        "동탄호수공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "정부청사 인근에 축구장 62배 크기로 조성된 대표 휴식처는 세종호수공원입니다."
+            },
+            {
+                  "id": 1804,
+                  "subject": "4과목 세종지리",
+                  "stem": "세종시 중심 도로망을 전용차로로 달리며 오송역 및 대전 반석역과 직결되는 간선급행버스체계는?",
+                  "options": [
+                        "세종 BRT(바로타)",
+                        "세종 트램",
+                        "세종 도시철도",
+                        "광역 M버스"
+                  ],
+                  "answer": 0,
+                  "explanation": "세종시 대중교통의 척추 역할을 하는 전용 간선버스는 바로타(BRT)입니다."
+            },
+            {
+                  "id": 1805,
+                  "subject": "4과목 세종지리",
+                  "stem": "세종시 북부 구도심 조치원읍에 위치하며 경부선과 충북선 열차가 교차하는 철도 교통의 중심역은?",
+                  "options": [
+                        "조치원역",
+                        "오송역",
+                        "소정리역",
+                        "부강역"
+                  ],
+                  "answer": 0,
+                  "explanation": "세종시 관내에서 일반열차 운행 빈도가 가장 높은 전통의 철도역은 조치원역입니다."
+            },
+            {
+                  "id": 1806,
+                  "subject": "4과목 세종지리",
+                  "stem": "세종동 중앙공원 인근에 위치하며 축구장 90개 면적에 붓꽃원과 대형 사계절온실을 갖춘 도심형 국립수목원은?",
+                  "options": [
+                        "국립세종수목원",
+                        "국립백두대간수목원",
+                        "국립한국자생식물원",
+                        "베어트리파크"
+                  ],
+                  "answer": 0,
+                  "explanation": "도심 한복판에 조성된 국내 최초의 대형 도심형 국립수목원은 국립세종수목원입니다."
+            },
+            {
+                  "id": 1807,
+                  "subject": "4과목 세종지리",
+                  "stem": "어진동 호수공원 바로 옆에 위치하며 책장 모양의 유려한 곡선 외관을 자랑하는 국립도서관은?",
+                  "options": [
+                        "국립세종도서관",
+                        "세종시립도서관",
+                        "국립중앙도서관 본관",
+                        "세종대왕도서관"
+                  ],
+                  "answer": 0,
+                  "explanation": "펼쳐진 책을 형상화한 건축미로 유명한 국립중앙도서관의 첫 지방분관은 국립세종도서관입니다."
+            },
+            {
+                  "id": 1808,
+                  "subject": "4과목 세종지리",
+                  "stem": "반곡동에 위치하며 KDI(한국개발연구원), 국토연구원 등 주요 국책 연구기관이 입주한 연구단지는?",
+                  "options": [
+                        "세종국책연구단지",
+                        "대덕연구단지",
+                        "오송연구단지",
+                        "판교연구센터"
+                  ],
+                  "answer": 0,
+                  "explanation": "세종시 4생활권 금강변에 모여 있는 정부출연 연구기관 단지는 국책연구단지입니다."
+            },
+            {
+                  "id": 1809,
+                  "subject": "4과목 세종지리",
+                  "stem": "나성동 중심상업지역에 위치하며 국내 최장 1.4km 보행자 전용 문화·쇼핑 복합 스트리트 상가는?",
+                  "options": [
+                        "어반아트리움",
+                        "세종몰",
+                        "스마트쇼핑몰",
+                        "센트럴파크 스트리트"
+                  ],
+                  "answer": 0,
+                  "explanation": "나성동 도심 상업지구를 관통하는 대형 입체 보행 복합문화거리는 어반아트리움입니다."
+            },
+            {
+                  "id": 1810,
+                  "subject": "4과목 세종지리",
+                  "stem": "세종호수공원과 국립세종수목원 사이에 위치하며 잔디광장과 복합체육시설을 갖춘 도심 대형 공원은?",
+                  "options": [
+                        "세종중앙공원",
+                        "밀마루전망대",
+                        "원수산습지공원",
+                        "고운뜰공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "행복도시 중앙 녹지공간의 핵심을 차지하는 대형 시민공원은 세종중앙공원입니다."
+            }
+      ],
+      "gangwon": [
+            {
+                  "id": 1901,
+                  "subject": "4과목 강원지리",
+                  "stem": "강릉선 KTX의 종착역이자 동해안 관광 중심지에 위치한 고속철도역은?",
+                  "options": [
+                        "강릉역",
+                        "동해역",
+                        "속초역",
+                        "원주역"
+                  ],
+                  "answer": 0,
+                  "explanation": "서울역과 청량리에서 출발하는 경강선 고속열차의 종점은 강릉역입니다."
+            },
+            {
+                  "id": 1902,
+                  "subject": "4과목 강원지리",
+                  "stem": "강원특별자치도청이 소재하며 경춘선 전철 및 ITX-청춘의 시·종착역이 위치한 호반의 도시는?",
+                  "options": [
+                        "춘천시",
+                        "원주시",
+                        "강릉시",
+                        "속초시"
+                  ],
+                  "answer": 0,
+                  "explanation": "소양호와 의암호를 끼고 있는 도청 소재지는 춘천시입니다."
+            },
+            {
+                  "id": 1903,
+                  "subject": "4과목 강원지리",
+                  "stem": "원주시 호저면과 학성동에 위치하며 강릉선 KTX와 중앙선 KTX가 분기·정차하는 교통 요충역은?",
+                  "options": [
+                        "만종역 및 원주역",
+                        "춘천역",
+                        "태백역",
+                        "삼척역"
+                  ],
+                  "answer": 0,
+                  "explanation": "강원 남부 최대 도시 원주권의 KTX 정차 관문은 원주역과 만종역입니다."
+            },
+            {
+                  "id": 1904,
+                  "subject": "4과목 강원지리",
+                  "stem": "속초시 청호동에 위치하며 함경도 실향민들이 정착하여 형성된 갯배와 순대로 유명한 마을은?",
+                  "options": [
+                        "아바이마을",
+                        "대포항어촌마을",
+                        "남애마을",
+                        "주문진마을"
+                  ],
+                  "answer": 0,
+                  "explanation": "손으로 끌어당기는 무동력선 갯배를 타고 건너는 속초의 유명한 명소는 아바이마을입니다."
+            },
+            {
+                  "id": 1905,
+                  "subject": "4과목 강원지리",
+                  "stem": "양양군 손양면에 위치하며 동해안권 관광 및 항공 교통의 거점 국제공항은?",
+                  "options": [
+                        "양양국제공항",
+                        "원주공항",
+                        "강릉공항",
+                        "속초공항"
+                  ],
+                  "answer": 0,
+                  "explanation": "강원도 동해안 영북 지역의 하늘길 관문은 양양국제공항입니다."
+            },
+            {
+                  "id": 1906,
+                  "subject": "4과목 강원지리",
+                  "stem": "인제군 북면 용대리와 고성군 토성면을 연결하며 백두대간 미시령 고개를 신속히 관통하는 도로는?",
+                  "options": [
+                        "미시령관통도로(미시령터널)",
+                        "한계령고개",
+                        "진부령로",
+                        "대관령터널"
+                  ],
+                  "answer": 0,
+                  "explanation": "속초·고성과 영서 내륙을 사계절 안전하게 이어주는 유료터널은 미시령터널입니다."
+            },
+            {
+                  "id": 1907,
+                  "subject": "4과목 강원지리",
+                  "stem": "강릉시 죽헌동에 위치하며 신사임당과 율곡 이이가 태어난 조선 초기의 대표적 고택은?",
+                  "options": [
+                        "오죽헌",
+                        "선교장",
+                        "허균·허난설헌 생가",
+                        "경포대"
+                  ],
+                  "answer": 0,
+                  "explanation": "검은 대나무가 둘러싸고 있는 한국 주택 건축의 보물은 오죽헌입니다."
+            },
+            {
+                  "id": 1908,
+                  "subject": "4과목 강원지리",
+                  "stem": "춘천시 조운동 중앙로 인근에 위치하며 철판 닭갈비와 막국수 가게들이 집결한 특화 먹거리 골목은?",
+                  "options": [
+                        "춘천 명동 닭갈비골목",
+                        "초당두부마을",
+                        "횡성한우골목",
+                        "주문진회센터"
+                  ],
+                  "answer": 0,
+                  "explanation": "춘천 도심 최고 번화가 명동에 형성된 명물 음식 거리는 명동 닭갈비골목입니다."
+            },
+            {
+                  "id": 1909,
+                  "subject": "4과목 강원지리",
+                  "stem": "평창군 대관령면에 위치하며 고원 초원지대에서 양떼 방목과 풍력발전기 풍경으로 유명한 관광지는?",
+                  "options": [
+                        "대관령 양떼목장",
+                        "하이원리조트",
+                        "정선레일바이크",
+                        "태백산눈축제장"
+                  ],
+                  "answer": 0,
+                  "explanation": "대관령 능선 고원에 드넓게 펼쳐진 이국적인 목장은 대관령 양떼목장입니다."
+            },
+            {
+                  "id": 1910,
+                  "subject": "4과목 강원지리",
+                  "stem": "원주시 지정면 간현관광지에 위치하며 아찔한 암벽 절벽 위를 잇는 출렁다리와 잔도 코스는?",
+                  "options": [
+                        "소금산 그랜드밸리(출렁다리)",
+                        "구곡폭포",
+                        "삼척 해상케이블카",
+                        "철원 한탄강 잔도"
+                  ],
+                  "answer": 0,
+                  "explanation": "간현협곡 상공 100m 높이에 설치된 원주의 대표 스릴 관광지는 소금산 출렁다리입니다."
+            }
+      ],
+      "chungbuk": [
+            {
+                  "id": 2001,
+                  "subject": "4과목 충북지리",
+                  "stem": "경부고속선과 호남고속선이 분기하는 국내 유일의 KTX 고속철도 분기역은?",
+                  "options": [
+                        "오송역",
+                        "청주역",
+                        "대전역",
+                        "천안아산역"
+                  ],
+                  "answer": 0,
+                  "explanation": "청주시 흥덕구 오송읍에 위치한 국가 철도망의 고속 분기 거점은 오송역입니다."
+            },
+            {
+                  "id": 2002,
+                  "subject": "4과목 충북지리",
+                  "stem": "충북 청주시 청원구 내수읍에 위치하며 중부권 유일의 거점 국제공항은?",
+                  "options": [
+                        "청주국제공항",
+                        "원주공항",
+                        "군산공항",
+                        "대구공항"
+                  ],
+                  "answer": 0,
+                  "explanation": "충청권 전역과 경기 남부 주민들이 이용하는 국제공항은 청주국제공항입니다."
+            },
+            {
+                  "id": 2003,
+                  "subject": "4과목 충북지리",
+                  "stem": "청주시 상당구 성안길 인근에 위치하며 충청북도 행정의 총괄 컨트롤타워는?",
+                  "options": [
+                        "충북도청",
+                        "청주시청",
+                        "서원구청",
+                        "충북경찰청"
+                  ],
+                  "answer": 0,
+                  "explanation": "청주 원도심 상당로에 위치한 광역 행정 중심지는 충북도청입니다."
+            },
+            {
+                  "id": 2004,
+                  "subject": "4과목 충북지리",
+                  "stem": "청주시 청원구 오창읍에 조성되어 2차전지 배터리, 반도체 및 첨단 바이오 기업이 집결한 대형 산업단지는?",
+                  "options": [
+                        "오창과학산업단지",
+                        "오송생명과학단지",
+                        "옥산산업단지",
+                        "청주일반산업단지"
+                  ],
+                  "answer": 0,
+                  "explanation": "LG에너지솔루션 등 K-배터리의 중심 생산기지는 오창과학산업단지입니다."
+            },
+            {
+                  "id": 2005,
+                  "subject": "4과목 충북지리",
+                  "stem": "충주시 봉방동에 위치하며 충북선 일반열차와 중부내륙선 KTX-이음이 정차하는 북부권 중심역은?",
+                  "options": [
+                        "충주역",
+                        "제천역",
+                        "단양역",
+                        "음성역"
+                  ],
+                  "answer": 0,
+                  "explanation": "판교와 충주를 직결하는 중부내륙선의 중심 환승역은 충주역입니다."
+            },
+            {
+                  "id": 2006,
+                  "subject": "4과목 충북지리",
+                  "stem": "단양군 적성면에 위치하며 남한강 절벽 위에서 소백산과 강줄기를 한눈에 내려다보는 스릴 전망대는?",
+                  "options": [
+                        "만천하스카이워크",
+                        "도담삼봉",
+                        "고수동굴",
+                        "구담봉"
+                  ],
+                  "answer": 0,
+                  "explanation": "말굽형 투명 유리 바닥 전망대와 짚와이어가 있는 단양 명소는 만천하스카이워크입니다."
+            },
+            {
+                  "id": 2007,
+                  "subject": "4과목 충북지리",
+                  "stem": "제천시 모산동에 위치하며 삼한시대에 축조된 유서 깊은 한국 최고의 수리시설 저수지는?",
+                  "options": [
+                        "의림지",
+                        "벽골제",
+                        "수산제",
+                        "청초호"
+                  ],
+                  "answer": 0,
+                  "explanation": "수백 년 된 노송 숲과 인공폭포가 어우러진 제천의 대표 명승지는 의림지입니다."
+            },
+            {
+                  "id": 2008,
+                  "subject": "4과목 충북지리",
+                  "stem": "보은군 속리산 자락에 위치하며 국내 유일의 5층 목탑인 팔상전(국보)을 보유한 천년 고찰은?",
+                  "options": [
+                        "법주사",
+                        "구인사",
+                        "신륵사",
+                        "수덕사"
+                  ],
+                  "answer": 0,
+                  "explanation": "속리산 국립공원 입구에 웅장한 금동미륵대불과 함께 자리한 사찰은 법주사입니다."
+            },
+            {
+                  "id": 2009,
+                  "subject": "4과목 충북지리",
+                  "stem": "청주시 상당구 석교동에 위치하며 12개 테마 거리와 삼겹살 거리로 유명한 충북 최대 전통시장은?",
+                  "options": [
+                        "육거리종합시장",
+                        "서문시장",
+                        "북부시장",
+                        "가경터미널시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "도심 남동부 6개 도로가 교차하는 길목에 형성된 대형 장터는 육거리종합시장입니다."
+            },
+            {
+                  "id": 2010,
+                  "subject": "4과목 충북지리",
+                  "stem": "충주, 제천, 단양에 걸쳐 형성되어 '내륙의 바다'로 불리는 국내 최대 저수량의 다목적 인공호수는?",
+                  "options": [
+                        "충주호(청풍호)",
+                        "대청호",
+                        "소양호",
+                        "파로호"
+                  ],
+                  "answer": 0,
+                  "explanation": "충주댐 건설로 조성되어 청풍나루 유람선 등이 운항하는 거대 호수는 충주호입니다."
+            }
+      ],
+      "chungnam": [
+            {
+                  "id": 2101,
+                  "subject": "4과목 충남지리",
+                  "stem": "경부고속선과 수서평택고속선 KTX·SRT가 정차하는 충남 북부권 핵심 환승역은?",
+                  "options": [
+                        "천안아산역",
+                        "아산역",
+                        "천안역",
+                        "공주역"
+                  ],
+                  "answer": 0,
+                  "explanation": "천안시 불당동과 아산시 배방읍 경계에 위치한 핵심 고속철도역은 천안아산역입니다."
+            },
+            {
+                  "id": 2102,
+                  "subject": "4과목 충남지리",
+                  "stem": "충남도청 및 경찰청 등 행정기관이 이전하여 조성된 홍성·예산 일대의 혁신도시는?",
+                  "options": [
+                        "내포신도시",
+                        "아산배방신도시",
+                        "계룡대",
+                        "안면도관광특구"
+                  ],
+                  "answer": 0,
+                  "explanation": "충남의 새로운 행정 중심 복합신도시는 내포신도시입니다."
+            },
+            {
+                  "id": 2103,
+                  "subject": "4과목 충남지리",
+                  "stem": "보령시 대천항과 원산도를 해저로 연결하는 총연장 6.9km의 국내 최장 해저터널은?",
+                  "options": [
+                        "보령해저터널",
+                        "가덕해저터널",
+                        "인천북항터널",
+                        "통영해저터널"
+                  ],
+                  "answer": 0,
+                  "explanation": "보령 대천해수욕장과 안면도를 단시간에 잇는 해저 도로는 보령해저터널입니다."
+            },
+            {
+                  "id": 2104,
+                  "subject": "4과목 충남지리",
+                  "stem": "서산시 대산읍에 위치하며 울산, 여수와 함께 대한민국 3대 석유화학단지로 꼽히는 대형 공단은?",
+                  "options": [
+                        "대산석유화학단지",
+                        "아산인주단지",
+                        "당진철강단지",
+                        "천안외투단지"
+                  ],
+                  "answer": 0,
+                  "explanation": "현대오일뱅크, 한화토탈에너지스 등이 밀집한 충남 서해안 정유·석유단지는 대산단지입니다."
+            },
+            {
+                  "id": 2105,
+                  "subject": "4과목 충남지리",
+                  "stem": "당진시 석문면에 위치하며 한 장소에서 바다의 일출과 일몰을 동시에 볼 수 있는 명소는?",
+                  "options": [
+                        "왜목마을",
+                        "난지도",
+                        "궁평항",
+                        "마량포구"
+                  ],
+                  "answer": 0,
+                  "explanation": "지형이 북쪽으로 삐죽 솟아 있어 해돋이와 해넘이를 한곳에서 감상하는 곳은 왜목마을입니다."
+            },
+            {
+                  "id": 2106,
+                  "subject": "4과목 충남지리",
+                  "stem": "공주시 산성동 금강변에 위치하며 백제 웅진 도읍기를 수호했던 유네스코 세계문화유산 산성은?",
+                  "options": [
+                        "공산성",
+                        "부소산성",
+                        "황산벌",
+                        "상당산성"
+                  ],
+                  "answer": 0,
+                  "explanation": "무령왕릉과 함께 백제 웅진기 왕성을 대표하는 유적은 공산성입니다."
+            },
+            {
+                  "id": 2107,
+                  "subject": "4과목 충남지리",
+                  "stem": "부여군 규암면에 위치하며 백제 사비시대 왕궁과 사비성 능사를 실물 크기로 재현한 대형 단지는?",
+                  "options": [
+                        "백제문화단지",
+                        "국립공주박물관",
+                        "부소산성낙화암",
+                        "궁남지"
+                  ],
+                  "answer": 0,
+                  "explanation": "백제 역사문화를 한눈에 체험할 수 있는 부여의 랜드마크는 백제문화단지입니다."
+            },
+            {
+                  "id": 2108,
+                  "subject": "4과목 충남지리",
+                  "stem": "보령시 신흑동에 위치하며 완만한 경사와 백사장, 세계적인 머드축제로 유명한 서해안 대표 해변은?",
+                  "options": [
+                        "대천해수욕장",
+                        "무창포해수욕장",
+                        "만리포해수욕장",
+                        "꽃지해수욕장"
+                  ],
+                  "answer": 0,
+                  "explanation": "젊음의 열기와 머드축제로 전국적인 인기를 누리는 서해안 해수욕장은 대천해수욕장입니다."
+            },
+            {
+                  "id": 2109,
+                  "subject": "4과목 충남지리",
+                  "stem": "아산시 온천동에 위치하며 세종대왕 등 조선 역대 왕들이 행궁을 짓고 치료했던 최고(最古) 온천은?",
+                  "options": [
+                        "온양온천",
+                        "도고온천",
+                        "아산온천",
+                        "덕산온천"
+                  ],
+                  "answer": 0,
+                  "explanation": "지하철 1호선 온양온천역과 직결되는 유서 깊은 온천 명소는 온양온천입니다."
+            },
+            {
+                  "id": 2110,
+                  "subject": "4과목 충남지리",
+                  "stem": "논산시 연무읍에 위치하며 대한민국 육군의 신병 기초 군사훈련을 전담하는 최대 훈련소는?",
+                  "options": [
+                        "육군훈련소(연무대)",
+                        "육군사관학교",
+                        "상무대",
+                        "학생군사학교"
+                  ],
+                  "answer": 0,
+                  "explanation": "논산 입영 장정과 가족들이 매주 방문하는 대표 군사시설은 육군훈련소입니다."
+            }
+      ],
+      "jeonbuk": [
+            {
+                  "id": 2201,
+                  "subject": "4과목 전북지리",
+                  "stem": "전라선 KTX가 정차하며 전통 기와 한옥 양식으로 유명한 전북의 대표 철도역은?",
+                  "options": [
+                        "전주역",
+                        "익산역",
+                        "남원역",
+                        "정읍역"
+                  ],
+                  "answer": 0,
+                  "explanation": "역사 건물이 고풍스러운 한옥 형태를 갖춘 전북의 대표 관문은 전주역입니다."
+            },
+            {
+                  "id": 2202,
+                  "subject": "4과목 전북지리",
+                  "stem": "전주 완산구 풍남동에 위치하며 매년 수백만 명의 관광객이 찾는 국내 최대 전통마을은?",
+                  "options": [
+                        "전주 한옥마을",
+                        "순창 전통고추장마을",
+                        "남원 예촌",
+                        "익산 왕궁리유적"
+                  ],
+                  "answer": 0,
+                  "explanation": "경기전, 전동성당과 함께 700여 채의 한옥이 밀집한 곳은 전주 한옥마을입니다."
+            },
+            {
+                  "id": 2203,
+                  "subject": "4과목 전북지리",
+                  "stem": "군산시 장미동 개항장 일대에 위치하며 일제강점기 근대 건축물과 시간여행 축제가 열리는 거리는?",
+                  "options": [
+                        "군산 시간여행마을(근대역사거리)",
+                        "군산 은파호수공원",
+                        "경암동 철길마을",
+                        "고군산군도 선유도"
+                  ],
+                  "answer": 0,
+                  "explanation": "옛 군산세관과 근대역사박물관이 위치한 역사 투어 명소는 군산 근대역사거리입니다."
+            },
+            {
+                  "id": 2204,
+                  "subject": "4과목 전북지리",
+                  "stem": "익산시 창인동에 위치하며 호남고속선, 전라선, 장항선이 모두 분기·합류하는 핵심 철도 결절점 역은?",
+                  "options": [
+                        "익산역",
+                        "전주역",
+                        "군산역",
+                        "김제역"
+                  ],
+                  "answer": 0,
+                  "explanation": "호남권 철도 노선의 허브 역할을 담당하는 최대 철도역은 익산역입니다."
+            },
+            {
+                  "id": 2205,
+                  "subject": "4과목 전북지리",
+                  "stem": "군산 비응도에서 부안 변산반도를 잇는 총연장 33.9km로 세계 최장 기록을 세운 간척 방조제는?",
+                  "options": [
+                        "새만금방조제",
+                        "시화방조제",
+                        "남양방조제",
+                        "간월호방조제"
+                  ],
+                  "answer": 0,
+                  "explanation": "바다 위의 만리장성이라 불리는 초대형 국가 간척 인프라는 새만금방조제입니다."
+            },
+            {
+                  "id": 2206,
+                  "subject": "4과목 전북지리",
+                  "stem": "남원시 천거동 요천변에 위치하며 춘향전의 이도령과 성춘향이 만난 유서 깊은 조선시대 누원은?",
+                  "options": [
+                        "광한루원",
+                        "경기전",
+                        "위봉산성",
+                        "한벽당"
+                  ],
+                  "answer": 0,
+                  "explanation": "완월정과 오작교가 조성된 춘향전의 배경 무대는 광한루원입니다."
+            },
+            {
+                  "id": 2207,
+                  "subject": "4과목 전북지리",
+                  "stem": "정읍시 내장동에 위치하며 가을철 화려한 아기단풍 터널과 내장사 백양사로 유명한 국립공원은?",
+                  "options": [
+                        "내장산 국립공원",
+                        "모악산 도립공원",
+                        "대둔산 도립공원",
+                        "마이산 도립공원"
+                  ],
+                  "answer": 0,
+                  "explanation": "조선 8경 중 하나로 호남의 금강산이라 불리는 단풍 명산은 내장산입니다."
+            },
+            {
+                  "id": 2208,
+                  "subject": "4과목 전북지리",
+                  "stem": "완주군 삼례읍에 위치하며 옛 일제강점기 양곡창고를 복합 문화예술 전시공간으로 탈바꿈한 명소는?",
+                  "options": [
+                        "삼례문화예술촌",
+                        "완주 대둔산케이블카",
+                        "고산자연휴양림",
+                        "모악산도립미술관"
+                  ],
+                  "answer": 0,
+                  "explanation": "일제 쌀 수탈 기지였던 곡물창고를 도시재생 문화공간으로 조성한 곳은 삼례문화예술촌입니다."
+            },
+            {
+                  "id": 2209,
+                  "subject": "4과목 전북지리",
+                  "stem": "무주군 설천면 덕유산 자락에 위치하며 스키장과 곤돌라를 타고 향적봉에 오를 수 있는 사계절 리조트는?",
+                  "options": [
+                        "무주덕유산리조트",
+                        "지리산리조트",
+                        "내장산리조트",
+                        "변산소노벨"
+                  ],
+                  "answer": 0,
+                  "explanation": "동계 스포츠와 눈꽃 트레킹의 호남권 최고 명소는 무주덕유산리조트입니다."
+            },
+            {
+                  "id": 2210,
+                  "subject": "4과목 전북지리",
+                  "stem": "김제시 부량면에 위치하며 삼국시대에 축조된 최고(最古)의 고대 수리시설이자 지평선 축제의 무대는?",
+                  "options": [
+                        "벽골제",
+                        "의림지",
+                        "수산제",
+                        "금평저수지"
+                  ],
+                  "answer": 0,
+                  "explanation": "호남평야 쌀농사의 기원이자 거대한 쌍용 조형물이 있는 유적지는 벽골제입니다."
+            }
+      ],
+      "jeonnam": [
+            {
+                  "id": 2301,
+                  "subject": "4과목 전남지리",
+                  "stem": "전라선 KTX의 최종 종착역이자 오동도 및 해양공원이 인접한 역은?",
+                  "options": [
+                        "여수엑스포역",
+                        "순천역",
+                        "여천역",
+                        "광양역"
+                  ],
+                  "answer": 0,
+                  "explanation": "여수 밤바다와 한려해상 관광의 시발점이 되는 종착역은 여수엑스포역입니다."
+            },
+            {
+                  "id": 2302,
+                  "subject": "4과목 전남지리",
+                  "stem": "호남선 KTX의 종착역이자 서남해안 다도해 유달산이 위치한 전남 서부권 관문역은?",
+                  "options": [
+                        "목포역",
+                        "나주역",
+                        "무안역",
+                        "함평역"
+                  ],
+                  "answer": 0,
+                  "explanation": "호남선 철도의 남쪽 끝이자 목포항과 가까운 역은 목포역입니다."
+            },
+            {
+                  "id": 2303,
+                  "subject": "4과목 전남지리",
+                  "stem": "순천시 오천동 일대에 위치하며 세계 5대 연안습지 생태계를 보존하여 조성된 대한민국 제1호 국가정원은?",
+                  "options": [
+                        "순천만국가정원",
+                        "태화강국가정원",
+                        "곡성기차마을",
+                        "담양죽녹원"
+                  ],
+                  "answer": 0,
+                  "explanation": "갈대밭과 갯벌, 지구 동산이 조화를 이룬 제1호 국가정원은 순천만국가정원입니다."
+            },
+            {
+                  "id": 2304,
+                  "subject": "4과목 전남지리",
+                  "stem": "나주시 금천면·산포면에 조성되어 한국전력공사(KEPCO) 본사 등 에너지 공기업이 집결한 혁신도시는?",
+                  "options": [
+                        "광주·전남공동혁신도시(빛가람)",
+                        "대불국가산업단지",
+                        "여수국가산단",
+                        "율촌산단"
+                  ],
+                  "answer": 0,
+                  "explanation": "한전 본사와 전력거래소 등이 이전한 나주의 신도시는 빛가람혁신도시입니다."
+            },
+            {
+                  "id": 2305,
+                  "subject": "4과목 전남지리",
+                  "stem": "광양시 금호동에 위치하며 포스코의 대형 용광로와 세계적 규모의 제철설비를 갖춘 산업시설은?",
+                  "options": [
+                        "광양제철소",
+                        "포항제철소",
+                        "현대제철 당진공장",
+                        "동국제강 포항공장"
+                  ],
+                  "answer": 0,
+                  "explanation": "단일 제철소 기준으로 세계 최대급 조강 생산량을 자랑하는 곳은 광양제철소입니다."
+            },
+            {
+                  "id": 2306,
+                  "subject": "4과목 전남지리",
+                  "stem": "완도군 완도읍에 위치하며 청산도, 보길도, 제주도로 향하는 뱃길이 열리는 해양 관문 터미널은?",
+                  "options": [
+                        "완도연안여객선터미널",
+                        "녹동항여객터미널",
+                        "진도항(팽목항)",
+                        "목포연안여객터미널"
+                  ],
+                  "answer": 0,
+                  "explanation": "청산도 슬로길과 제주도 최단거리 카페리가 출항하는 곳은 완도항 터미널입니다."
+            },
+            {
+                  "id": 2307,
+                  "subject": "4과목 전남지리",
+                  "stem": "담양군 담양읍 향교리에 위치하며 울창한 대나무 숲길 산책로로 사계절 관광객이 찾는 힐링 명소는?",
+                  "options": [
+                        "죽녹원",
+                        "관방제림",
+                        "메타세쿼이아길",
+                        "소쇄원"
+                  ],
+                  "answer": 0,
+                  "explanation": "시원한 대나무 숲바람과 죽림욕을 즐기는 담양의 명소는 죽녹원입니다."
+            },
+            {
+                  "id": 2308,
+                  "subject": "4과목 전남지리",
+                  "stem": "보성군 보성읍 봉산리에 위치하며 초록빛 계단식 차밭 풍경으로 수많은 영화와 CF의 무대가 된 곳은?",
+                  "options": [
+                        "대한다원(보성녹차밭)",
+                        "하동야생차밭",
+                        "제주오설록",
+                        "강진설록다원"
+                  ],
+                  "answer": 0,
+                  "explanation": "삼나무 가로수길과 아름다운 능선 다원으로 유명한 곳은 보성 대한다원입니다."
+            },
+            {
+                  "id": 2309,
+                  "subject": "4과목 전남지리",
+                  "stem": "신안군 압해도와 암태도를 연결하며 자은도, 팔금도, 안좌도 다이아몬드 제도를 육지로 연결한 연도교는?",
+                  "options": [
+                        "천사대교",
+                        "칠산대교",
+                        "임자대교",
+                        "거금대교"
+                  ],
+                  "answer": 0,
+                  "explanation": "총연장 7.22km로 신안 1004개의 섬을 상징하는 대형 해상교량은 천사대교입니다."
+            },
+            {
+                  "id": 2310,
+                  "subject": "4과목 전남지리",
+                  "stem": "진도군 군내면과 해남군 문내면 사이의 좁은 해협으로 이순신 장군의 명량대첩 전첩지인 울돌목을 건너는 다리는?",
+                  "options": [
+                        "진도대교",
+                        "완도대교",
+                        "돌산대교",
+                        "거북선대교"
+                  ],
+                  "answer": 0,
+                  "explanation": "물살이 거세게 울며 돌아나가는 울돌목 상공에 가설된 사장교는 진도대교입니다."
+            }
+      ],
+      "gyeongbuk": [
+            {
+                  "id": 2401,
+                  "subject": "4과목 경북지리",
+                  "stem": "동해선 KTX의 종착역이자 포스코(POSCO) 제철소가 위치한 경북 제1의 도시는?",
+                  "options": [
+                        "포항시",
+                        "경주시",
+                        "구미시",
+                        "안동시"
+                  ],
+                  "answer": 0,
+                  "explanation": "포항역 KTX 개통으로 수도권과 직결된 영남 동해안 공업도시는 포항시입니다."
+            },
+            {
+                  "id": 2402,
+                  "subject": "4과목 경북지리",
+                  "stem": "불국사, 석굴암, 첨성대 등 신라 천년 고도의 유적이 집결된 유네스코 역사 관광도시는?",
+                  "options": [
+                        "경주시",
+                        "안동시",
+                        "영주시",
+                        "고령군"
+                  ],
+                  "answer": 0,
+                  "explanation": "보문관광단지와 황리단길, 대릉원을 품은 신라의 옛 수도는 경주시입니다."
+            },
+            {
+                  "id": 2403,
+                  "subject": "4과목 경북지리",
+                  "stem": "안동시 풍천면에 위치하며 풍산 류씨 집성촌이자 하회탈과 선유줄불놀이로 유명한 세계문화유산 마을은?",
+                  "options": [
+                        "안동 하회마을",
+                        "경주 양동마을",
+                        "영주 무섬마을",
+                        "성주 한개마을"
+                  ],
+                  "answer": 0,
+                  "explanation": "낙동강물이 'S'자 모양으로 마을을 감싸 안고 흐르는 유서 깊은 민속마을은 하회마을입니다."
+            },
+            {
+                  "id": 2404,
+                  "subject": "4과목 경북지리",
+                  "stem": "구미시 공단동·원평동 일대에 위치하며 전자, 반도체, IT 부품을 생산하는 내륙 최대 수출 국가산업단지는?",
+                  "options": [
+                        "구미국가산업단지",
+                        "포항철강공단",
+                        "경산지식산업지구",
+                        "대구염색단지"
+                  ],
+                  "answer": 0,
+                  "explanation": "삼성, LG 등의 제조 기반이 들어섰던 내륙 수출의 심장부는 구미국가산단입니다."
+            },
+            {
+                  "id": 2405,
+                  "subject": "4과목 경북지리",
+                  "stem": "김천시 남면 혁신도시에 위치하며 경부고속선 KTX와 SRT가 정차하는 경북 중부권 고속철도역은?",
+                  "options": [
+                        "김천구미역",
+                        "김천역",
+                        "구미역",
+                        "왜관역"
+                  ],
+                  "answer": 0,
+                  "explanation": "한국도로공사 등 공공기관이 이전한 김천혁신도시에 위치한 KTX역은 김천구미역입니다."
+            },
+            {
+                  "id": 2406,
+                  "subject": "4과목 경북지리",
+                  "stem": "영주시 부석면 태백산 자락에 위치하며 무량수전 배흘림기둥과 안양루 소백산 석양 조망으로 유명한 사찰은?",
+                  "options": [
+                        "부석사",
+                        "봉정사",
+                        "은해사",
+                        "직지사"
+                  ],
+                  "answer": 0,
+                  "explanation": "의상대사가 창건한 화엄종 종찰이자 유네스코 세계유산 산사는 부석사입니다."
+            },
+            {
+                  "id": 2407,
+                  "subject": "4과목 경북지리",
+                  "stem": "문경시 문경읍에 위치하며 영남 선비들이 과거를 보러 한양으로 향하던 옛 고갯길 도립공원은?",
+                  "options": [
+                        "문경새재(조령)",
+                        "죽령",
+                        "추풍령",
+                        "이화령"
+                  ],
+                  "answer": 0,
+                  "explanation": "제1·2·3관문 성곽과 맨발 흙길이 잘 보존된 영남대로 대표 관문은 문경새재입니다."
+            },
+            {
+                  "id": 2408,
+                  "subject": "4과목 경북지리",
+                  "stem": "포항시 남구 호미곶면에 위치하며 한반도 지형의 호랑이 꼬리에 해당하는 바다 위 '상생의 손' 일출지는?",
+                  "options": [
+                        "호미곶",
+                        "간절곶",
+                        "정동진",
+                        "영일대"
+                  ],
+                  "answer": 0,
+                  "explanation": "바다에서 솟아오른 청동 손 조형물과 등대박물관이 있는 포항의 해맞이 명소는 호미곶입니다."
+            },
+            {
+                  "id": 2409,
+                  "subject": "4과목 경북지리",
+                  "stem": "울진군 죽변면에 위치하며 에메랄드빛 동해안 바위 절벽 위를 자동으로 달리는 관광 모노레일은?",
+                  "options": [
+                        "죽변 해안스카이레일",
+                        "정동진 레일바이크",
+                        "묵호 바다케이블카",
+                        "삼척 해상케이블카"
+                  ],
+                  "answer": 0,
+                  "explanation": "죽변항에서 후정해변까지 동해 절경을 바로 발아래 감상하는 시설은 죽변 해안스카이레일입니다."
+            },
+            {
+                  "id": 2410,
+                  "subject": "4과목 경북지리",
+                  "stem": "울릉군 울릉읍에 위치하며 포항 및 울진 후포항에서 출항한 대형 카페리선이 접안하는 중심 항만은?",
+                  "options": [
+                        "사동항 및 도동항",
+                        "저동항",
+                        "천부항",
+                        "남양항"
+                  ],
+                  "answer": 0,
+                  "explanation": "울릉공항 건설 부지와 연계되는 울릉도의 핵심 대형 여객 관문항은 사동항입니다."
+            }
+      ],
+      "gyeongnam": [
+            {
+                  "id": 2501,
+                  "subject": "4과목 경남지리",
+                  "stem": "경상남도청 소재지이자 옛 마산, 창원, 진해가 통합되어 출범한 인구 100만 비수도권 유일의 특례시는?",
+                  "options": [
+                        "창원특례시",
+                        "김해시",
+                        "진주시",
+                        "양산시"
+                  ],
+                  "answer": 0,
+                  "explanation": "의창구, 성산구, 마산합포구, 마산회원구, 진해구로 구성된 경남 중심 도시는 창원시입니다."
+            },
+            {
+                  "id": 2502,
+                  "subject": "4과목 경남지리",
+                  "stem": "거제시 장목면과 부산 강서구 가덕도를 해저 침매터널과 사장교로 직결한 광역 유료도로는?",
+                  "options": [
+                        "거가대교(거가대로)",
+                        "마창대교",
+                        "남해대교",
+                        "삼천포대교"
+                  ],
+                  "answer": 0,
+                  "explanation": "부산과 거제도 간 통행시간을 40분대로 단축시킨 세계 최고 수심 침매터널 교량은 거가대교입니다."
+            },
+            {
+                  "id": 2503,
+                  "subject": "4과목 경남지리",
+                  "stem": "김해시 서상동에 위치하며 서기 42년 가락국(금관가야)을 건국한 시조 김수로왕의 능침은?",
+                  "options": [
+                        "수로왕릉(납릉)",
+                        "수로왕비릉",
+                        "구지봉",
+                        "대성동고분군"
+                  ],
+                  "answer": 0,
+                  "explanation": "김해 도심 평지에 자리잡은 금관가야의 상징 역사유적은 수로왕릉입니다."
+            },
+            {
+                  "id": 2504,
+                  "subject": "4과목 경남지리",
+                  "stem": "진주시 남강변 절벽에 위치하며 임진왜란 진주대첩과 논개의 애국 충절이 서린 누각은?",
+                  "options": [
+                        "진주성 촉석루",
+                        "밀양 영남루",
+                        "남원 광한루",
+                        "안동 영호루"
+                  ],
+                  "answer": 0,
+                  "explanation": "남강의 빼어난 절경과 함께 남강유등축제의 중심 무대가 되는 곳은 촉석루입니다."
+            },
+            {
+                  "id": 2505,
+                  "subject": "4과목 경남지리",
+                  "stem": "통영시 미륵산에 위치하며 한려해상 국립공원의 다도해 풍경을 360도로 조망할 수 있는 케이블카는?",
+                  "options": [
+                        "통영 한려수도케이블카",
+                        "사천 바다케이블카",
+                        "거제 파노라마케이블카",
+                        "하동 케이블카"
+                  ],
+                  "answer": 0,
+                  "explanation": "동피랑 벽화마을과 함께 통영을 대표하는 공중 전망 시설은 통영 케이블카입니다."
+            },
+            {
+                  "id": 2506,
+                  "subject": "4과목 경남지리",
+                  "stem": "거제시 남부면 갈곶리에 위치하며 이국적인 네덜란드풍 풍차와 탁 트인 쪽빛 바다 언덕 풍경 명소는?",
+                  "options": [
+                        "바람의 언덕",
+                        "신선대",
+                        "공곶이",
+                        "외도보타니아"
+                  ],
+                  "answer": 0,
+                  "explanation": "거제 해금강 길목의 언덕에 풍차가 서 있어 수많은 드라마의 배경이 된 곳은 바람의 언덕입니다."
+            },
+            {
+                  "id": 2507,
+                  "subject": "4과목 경남지리",
+                  "stem": "양산시 하북면 영축산 자락에 위치하며 부처님의 진신사리를 모셔 불보종찰(佛寶宗刹)로 꼽히는 사찰은?",
+                  "options": [
+                        "통도사",
+                        "해인사",
+                        "송광사",
+                        "쌍계사"
+                  ],
+                  "answer": 0,
+                  "explanation": "대웅전에 불상 대신 금강계단 사리탑을 모시고 있는 유네스코 세계유산 사찰은 통도사입니다."
+            },
+            {
+                  "id": 2508,
+                  "subject": "4과목 경남지리",
+                  "stem": "사천시 사남면에 본청을 개청하며 대한민국 뉴스페이스 우주항공 정책을 총괄하는 국가기관은?",
+                  "options": [
+                        "우주항공청(KASA)",
+                        "항공우주연구원",
+                        "국방과학연구소",
+                        "KAI한국항공우주산업"
+                  ],
+                  "answer": 0,
+                  "explanation": "경남 서부 사천에 설립된 국가 우주경제 전담 중앙행정기관은 우주항공청입니다."
+            },
+            {
+                  "id": 2509,
+                  "subject": "4과목 경남지리",
+                  "stem": "밀양시 내일동 밀양강 절벽 위에 우뚝 솟아 있으며 진주 촉석루, 평양 부벽루와 함께 조선 3대 누각은?",
+                  "options": [
+                        "영남루",
+                        "촉석루",
+                        "광한루",
+                        "세병관"
+                  ],
+                  "answer": 0,
+                  "explanation": "밀양강 푸른 물길을 내려다보는 보물 제147호의 웅장한 누각은 영남루입니다."
+            },
+            {
+                  "id": 2510,
+                  "subject": "4과목 경남지리",
+                  "stem": "남해군 삼동면에 위치하며 1960년대 파독 광부와 간호사들이 귀국하여 정착한 붉은 지붕 이국적 마을은?",
+                  "options": [
+                        "남해 독일마을",
+                        "미국마을",
+                        "다랭이마을",
+                        "보리암"
+                  ],
+                  "answer": 0,
+                  "explanation": "독일식 소시지와 맥주 축제가 열리는 남해 동부 해안의 명소는 독일마을입니다."
+            }
+      ],
+      "jeju": [
+            {
+                  "id": 2601,
+                  "subject": "4과목 제주지리",
+                  "stem": "제주시 노형오거리에서 서귀포시 대정·안덕 방면을 신속하게 잇는 제주 서부 핵심 간선도로는?",
+                  "options": [
+                        "평화로(1135호선)",
+                        "번영로",
+                        "남조로",
+                        "비자림로"
+                  ],
+                  "answer": 0,
+                  "explanation": "제주시와 서귀포 서남부 영어교육도시·중문 방면을 빠르게 연결하는 간선도로는 평화로입니다."
+            },
+            {
+                  "id": 2602,
+                  "subject": "4과목 제주지리",
+                  "stem": "제주시 용담동에 위치하며 국내외 항공편이 이착륙하는 제주도의 대표 하늘길 관문은?",
+                  "options": [
+                        "제주국제공항",
+                        "정석비행장",
+                        "서귀포비행장",
+                        "알뜨르비행장"
+                  ],
+                  "answer": 0,
+                  "explanation": "연간 수천만 명의 승객이 이용하는 제주도 북부의 대표 공항은 제주국제공항입니다."
+            },
+            {
+                  "id": 2603,
+                  "subject": "4과목 제주지리",
+                  "stem": "서귀포시 성산읍에 위치하며 바다 위로 솟아오른 거대한 사발 모양의 유네스코 세계자연유산 수성화산체는?",
+                  "options": [
+                        "성산일출봉",
+                        "산방산",
+                        "송악산",
+                        "용눈이오름"
+                  ],
+                  "answer": 0,
+                  "explanation": "제주 동쪽 끝 바다 위 일출 명소로 빼어난 경관을 자랑하는 화산체는 성산일출봉입니다."
+            },
+            {
+                  "id": 2604,
+                  "subject": "4과목 제주지리",
+                  "stem": "서귀포시 남원읍 516도로변에 위치하며 백록담 정상까지 완만한 경사로 오를 수 있는 한라산 대표 탐방로는?",
+                  "options": [
+                        "성판악 탐방로",
+                        "관음사 탐방로",
+                        "영실 탐방로",
+                        "어리목 탐방로"
+                  ],
+                  "answer": 0,
+                  "explanation": "진달래밭 대피소를 거쳐 한라산 동릉 정상 백록담에 이르는 가장 대중적인 코스는 성판악 코스입니다."
+            },
+            {
+                  "id": 2605,
+                  "subject": "4과목 제주지리",
+                  "stem": "서귀포시 색달동에 위치하며 특급호텔, 여미지식물원, 주상절리대, 천제연폭포가 밀집한 종합관광단지는?",
+                  "options": [
+                        "중문관광단지",
+                        "신화역사공원",
+                        "성산포해양관광단지",
+                        "표선민속촌"
+                  ],
+                  "answer": 0,
+                  "explanation": "국제회의장인 제주ICC와 고급 리조트가 집결한 서귀포 서남부의 단지는 중문관광단지입니다."
+            },
+            {
+                  "id": 2606,
+                  "subject": "4과목 제주지리",
+                  "stem": "서귀포시 서귀동 도심에 위치하며 모닥치기, 꽁치김밥, 야시장 먹거리로 유명한 서귀포 최대 전통시장은?",
+                  "options": [
+                        "서귀포 매일올레시장",
+                        "서귀포향토오일시장",
+                        "모슬포중앙시장",
+                        "대정오일시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "이중섭거리 인근 서귀포 원도심의 대표 관광 먹거리 전통시장은 매일올레시장입니다."
+            },
+            {
+                  "id": 2607,
+                  "subject": "4과목 제주지리",
+                  "stem": "제주시 일도1동 관덕정 인근에 위치하며 오메기떡, 흑돼지, 회 포장 등으로 북적이는 제주에서 가장 오래된 대형 상설시장은?",
+                  "options": [
+                        "동문재래시장",
+                        "서문시장",
+                        "제주민속오일시장",
+                        "보성시장"
+                  ],
+                  "answer": 0,
+                  "explanation": "공항과 부두에 가까워 여행객들이 기념품과 특산물을 구매하는 제주시 중심시장은 동문시장입니다."
+            },
+            {
+                  "id": 2608,
+                  "subject": "4과목 제주지리",
+                  "stem": "제주시 애월읍 곽지해수욕장 방면으로 이어지며 에메랄드빛 바다와 카페거리가 형성된 해안 산책길은?",
+                  "options": [
+                        "한담해안산책로",
+                        "신창풍차해안도로",
+                        "사계해안도로",
+                        "종달리해안도로"
+                  ],
+                  "answer": 0,
+                  "explanation": "바다와 현무암 바위 절벽이 어우러져 노을 산책 명소로 각광받는 곳은 한담해안산책로입니다."
+            },
+            {
+                  "id": 2609,
+                  "subject": "4과목 제주지리",
+                  "stem": "제주시 이도2동에 위치하며 제주 시외·시내버스 환승의 결절점이자 대학생 청년 상권이 형성된 로터리는?",
+                  "options": [
+                        "제주시청(광양사거리)",
+                        "노형오거리",
+                        "신제주로터리",
+                        "아라동사거리"
+                  ],
+                  "answer": 0,
+                  "explanation": "구제주 중심가로 시청 앞 번화가와 버스 노선이 집중되는 곳은 제주시청(광양로터리)입니다."
+            },
+            {
+                  "id": 2610,
+                  "subject": "4과목 제주지리",
+                  "stem": "서귀포시 대정읍 하모리에 위치하며 가파도 청보리 축제와 대한민국 최남단 마라도행 정기 여객선이 출항하는 항구는?",
+                  "options": [
+                        "모슬포항(운진항)",
+                        "성산포항",
+                        "한림항",
+                        "서귀포항"
+                  ],
+                  "answer": 0,
+                  "explanation": "방어 축제와 가파도·마라도 뱃길의 중심 출발 항만은 모슬포항(운진항)입니다."
+            }
+      ]
+};
+
+    // Master Question Pool (212 questions total)
+    function getAllQuestions() {
+      const pool = [...COMMON_QUESTIONS];
+      Object.values(REGIONAL_GEOGRAPHY).forEach(list => pool.push(...list));
+      return pool;
+    }
+
+    // Helper: Random sample N items without replacement
+    function sampleRandom(arr, n) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy.slice(0, n);
+    }
+
+    // --- State ---
+    let currentMode = 'speed';
+    let userPoints = 0;
+    let wrongQuestionIds = JSON.parse(localStorage.getItem('taxi_wrong_ids') || '[]');
+
+    // Active Question Bank = Common + Selected Region
+    function getActiveQuestionBank() {
+      const geoQuestions = REGIONAL_GEOGRAPHY[currentRegion] || [];
+      return [...COMMON_QUESTIONS, ...geoQuestions];
+    }
+
+    // Speed Quiz State
+    let speedQuestions = [];
+    let speedIndex = 0;
+    let speedSelected = null;
+    let speedCorrectCount = 0;
+    const SUBJECT_KEYS = ['law', 'safety', 'service', 'geo'];
+    let speedSubjectTotals = { law: 0, safety: 0, service: 0, geo: 0 };
+    let speedSubjectCorrect = { law: 0, safety: 0, service: 0, geo: 0 };
+
+    // Mock Exam State
+    let mockQuestions = [];
+    let mockIndex = 0;
+    let mockAnswers = {};
+    let mockTimerSec = 1800;
+    let mockTimerInterval = null;
+
+    let audioCtx = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playTone(freq, type = 'sine', dur = 0.1) {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + dur);
+      } catch (e) {}
+    }
+
+    function playCorrectSound() {
+      try {
+        const ctx = getAudioCtx();
+        const now = ctx.currentTime;
+        [523.25, 659.25, 783.99].forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(f, now + idx * 0.08);
+          gain.gain.setValueAtTime(0.25, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.15);
+        });
+      } catch (e) {}
+    }
+
+    function playWrongSound() {
+      playTone(220, 'sawtooth', 0.25);
+    }
+
+    function showToast(msg, icon = '🪙') {
+      const toast = document.getElementById('toastBox');
+      document.getElementById('toastMsg').innerText = msg;
+      document.getElementById('toastIcon').innerText = icon;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function updateWrongBadge() {
+      document.getElementById('wrongCountBadge').innerText = wrongQuestionIds.length;
+    }
+
+    // --- Region Selector Logic ---
+    function renderRegionGrid() {
+      const grid = document.getElementById('regionGrid');
+      grid.innerHTML = '';
+      REGIONS.forEach(reg => {
+        const btn = document.createElement('div');
+        btn.className = 'region-btn' + (reg.key === currentRegion ? ' active' : '');
+        btn.innerText = reg.name;
+        btn.title = reg.name;
+        btn.onclick = () => selectRegion(reg.key);
+        grid.appendChild(btn);
+      });
+    }
+
+    function openRegionSheet() {
+      renderRegionGrid();
+      document.getElementById('regionModalBackdrop').classList.add('open');
+    }
+
+    function closeRegionSheet(e) {
+      if (e) e.stopPropagation();
+      document.getElementById('regionModalBackdrop').classList.remove('open');
+    }
+
+    function selectRegion(key) {
+      currentRegion = key;
+      localStorage.setItem('taxi_region', key);
+
+      const regObj = REGIONS.find(r => r.key === key);
+      document.getElementById('currentRegionLabel').innerText = regObj ? regObj.name : '서울';
+      document.getElementById('heroRegionSub').innerText = `${regObj ? regObj.name : ''} 맞춤 기출`;
+
+      closeRegionSheet();
+      showToast(`응시 지역이 [${regObj ? regObj.name : ''}]으로 변경되었습니다!`, '📍');
+
+      if (currentMode === 'speed') initSpeedQuiz();
+      else if (currentMode === 'mock') initMockExam();
+    }
+
+    // --- Mode Switch ---
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById('tabBtnSpeed').classList.toggle('active', mode === 'speed');
+      document.getElementById('tabBtnMock').classList.toggle('active', mode === 'mock');
+      document.getElementById('tabBtnNotes').classList.toggle('active', mode === 'notes');
+
+      document.getElementById('viewSpeed').style.display = mode === 'speed' ? 'block' : 'none';
+      document.getElementById('viewMock').style.display = mode === 'mock' ? 'block' : 'none';
+      document.getElementById('viewNotes').style.display = mode === 'notes' ? 'block' : 'none';
+
+      if (mode === 'speed') initSpeedQuiz();
+      else if (mode === 'mock') initMockExam();
+      else if (mode === 'notes') renderWrongNotes();
+    }
+    // --- 1. Speed Quiz (10 Questions Random Sample: 3 Law + 2 Safety + 2 Service + 3 Selected Region Geo) ---
+    function initSpeedQuiz() {
+      const qLaw = sampleRandom(LAW_QUESTIONS, 3);
+      const qSafety = sampleRandom(SAFETY_QUESTIONS, 2);
+      const qService = sampleRandom(SERVICE_QUESTIONS, 2);
+      const regGeoPool = REGIONAL_GEOGRAPHY[currentRegion] || REGIONAL_GEOGRAPHY.seoul;
+      const qGeo = sampleRandom(regGeoPool, 3);
+
+      speedQuestions = sampleRandom([...qLaw, ...qSafety, ...qService, ...qGeo], 10);
+      speedIndex = 0;
+      speedCorrectCount = 0;
+      speedSubjectTotals = { law: 0, safety: 0, service: 0, geo: 0 };
+      speedSubjectCorrect = { law: 0, safety: 0, service: 0, geo: 0 };
+      speedQuestions.forEach(q => {
+        const key = subjectKeyOf(q);
+        if (key) speedSubjectTotals[key] += 1;
+      });
+      renderSpeedCard();
+    }
+
+    function renderSpeedCard() {
+      const q = speedQuestions[speedIndex];
+      speedSelected = null;
+
+      document.getElementById('speedSubjectTag').innerText = q.subject;
+      document.getElementById('speedStepTxt').innerText = `${speedIndex + 1} / 10 문제`;
+      document.getElementById('speedStemText').innerText = q.stem;
+      document.getElementById('speedExpBox').classList.remove('show');
+      document.getElementById('btnSpeedNext').disabled = true;
+
+      const list = document.getElementById('speedOptionList');
+      list.innerHTML = '';
+
+      q.options.forEach((opt, idx) => {
+        const item = document.createElement('div');
+        item.className = 'option-item';
+        item.onclick = () => selectSpeedOption(idx);
+        item.innerHTML = `
+          <div class="option-num-circle">${idx + 1}</div>
+          <div>${opt}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function selectSpeedOption(idx) {
+      if (speedSelected !== null) return;
+      speedSelected = idx;
+
+      const q = speedQuestions[speedIndex];
+      const items = document.querySelectorAll('#speedOptionList .option-item');
+
+      if (idx === q.answer) {
+        items[idx].classList.add('correct');
+        playCorrectSound();
+        speedCorrectCount++;
+        const corrKey = subjectKeyOf(q);
+        if (corrKey) speedSubjectCorrect[corrKey] += 1;
+        document.getElementById('speedExpTitle').innerText = '정답입니다! 👏';
+        document.getElementById('speedExpTitle').style.color = 'var(--toss-green)';
+      } else {
+        items[idx].classList.add('wrong');
+        items[q.answer].classList.add('correct');
+        playWrongSound();
+        if (!wrongQuestionIds.includes(q.id)) {
+          wrongQuestionIds.push(q.id);
+          localStorage.setItem('taxi_wrong_ids', JSON.stringify(wrongQuestionIds));
+          updateWrongBadge();
+        }
+        document.getElementById('speedExpTitle').innerText = '오답입니다 (핵심 팩트 확인)';
+        document.getElementById('speedExpTitle').style.color = 'var(--toss-red)';
+      }
+
+      document.getElementById('speedExpBody').innerText = q.explanation;
+      document.getElementById('speedExpBox').classList.add('show');
+      document.getElementById('btnSpeedNext').disabled = false;
+    }
+
+    function nextSpeedQuestion() {
+      speedIndex++;
+      if (speedIndex < speedQuestions.length) {
+        renderSpeedCard();
+      } else {
+        userPoints += 1;
+        showToast('10문제 완독 완료! 합격 스탬프 +1 🎯', '🎯');
+        const regObj = REGIONS.find(r => r.key === currentRegion);
+        const regName = regObj ? regObj.name : '서울';
+        const finalScore = speedCorrectCount * 10;
+        const isPass = finalScore >= 60;
+
+        openResultModal({
+          type: 'speed',
+          title: `${regName} 택시면허 10문제 벼락치기`,
+          score: finalScore,
+          pass: isPass,
+          desc: `10문제 중 ${speedCorrectCount}문제를 맞추셨습니다! (완독 스탬프 +1 적립)`,
+          regionName: regName,
+          subjects: buildSubjectRows(SUBJECT_KEYS, speedSubjectTotals, speedSubjectCorrect),
+          correctCount: speedCorrectCount,
+          totalCount: 10
+        });
+      }
+    }
+    // --- 2. Mock Exam (Real 40 Questions CBT: 10 Law + 10 Safety + 10 Service + 10 Selected Region Geo) ---
+    function initMockExam() {
+      // Sample 10 questions per subject randomly from question banks
+      const qLaw = sampleRandom(LAW_QUESTIONS, 10);
+      const qSafety = sampleRandom(SAFETY_QUESTIONS, 10);
+      const qService = sampleRandom(SERVICE_QUESTIONS, 10);
+      const regGeoPool = REGIONAL_GEOGRAPHY[currentRegion] || REGIONAL_GEOGRAPHY.seoul;
+      const qGeo = sampleRandom(regGeoPool, 10);
+
+      // Structure 40 questions in real CBT subject order: 1과목(1~10) -> 2과목(11~20) -> 3과목(21~30) -> 4과목(31~40)
+      mockQuestions = [...qLaw, ...qSafety, ...qService, ...qGeo];
+      mockIndex = 0;
+      mockAnswers = {};
+      startMockTimer();
+      renderMockCard();
+    }
+
+    function startMockTimer() {
+      if (mockTimerInterval) clearInterval(mockTimerInterval);
+      mockTimerSec = 1800;
+      mockTimerInterval = setInterval(() => {
+        mockTimerSec--;
+        const m = String(Math.floor(mockTimerSec / 60)).padStart(2, '0');
+        const s = String(mockTimerSec % 60).padStart(2, '0');
+        document.getElementById('mockTimerDisplay').innerText = `${m}:${s}`;
+        if (mockTimerSec <= 0) {
+          clearInterval(mockTimerInterval);
+          submitMockExam();
+        }
+      }, 1000);
+    }
+
+    function renderMockCard() {
+      const q = mockQuestions[mockIndex];
+      document.getElementById('mockSubjectTag').innerText = q.subject;
+      document.getElementById('mockStepTxt').innerText = `제 ${mockIndex + 1} 문 (총 ${mockQuestions.length}문)`;
+      document.getElementById('mockProgressTxt').innerText = `${mockIndex + 1} / ${mockQuestions.length}`;
+      document.getElementById('mockStemText').innerText = q.stem;
+
+      // Update Visual Progress Bar
+      const progressPct = ((mockIndex + 1) / mockQuestions.length) * 100;
+      const pb = document.getElementById('mockProgressBar');
+      if (pb) pb.style.width = `${progressPct}%`;
+
+      const list = document.getElementById('mockOptionList');
+      list.innerHTML = '';
+
+      const userAns = mockAnswers[q.id];
+
+      q.options.forEach((opt, idx) => {
+        const item = document.createElement('div');
+        item.className = 'option-item' + (userAns === idx ? ' correct' : '');
+        item.onclick = () => {
+          mockAnswers[q.id] = idx;
+          playTone(440, 'triangle', 0.05);
+          renderMockCard();
+        };
+        item.innerHTML = `
+          <div class="option-num-circle">${idx + 1}</div>
+          <div>${opt}</div>
+        `;
+        list.appendChild(item);
+      });
+
+      document.getElementById('btnMockPrev').disabled = (mockIndex === 0);
+    }
+
+    function prevMockQuestion() {
+      if (mockIndex > 0) {
+        mockIndex--;
+        renderMockCard();
+      }
+    }
+
+    function nextMockQuestion() {
+      if (mockIndex < mockQuestions.length - 1) {
+        mockIndex++;
+        renderMockCard();
+      }
+    }
+
+    function submitMockExam() {
+      if (mockTimerInterval) clearInterval(mockTimerInterval);
+
+      let correct = 0;
+      let lawCorrect = 0, safetyCorrect = 0, serviceCorrect = 0, geoCorrect = 0;
+      const mockTotals = { law: 0, safety: 0, service: 0, geo: 0 };
+
+      mockQuestions.forEach(q => {
+        const subjKey = subjectKeyOf(q);
+        if (subjKey) mockTotals[subjKey] += 1;
+        const isCorr = (mockAnswers[q.id] === q.answer);
+        if (isCorr) {
+          correct++;
+          if (subjKey === 'law') lawCorrect++;
+          else if (subjKey === 'safety') safetyCorrect++;
+          else if (subjKey === 'service') serviceCorrect++;
+          else if (subjKey === 'geo') geoCorrect++;
+        } else {
+          if (!wrongQuestionIds.includes(q.id)) {
+            wrongQuestionIds.push(q.id);
+          }
+        }
+      });
+
+      localStorage.setItem('taxi_wrong_ids', JSON.stringify(wrongQuestionIds));
+      updateWrongBadge();
+
+      const finalScore = Math.round((correct / mockQuestions.length) * 100);
+      const isPass = finalScore >= 60;
+      const regObj = REGIONS.find(r => r.key === currentRegion);
+      const regName = regObj ? regObj.name : '서울';
+
+      const resultPayload = {
+        type: 'mock',
+        title: `${regName} 택시면허 모의고사 성적표`,
+        score: finalScore,
+        pass: isPass,
+        desc: isPass ? '축하합니다! 합격 기준 60점을 달성하셨습니다!' : '아쉽습니다. 60점 미만입니다. 벼락치기 오답노트로 취약 과목을 보완해보세요!',
+        regionName: regName,
+        subjects: buildSubjectRows(SUBJECT_KEYS, mockTotals, { law: lawCorrect, safety: safetyCorrect, service: serviceCorrect, geo: geoCorrect }),
+        correctCount: correct,
+        totalCount: mockQuestions.length
+      };
+
+      // Trigger Interstitial Ad Slot before showing final score modal
+      showInterstitialAd(() => {
+        openResultModal(resultPayload);
+      });
+    }
+
+    // --- 3. Wrong Notes View ---
+    function renderWrongNotes() {
+      const container = document.getElementById('notesContainer');
+      container.innerHTML = '';
+
+      if (wrongQuestionIds.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+            <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
+            <div style="font-size: 16px; font-weight: 800; color: var(--text-primary);">오답노트가 비어있습니다!</div>
+            <div style="font-size: 13px; margin-top: 4px;">틀린 문제가 없거나 모두 마스터하셨습니다.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const allQuestions = getAllQuestions();
+
+      wrongQuestionIds.forEach(id => {
+        const q = allQuestions.find(item => item.id === id);
+        if (!q) return;
+
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+          <div class="q-header-row">
+            <span class="q-subject-tag">${q.subject}</span>
+            <span style="font-size: 12px; font-weight: 800; color: var(--toss-red);">취약 오답</span>
+          </div>
+          <div class="q-stem-text">${q.stem}</div>
+          <div style="background: var(--toss-green-bg); padding: 12px 14px; border-radius: 12px; font-size: 13.5px; font-weight: 800; color: #087f5b;">
+            정답: ${q.answer + 1}번. ${q.options[q.answer]}
+          </div>
+          <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.4;">
+            💡 해설: ${q.explanation}
+          </div>
+          <button style="height: 38px; border: 1px solid var(--toss-border); background: var(--toss-gray-bg); border-radius: 10px; font-size: 12.5px; font-weight: 750; color: var(--text-secondary); cursor: pointer;" onclick="removeWrongNote(${q.id})">
+            ✓ 마스터 완료 (오답노트에서 삭제)
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function removeWrongNote(id) {
+      wrongQuestionIds = wrongQuestionIds.filter(x => x !== id);
+      localStorage.setItem('taxi_wrong_ids', JSON.stringify(wrongQuestionIds));
+      updateWrongBadge();
+      renderWrongNotes();
+      showToast('오답노트에서 삭제되었습니다!', '✓');
+    }
+
+    
+    // --- Interstitial Ad Controller (Toss Ad SDK Slot) ---
+    let interstitialCountdown = 3;
+    let interstitialTimer = null;
+    let pendingModalCallback = null;
+
+    function showInterstitialAd(callback) {
+      pendingModalCallback = callback;
+
+      // 1. If Toss Official Ad SDK is loaded in Toss In-app environment
+      if (window.toss && window.toss.ads && typeof window.toss.ads.showInterstitial === 'function') {
+        window.toss.ads.showInterstitial({
+          adUnitId: 'ait-taxi-interstitial-result-01'
+        }).then(() => {
+          if (pendingModalCallback) { pendingModalCallback(); pendingModalCallback = null; }
+        }).catch((err) => {
+          console.warn('Toss interstitial ad error or skipped:', err);
+          if (pendingModalCallback) { pendingModalCallback(); pendingModalCallback = null; }
+        });
+        return;
+      }
+
+      // 2. High-converting Simulator Interstitial Modal for Web preview & Verification
+      const modal = document.getElementById('interstitialModal');
+      const closeBtn = document.getElementById('btnInterstitialClose');
+      interstitialCountdown = 3;
+      closeBtn.innerText = `닫기 (${interstitialCountdown})`;
+      closeBtn.disabled = true;
+      closeBtn.style.opacity = '0.6';
+
+      modal.classList.add('open');
+
+      if (interstitialTimer) clearInterval(interstitialTimer);
+      interstitialTimer = setInterval(() => {
+        interstitialCountdown--;
+        if (interstitialCountdown > 0) {
+          closeBtn.innerText = `닫기 (${interstitialCountdown})`;
+        } else {
+          clearInterval(interstitialTimer);
+          closeBtn.innerText = '✕ 닫기';
+          closeBtn.disabled = false;
+          closeBtn.style.opacity = '1';
+        }
+      }, 1000);
+    }
+
+    function closeInterstitialAd() {
+      if (interstitialTimer) clearInterval(interstitialTimer);
+      document.getElementById('interstitialModal').classList.remove('open');
+      if (pendingModalCallback) {
+        pendingModalCallback();
+        pendingModalCallback = null;
+      }
+    }
+
+    function handleClickInterstitialAd() {
+      playTone(587.33, 'triangle', 0.08);
+      showToast('스폰서 제휴 채용 페이지로 연결됩니다!', '🚕');
+      setTimeout(() => {
+        closeInterstitialAd();
+      }, 1200);
+    }
+
+    // --- 모의고사 성적표 (합격 예측 리포트: 모달 & 1080×1080 캔버스) ---
+    let currentReportData = null;
+
+    function subjectKeyOf(q) {
+      const s = (q && q.subject) ? q.subject : '';
+      if (s.includes('1과목')) return 'law';
+      if (s.includes('2과목')) return 'safety';
+      if (s.includes('3과목')) return 'service';
+      if (s.includes('4과목')) return 'geo';
+      return null;
+    }
+
+    function buildSubjectRows(keys, totals, corrects) {
+      const labels = { law: '1과목 법규', safety: '2과목 안전', service: '3과목 서비스', geo: '4과목 지리' };
+      return keys.map(k => {
+        const total = totals[k] || 0;
+        const correct = corrects[k] || 0;
+        const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+        return { key: k, name: labels[k], pct: pct, correct: correct, total: total };
+      });
+    }
+
+    function openResultModal(data) {
+      currentReportData = data;
+      const regName = data.regionName || '서울';
+      const candidateName = localStorage.getItem('taxi_user_name') || '김정열';
+
+      const now = new Date();
+      const dateDot = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+
+      document.getElementById('reportRegionBadge').innerText = regName;
+      document.getElementById('reportExamDate').innerText = dateDot;
+      document.getElementById('reportScore').innerText = `${data.score}`;
+      document.getElementById('reportUserName').innerText = `${candidateName} 님`;
+
+      const badge = document.getElementById('reportStatusBadge');
+      if (data.pass) {
+        badge.className = 'report-status-badge pass';
+        badge.innerText = '합격 예측권 🎯';
+      } else {
+        badge.className = 'report-status-badge fail';
+        badge.innerText = '60점 미만 · 복습 필요';
+      }
+
+      const modeLabel = data.type === 'mock' ? '📝 40문 모의고사' : '⚡ 10문 벼락치기';
+      const totalCount = data.totalCount || 10;
+      const correctCount = (data.correctCount !== undefined) ? data.correctCount : Math.round((data.score / 100) * totalCount);
+      document.getElementById('reportCaption').innerText = `${modeLabel} · ${totalCount}문 중 ${correctCount}문 정답`;
+
+      const wrap = document.getElementById('reportSubjects');
+      wrap.innerHTML = '';
+      (data.subjects || []).forEach(s => {
+        const row = document.createElement('div');
+        row.className = 'report-subject';
+        row.innerHTML = `
+          <div class="report-subject-head">
+            <span class="report-subject-name">${s.name}</span>
+            <span class="report-subject-val">${s.pct}%<em>${s.correct}/${s.total}문</em></span>
+          </div>
+          <div class="report-track"><div class="report-fill${s.pct < 60 ? ' low' : ''}" style="width: 0%"></div></div>
+        `;
+        wrap.appendChild(row);
+        const fill = row.querySelector('.report-fill');
+        if (fill) {
+          const w = s.pct > 0 ? Math.max(4, s.pct) : 0;
+          setTimeout(() => { fill.style.width = `${w}%`; }, 60);
+        }
+      });
+
+      document.getElementById('btnReportReview').style.display = data.pass ? 'none' : 'block';
+      document.getElementById('resultModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('resultModal').classList.remove('open');
+    }
+
+    function editReportName() {
+      const current = localStorage.getItem('taxi_user_name') || '김정열';
+      const input = prompt('성적표에 표시될 응시자 이름을 입력해주세요:', current);
+      if (input && input.trim()) {
+        const cleaned = input.trim();
+        localStorage.setItem('taxi_user_name', cleaned);
+        document.getElementById('reportUserName').innerText = `${cleaned} 님`;
+        showToast(`응시자 이름이 '${cleaned}'(으)로 변경되었습니다!`, '✏️');
+      }
+    }
+
+    function retryExam() {
+      closeModal();
+      if (currentMode === 'mock') {
+        initMockExam();
+      } else {
+        initSpeedQuiz();
+      }
+      showToast('시험이 새로 시작되었습니다!', '🔄');
+    }
+
+    function goToNotesAndClose() {
+      closeModal();
+      switchMode('notes');
+    }
+
+    function generateAndSaveReport() {
+      const canvas = document.getElementById('reportCanvas');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+
+      const data = currentReportData || {};
+      const regObj = REGIONS.find(r => r.key === currentRegion);
+      const regName = data.regionName || (regObj ? regObj.name : '서울');
+      const candidateName = localStorage.getItem('taxi_user_name') || '김정열';
+      const score = (data.score !== undefined) ? data.score : 0;
+      const subjects = data.subjects || [];
+      const totalCount = data.totalCount || 10;
+      const correctCount = (data.correctCount !== undefined) ? data.correctCount : Math.round((score / 100) * totalCount);
+      const isPass = !!data.pass;
+
+      const now = new Date();
+      const dateDot = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+      const fnameDate = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+
+      const W = 1080, H = 1080;
+      const PAD = 116;            // card 안쪽 좌우 여백
+      const RIGHT = W - PAD;      // 964
+      const FONT = '"Pretendard Variable", Pretendard, -apple-system, sans-serif';
+
+      // 1. 배경 (TDS 라이트 그레이)
+      ctx.fillStyle = '#f2f4f6';
+      ctx.fillRect(0, 0, W, H);
+
+      // 2. 화이트 카드
+      ctx.save();
+      ctx.shadowColor = 'rgba(25, 31, 40, 0.08)';
+      ctx.shadowBlur = 40;
+      ctx.shadowOffsetY = 10;
+      ctx.beginPath();
+      ctx.roundRect(54, 54, W - 108, H - 108, 52);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
+      ctx.restore();
+
+      // 3. 상단 태그
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillStyle = '#8b95a1';
+      ctx.font = `750 26px ${FONT}`;
+      ctx.fillText('🚕 택시면허 3초 CBT · 모의고사 성적표', PAD, 138);
+
+      // 4. 지역 배지 + 응시일
+      const drawPill = (x, y, text, font, textColor, bgColor, h, padX) => {
+        ctx.font = font;
+        const tw = ctx.measureText(text).width;
+        const w = tw + padX * 2;
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, h / 2);
+        ctx.fillStyle = bgColor;
+        ctx.fill();
+        ctx.fillStyle = textColor;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, x + padX, y + h / 2 + 1);
+        ctx.textBaseline = 'alphabetic';
+        return w;
+      };
+
+      drawPill(PAD, 166, regName, `800 26px ${FONT}`, '#3182f6', '#e8f3ff', 44, 20);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#8b95a1';
+      ctx.font = `700 26px ${FONT}`;
+      ctx.fillText(dateDot, RIGHT, 197);
+
+      // 5. 핵심 점수
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#191f28';
+      ctx.font = `900 150px ${FONT}`;
+      const scoreText = `${score}`;
+      ctx.fillText(scoreText, PAD, 340);
+      let cursorX = PAD + ctx.measureText(scoreText).width + 8;
+
+      ctx.font = `800 54px ${FONT}`;
+      ctx.fillText('점', cursorX, 340);
+      cursorX += ctx.measureText('점').width + 16;
+
+      ctx.fillStyle = '#8b95a1';
+      ctx.font = `700 28px ${FONT}`;
+      ctx.fillText('/ 100점 만점', cursorX, 340);
+
+      // 6. 상태 배지
+      if (isPass) {
+        drawPill(PAD, 366, '합격 예측권 🎯', `800 29px ${FONT}`, '#1b64da', '#e8f3ff', 54, 22);
+      } else {
+        drawPill(PAD, 366, '60점 미만 · 복습 필요', `800 29px ${FONT}`, '#f04452', '#fff1f0', 54, 22);
+      }
+
+      // 7. 캡션 (모드 · 정답 수)
+      const modeLabel = data.type === 'mock' ? '📝 40문 모의고사' : '⚡ 10문 벼락치기';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#8b95a1';
+      ctx.font = `650 25px ${FONT}`;
+      ctx.fillText(`${modeLabel} · ${totalCount}문 중 ${correctCount}문 정답`, PAD, 462);
+
+      // 8. 구분선
+      ctx.strokeStyle = '#f2f4f6';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(PAD, 496);
+      ctx.lineTo(RIGHT, 496);
+      ctx.stroke();
+
+      // 9. 응시자
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#8b95a1';
+      ctx.font = `700 27px ${FONT}`;
+      ctx.fillText('응시자', PAD, 552);
+
+      ctx.fillStyle = '#191f28';
+      ctx.font = `800 34px ${FONT}`;
+      ctx.fillText(`${candidateName} 님`, PAD + 112, 552);
+
+      ctx.strokeStyle = '#f2f4f6';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(PAD, 586);
+      ctx.lineTo(RIGHT, 586);
+      ctx.stroke();
+
+      // 10. 과목별 득점률 프로그레스 바
+      const TRACK_X = PAD;
+      const TRACK_W = RIGHT - PAD;   // 848
+      const TRACK_H = 12;
+      const rowHeads = [626, 704, 782, 860];
+
+      subjects.slice(0, 4).forEach((s, i) => {
+        const headY = rowHeads[i];
+        const pct = s.pct;
+
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#4e5968';
+        ctx.font = `700 27px ${FONT}`;
+        ctx.fillText(s.name, TRACK_X, headY);
+
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#191f28';
+        ctx.font = `850 31px ${FONT}`;
+        ctx.fillText(`${pct}%`, RIGHT, headY);
+        const pctW = ctx.measureText(`${pct}%`).width;
+
+        ctx.fillStyle = '#b0b8c1';
+        ctx.font = `600 20px ${FONT}`;
+        ctx.fillText(`${s.correct}/${s.total}문`, RIGHT - pctW - 14, headY);
+
+        const trackY = headY + 24;
+        ctx.beginPath();
+        ctx.roundRect(TRACK_X, trackY, TRACK_W, TRACK_H, TRACK_H / 2);
+        ctx.fillStyle = '#f2f4f6';
+        ctx.fill();
+
+        const fillW = s.total > 0 ? (TRACK_W * pct) / 100 : 0;
+        if (fillW > 0) {
+          ctx.beginPath();
+          ctx.roundRect(TRACK_X, trackY, Math.max(fillW, 14), TRACK_H, TRACK_H / 2);
+          ctx.fillStyle = pct < 60 ? '#f04452' : '#3182f6';
+          ctx.fill();
+        }
+      });
+
+      // 11. 안내 문구
+      ctx.strokeStyle = '#f2f4f6';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(PAD, 928);
+      ctx.lineTo(RIGHT, 928);
+      ctx.stroke();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#b0b8c1';
+      ctx.font = `600 22px ${FONT}`;
+      ctx.fillText('본 리포트는 모의고사 학습 기록이며', PAD, 962);
+      ctx.fillText('공식 자격증이나 시험 합격 증명이 아닙니다.', PAD, 992);
+
+      // 12. 저장
+      const link = document.createElement('a');
+      link.download = `택시모의고사_성적표_${regName}_${candidateName}_${fnameDate}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('1080×1080 모의고사 성적표가 저장되었습니다!', '📄');
+    }
+
+
+    // --- Banner Ads Rotation & Click ---
+    const ROTATING_ADS = [
+      {
+        icon: "🚗",
+        title: "현대해상 다이렉트 자동차보험",
+        subtitle: "자사 오프라인 대비 평균 15.4% 저렴!",
+        cta: "확인 >",
+        url: "https://direct.hi.co.kr"
+      },
+      {
+        icon: "📦",
+        title: "쿠팡 퀵플렉스 배송기사 모집",
+        subtitle: "원하는 구역 고정 배차 · 월 500만 원 이상 수입",
+        cta: "지원 >",
+        url: "https://www.coupang.com"
+      },
+      {
+        icon: "🛡️",
+        title: "DB손해보험 참좋은 운전자보험",
+        subtitle: "교통사고 처리지원금 최대 2억 원 보장",
+        cta: "보기 >",
+        url: "https://www.idb.co.kr"
+      },
+      {
+        icon: "🚕",
+        title: "카카오 T 블루 택시기사 채용",
+        subtitle: "4대보험 완비 · 안정적인 월급제 운전직",
+        cta: "신청 >",
+        url: "https://www.kakaomobility.com"
+      }
+    ];
+
+    let currentAdIndex = 0;
+    let adInterval = null;
+
+    function startBannerAdRotation() {
+      if (adInterval) clearInterval(adInterval);
+      adInterval = setInterval(() => {
+        currentAdIndex = (currentAdIndex + 1) % ROTATING_ADS.length;
+        const ad = ROTATING_ADS[currentAdIndex];
+        const titleEl = document.getElementById('bannerAdTitle');
+        const subEl = document.getElementById('bannerAdSubtitle');
+        const ctaEl = document.getElementById('bannerAdCta');
+
+        titleEl.style.opacity = '0';
+        subEl.style.opacity = '0';
+
+        setTimeout(() => {
+          titleEl.innerHTML = `<span>${ad.icon}</span> ${ad.title}`;
+          subEl.innerText = ad.subtitle;
+          ctaEl.innerText = ad.cta;
+          titleEl.style.opacity = '1';
+          subEl.style.opacity = '1';
+        }, 200);
+      }, 7000);
+    }
+
+    function handleClickBannerAd() {
+      const ad = ROTATING_ADS[currentAdIndex];
+      showToast(`[광고 이동] ${ad.title}`, '🔗');
+      // In Toss production: window.toss.ads.onBannerClick()
+    }
+
+    // --- Toss Ads SDK Hook ---
+    function initTossAdsSDK() {
+      // Toss developer console ad unit placeholder
+      if (window.toss && window.toss.ads) {
+        try {
+          window.toss.ads.showBanner({
+            adUnitId: "TOSS_TAXICBT_BOTTOM_BANNER",
+            position: "BOTTOM"
+          });
+        } catch (e) {
+          console.log("Toss Ads SDK fallback to web banner");
+        }
+      }
+    }
+
+    // --- Exit Modal & Android Back Button (Toss Review Essential) ---
+    let exitActionTarget = 'app';
+
+    function showExitModal(target = 'app') {
+      exitActionTarget = target;
+      const modal = document.getElementById('exitModal');
+      const title = document.getElementById('exitModalTitle');
+      const desc = document.getElementById('exitModalDesc');
+      if (target === 'mock') {
+        title.innerText = "모의고사를 종료할까요?";
+        desc.innerText = "지금 나가시면 현재까지 푼 기록은 저장되지 않습니다.";
+      } else {
+        title.innerText = "택시면허 CBT를 종료할까요?";
+        desc.innerText = "언제든 다시 돌아와 학습할 수 있어요.";
+      }
+      modal.style.display = 'flex';
+    }
+
+    function closeExitModal() {
+      document.getElementById('exitModal').style.display = 'none';
+      history.pushState({ page: 'active' }, '');
+    }
+
+    function confirmExit() {
+      document.getElementById('exitModal').style.display = 'none';
+      if (exitActionTarget === 'mock') {
+        switchMode('speed');
+        showToast('모의고사가 종료되었습니다.', 'ℹ️');
+      } else {
+        if (window.toss && window.toss.close) {
+          window.toss.close();
+        } else {
+          window.close();
+          showToast('앱을 종료합니다.', '👋');
+        }
+      }
+    }
+
+    // Android Back Button / Browser Popstate
+    window.addEventListener('load', () => {
+      history.pushState({ page: 'root' }, '');
+    });
+
+    window.addEventListener('popstate', () => {
+      const resModal = document.getElementById('resultModal');
+      if (resModal && resModal.classList.contains('open')) {
+        closeModal();
+        return;
+      }
+      const regModal = document.getElementById('regionModalBackdrop');
+      if (regModal && regModal.classList.contains('open')) {
+        closeRegionSheet();
+        return;
+      }
+      const exitMod = document.getElementById('exitModal');
+      if (exitMod && exitMod.style.display === 'flex') {
+        closeExitModal();
+        return;
+      }
+      if (currentMode === 'mock') {
+        showExitModal('mock');
+        return;
+      }
+      showExitModal('app');
+    });
+
+    // Init Region & State
+    const regObj = REGIONS.find(r => r.key === currentRegion);
+    if (regObj) {
+      document.getElementById('currentRegionLabel').innerText = regObj.name;
+      document.getElementById('heroRegionSub').innerText = `${regObj.name} 맞춤 기출`;
+    }
+    updateWrongBadge();
+    initSpeedQuiz();
+    startBannerAdRotation();
+    initTossAdsSDK();
+  </script>
+</body>
+</html>
