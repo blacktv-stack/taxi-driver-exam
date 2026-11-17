@@ -1038,6 +1038,38 @@
 
     .report-save-btn { background-color: #3182f6; }
 
+    /* 저장 · 공유 2버튼 (TDS 톤 유지) */
+    .report-action-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .report-action-row .btn-toss-primary {
+      flex: 1;
+      width: auto;
+      height: 52px;
+      margin-top: 0;
+      padding: 0 6px;
+      font-size: 15.5px;
+    }
+    .report-share-btn {
+      background-color: #e8f3ff;
+      color: #1b64da;
+      box-shadow: none;
+    }
+    .report-action-row .report-share-btn:active {
+      background-color: #d3e7ff;
+    }
+    .report-save-hint {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #8b95a1;
+      word-break: keep-all;
+    }
+
     .report-review-btn {
       width: 100%;
       height: 46px;
@@ -1263,9 +1295,16 @@
         <p class="report-disclaimer">본 리포트는 모의고사 학습 기록이며 공식 자격증이나 시험 합격 증명이 아닙니다.</p>
       </div>
 
-      <button class="btn-toss-primary report-save-btn" onclick="generateAndSaveReport()">
-        <span>📄</span> 성적표 저장하기
-      </button>
+      <div class="report-action-row">
+        <button class="btn-toss-primary report-save-btn" id="btnReportSave" onclick="generateAndSaveReport()">
+          <span>📄</span> 저장
+        </button>
+        <button class="btn-toss-primary report-share-btn" id="btnReportShare" onclick="shareReportCard()">
+          <span>📤</span> 공유하기
+        </button>
+      </div>
+
+      <div class="report-save-hint" id="reportSaveHint">저장한 성적표는 폰 사진첩(갤러리) 또는 파일 앱에서 확인할 수 있어요.</div>
 
       <button class="report-review-btn" id="btnReportReview" onclick="goToNotesAndClose()" style="display: none;">
         📝 오답노트로 취약 문항 복습하기
@@ -5399,7 +5438,8 @@
       switchMode('notes');
     }
 
-    function generateAndSaveReport() {
+    // 성적표 캔버스(1080×1080)를 그리고 저장·공유에 쓸 메타데이터를 돌려준다.
+    function buildReportCard() {
       const canvas = document.getElementById('reportCanvas');
       canvas.width = 1080;
       canvas.height = 1080;
@@ -5579,12 +5619,108 @@
       ctx.fillText('본 리포트는 모의고사 학습 기록이며', PAD, 962);
       ctx.fillText('공식 자격증이나 시험 합격 증명이 아닙니다.', PAD, 992);
 
-      // 12. 저장
-      const link = document.createElement('a');
-      link.download = `택시모의고사_성적표_${regName}_${candidateName}_${fnameDate}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-      showToast('1080×1080 모의고사 성적표가 저장되었습니다!', '📄');
+      // 12. 저장·공유 메타데이터 (실제 저장/공유는 src/report.js 가 담당)
+      const fnameTime = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+      const appLink = (window.TaxiReport && window.TaxiReport.APP_LINK) || 'https://taxicbt.deed.page/';
+      const statusText = isPass ? '합격 예측권' : '60점 미만 · 복습 필요';
+      const subjectLine = (subjects || [])
+        .slice(0, 4)
+        .map(s => `${String(s.name).replace(/^\d+\s*과목\s*/, '')} ${s.pct}%`)
+        .join(' · ');
+      const shareText = [
+        '🚕 택시면허 3초 CBT · 모의고사 성적표',
+        `📍 ${regName} · ${dateDot}`,
+        `🎯 ${score}점 / 100점 · ${statusText}`,
+        subjectLine ? `📊 ${subjectLine}` : '',
+        `응시자 ${candidateName} 님`,
+        `나도 풀어보기 → ${appLink}`
+      ].filter(Boolean).join('\n');
+
+      return {
+        canvas: canvas,
+        // 같은 이름의 파일이 이미 있으면 저장이 어긋나는 사례가 있어 초 단위까지 붙인다.
+        fileName: `택시모의고사_성적표_${regName}_${candidateName}_${fnameDate}_${fnameTime}.png`,
+        title: '🚕 택시면허 3초 CBT · 모의고사 성적표',
+        text: shareText
+      };
+    }
+
+    // --- 성적표 저장 · 공유 (토스 SDK File.saveBase64 / Web Share API) ---
+    let reportActionBusy = false;
+    let reportBusyTimer = null;
+
+    function setReportBusy(busy) {
+      reportActionBusy = busy;
+      ['btnReportSave', 'btnReportShare'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (el) el.disabled = busy;
+      });
+      if (reportBusyTimer) { clearTimeout(reportBusyTimer); reportBusyTimer = null; }
+      // 네이티브 공유 시트가 응답을 늦게 주더라도 버튼이 잠긴 채 남지 않게 한다.
+      if (busy) reportBusyTimer = setTimeout(function () { setReportBusy(false); }, 30000);
+    }
+
+    // 모듈을 못 불러온 환경(아주 오래된 캐시 등)을 위한 예전 방식 저장
+    function legacyDownloadReport(meta) {
+      try {
+        const link = document.createElement('a');
+        link.download = meta.fileName;
+        link.href = meta.canvas.toDataURL('image/png');
+        link.click();
+        showToast('성적표 이미지를 다운로드 폴더에 저장했어요!', '📄');
+      } catch (e) {
+        showToast('저장에 실패했어요. 잠시 후 다시 시도해주세요.', '⚠️');
+      }
+    }
+
+    function generateAndSaveReport() {
+      if (reportActionBusy) return;
+      const meta = buildReportCard();
+      if (!window.TaxiReport) { legacyDownloadReport(meta); return; }
+
+      setReportBusy(true);
+      const done = function (res) {
+        setReportBusy(false);
+        if (res && res.canceled) return; // 사용자가 저장/공유 창을 닫음
+        if (res && res.ok && res.via === 'toss-save') {
+          showToast('사진첩(갤러리)·파일 앱에 저장했어요! 저장 확인 창이 뜨면 저장을 눌러주세요.', '📄');
+        } else if (res && res.ok && res.via === 'share-save') {
+          showToast("저장 창이 열렸어요. '이미지 저장'을 고르면 사진첩에 저장돼요!", '📄');
+        } else if (res && res.ok) {
+          showToast('성적표 이미지를 다운로드 폴더에 저장했어요!', '📄');
+        } else {
+          showToast('저장에 실패했어요. [공유하기]로 이미지를 저장할 수 있어요.', '⚠️');
+        }
+      };
+
+      Promise.resolve(window.TaxiReport.saveReport(meta.canvas, meta))
+        .then(done)
+        .catch(function () { done({ ok: false }); });
+    }
+
+    function shareReportCard() {
+      if (reportActionBusy) return;
+      const meta = buildReportCard();
+      if (!window.TaxiReport) { showToast('공유 기능을 불러오지 못했어요. 잠시 후 다시 시도해주세요.', '⚠️'); return; }
+
+      setReportBusy(true);
+      const done = function (res) {
+        setReportBusy(false);
+        if (!res || res.canceled) return; // 사용자가 공유 창을 닫음
+        if (res.ok && res.via === 'share-file') {
+          showToast('공유 창을 열었어요. 카카오톡·문자·이미지 저장 중에 골라주세요!', '📤');
+        } else if (res.ok && (res.via === 'share-text' || res.via === 'toss-share-text')) {
+          showToast('공유 창을 열었어요. 이미지는 [저장] 후 사진첩에서 첨부할 수 있어요.', '📤');
+        } else if (res.ok && res.via === 'clipboard') {
+          showToast('성적 요약을 복사했어요. 카톡 대화창에 붙여넣기 하세요!', '📋');
+        } else {
+          showToast('공유를 열지 못했어요. [저장]으로 이미지를 남겨주세요.', '⚠️');
+        }
+      };
+
+      Promise.resolve(window.TaxiReport.shareReport(meta.canvas, meta))
+        .then(done)
+        .catch(function () { done({ ok: false }); });
     }
 
 
@@ -5730,5 +5866,6 @@
 
   <!-- 앱인토스 인앱 광고 (전면형 + 배너) — SDK 3.10.0 -->
   <script type="module" src="./src/ads.js"></script>
+  <script type="module" src="./src/report.js"></script>
 </body>
 </html>

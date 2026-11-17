@@ -1,6 +1,6 @@
-# 🚕 택시면허 (taxi-driver-exam) — 택시운전자격시험 3초 벼락치기 CBT v4.0
+# 🚕 택시면허 (taxi-driver-exam) — 택시운전자격시험 3초 벼락치기 CBT v4.2
 
-> **"출퇴근길 딱 10문제 풀고 1초 만에 1원 받기! 최신 기출 실전 모의고사!"** (v4.1 — 인앱 광고 SDK 연동)
+> **"출퇴근길 딱 10문제 풀고 1초 만에 1원 받기! 최신 기출 실전 모의고사!"** (v4.2 — 성적표 저장·카톡 공유)
 > 앱인토스(Apps in Toss) WebView 미니앱 · appName `taxi-driver-exam` · 표시명 **택시면허**
 
 ---
@@ -19,6 +19,7 @@
 2. **📝 실전 모의고사 (40문제 CBT)**: 실제 시험과 동일한 4대 과목 비중(법규, 안전운행, 서비스, 수도권 지리), 30분 카운트다운, 합격 커트라인 60점 자동 채점, 과목별 취약 영역 분석.
 3. **💡 취약 오답노트 클리닉**: 틀린 문제만 로컬스토리지에 자동 누적.
 4. **📊 모의고사 성적표 (합격 예측 리포트, 1080×1080)**: 토스(TDS) 스타일 화이트/토스블루 카드형 성적표. 총점·상태 배지·4과목 실제 득점률 프로그레스 바. 공인기관 사칭 요소 없는 학습 기록 리포트이며 "공식 자격증이나 시험 합격 증명이 아닙니다" 안내 문구 고정 표기.
+5. **📄 성적표 저장 · 📤 공유하기 (v4.2)**: 저장은 토스 SDK `File.saveBase64`로 폰 사진첩(갤러리)·파일 앱에 실제 저장하고, 공유하기는 웹 표준 Web Share API(`navigator.share({ files })`)로 OS 공유 시트를 열어 **카카오톡·문자로 이미지를 바로 전송**합니다. PC·웹 미리보기에서는 `<a download>` 다운로드로 폴백합니다.
 
 ---
 
@@ -34,8 +35,9 @@
 
 ```
 taxi-driver-exam/
-├── index.html               # 미니앱 본체 (단일 파일 HTML/CSS/JS, v4.1)
+├── index.html               # 미니앱 본체 (단일 파일 HTML/CSS/JS, v4.2)
 ├── src/ads.js               # 앱인토스 인앱 광고(전면형·배너) 연동 모듈
+├── src/report.js            # 성적표 저장(File.saveBase64)·공유(Web Share) 모듈
 ├── scripts/inline-bundle.mjs# vite 산출물을 단일 index.html로 인라인
 ├── icon.png                 # 512×512 앱 아이콘 (콘솔 등록용)
 ├── public/icon.png          # 번들에 함께 포함되는 아이콘
@@ -63,6 +65,23 @@ taxi-driver-exam/
 
 > SDK 3.x부터 설정 파일명은 `granite.config.ts` → **`apps-in-toss.config.ts`** 로 바뀌었습니다.
 > 표시명(displayName)·아이콘은 번들이 아니라 **앱인토스 콘솔의 앱 정보**에서 설정합니다.
+
+---
+
+## 4-2. 성적표 저장 · 공유 연동 (SDK 3.10.0, v4.2)
+
+`src/report.js` 가 성적표 모달의 `📄 저장` / `📤 공유하기` 를 담당합니다. 성적표 PNG(1080×1080)는 `#reportCanvas` 에 그린 뒤 아래 순서로 처리합니다.
+
+| 동작 | 1순위 | 2순위 | 3순위 |
+| --- | --- | --- | --- |
+| 📄 저장 | `File.saveBase64({ data, fileName, mimeType })` — 토스 앱에서 기기 사진첩(Pictures)·파일 앱에 저장 | `navigator.share({ files })` — 저장/공유 시트의 '이미지 저장' | `<a download>` — PC·웹 미리보기의 다운로드 폴더 |
+| 📤 공유하기 | `navigator.share({ files: [pngFile], title, text })` — 카카오톡·문자·이미지 저장 | `navigator.share({ title, text })` — 텍스트+링크 | `Share.sendMessage({ message })` → 클립보드 복사 |
+
+- `File.saveBase64` 의 `data` 는 **데이터 URI 접두사 없는 순수 Base64** 입니다(문서 예시 `data: 'iVBORw0KGgo...'`).
+- 토스 앱 사양상 `File.saveBase64` 는 저장 시 **OS 저장/공유 시트를 함께 띄웁니다**(안드로이드는 `Pictures` 저장 후 시트). 그래서 저장 토스트도 "사진첩(갤러리)·파일 앱에 저장했어요! 저장 확인 창이 뜨면 저장을 눌러주세요." 로 저장 위치와 다음 동작을 함께 안내합니다. 안내 문구(`#reportSaveHint`)는 토스 앱/웹에 따라 자동으로 바뀝니다.
+- 공유는 **파일을 동기적으로 `File` 로 변환한 뒤 곧바로 `navigator.share()` 를 호출**해 사용자 제스처(transient activation)를 잃지 않게 했습니다. `navigator.canShare({ files })` 로 지원 여부를 먼저 확인합니다.
+- 파일명은 `택시모의고사_성적표_{지역}_{이름}_{YYYYMMDD}_{HHMMSS}.png` 로 **초 단위까지** 붙여, 같은 이름의 파일이 이미 있을 때 저장이 어긋나는 사례를 피합니다.
+- 모든 호출은 `isSupported()` + `try/catch` 로 감싸 토스 앱 밖(PC·deed.page)에서도 예외가 페이지로 새지 않습니다. 참고: 앱인토스에는 사진첩 직접 저장·이미지 첨부 공유 전용 API가 없어(텍스트 전용 `Share.sendMessage` 만 제공) 위와 같이 웹 표준 API를 함께 사용합니다.
 
 ---
 
