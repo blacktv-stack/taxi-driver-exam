@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>전국 택시운전자격시험 3초 벼락치기 CBT</title>
+  <title>택시운전면허 벼락치기</title>
   <!-- 토스 공식 폰트 Pretendard CDN -->
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <style>
@@ -712,9 +712,34 @@
     }
 
     /* Sticky Bottom Large Responsive Banner Ad (92px height spec) */
-    .sticky-bottom-banner {
+    /* 하단 광고 도크: 앱인토스 배너 슬롯 + 웹 미리보기용 목업 배너 */
+    .ad-bottom-dock {
       position: sticky;
       bottom: 0;
+      width: 100%;
+      z-index: 95;
+      margin-top: auto;
+      background: transparent;
+    }
+
+    .toss-banner-slot {
+      display: none;
+      width: 100%;
+      background: #ffffff;
+    }
+
+    /* 광고 렌더 시도 중(빈 상태에서는 높이 0이라 레이아웃 영향 없음) */
+    .toss-banner-slot.is-armed {
+      display: block;
+    }
+
+    .toss-banner-slot.is-active {
+      display: block;
+    }
+
+    .sticky-bottom-banner {
+      position: relative;
+      bottom: auto;
       width: 100%;
       min-height: 88px;
       background: linear-gradient(135deg, #121824 0%, #1c2638 100%);
@@ -1051,7 +1076,7 @@
     <header class="top-header">
       <div class="brand-box">
         <span class="brand-icon">🚕</span>
-        <span class="brand-text">택시면허 CBT</span>
+        <span class="brand-text">택시운전면허 벼락치기</span>
       </div>
       <div class="region-select-trigger" onclick="openRegionSheet()" style="padding: 5px 12px; margin: 0; background: var(--toss-blue-light); border: none; border-radius: var(--radius-pill);">
         <span style="font-size: 13px;">📍</span>
@@ -1150,8 +1175,11 @@
         </div>
 
         <button class="btn-toss-primary" style="background: var(--toss-green); box-shadow: 0 4px 14px rgba(12, 166, 120, 0.3); margin-top: 12px; height: 50px; font-size: 15px; border-radius: 14px;" onclick="submitMockExam()">
-          <span>🏁</span> 모의고사 시험 종료 및 채점하기
+          <span>🎬</span> 광고 보고 채점 결과 확인하기
         </button>
+        <div style="text-align: center; font-size: 12px; color: var(--text-secondary); margin-top: 6px; font-weight: 500;">
+          버튼을 누르면 짧은 광고가 재생된 뒤 모의고사 성적표가 열려요.
+        </div>
       </div>
 
       <!-- Wrong Notes View -->
@@ -1167,7 +1195,12 @@
     </main>
 
     <!-- Sticky Bottom Responsive Banner Ad -->
-    <aside class="sticky-bottom-banner" id="bottomAdBanner" onclick="handleClickBannerAd()">
+    <aside class="ad-bottom-dock" id="bottomAdDock">
+      <!-- 앱인토스 인라인 배너 슬롯 (TossAds.attachBanner 대상) -->
+      <div class="toss-banner-slot" id="tossBannerSlot" aria-label="광고"></div>
+
+      <!-- 토스 앱 밖(웹 미리보기)에서만 노출되는 목업 배너 -->
+      <div class="sticky-bottom-banner" id="bottomAdBanner" onclick="handleClickBannerAd()">
       <span class="banner-ad-badge">AD</span>
       <div class="banner-text-wrap">
         <div class="banner-title" id="bannerAdTitle">
@@ -1178,6 +1211,7 @@
         </div>
       </div>
       <div class="banner-cta-btn" id="bannerAdCta">확인 ></div>
+      </div>
     </aside>
 
   </div>
@@ -5181,28 +5215,47 @@
     }
 
     
-    // --- Interstitial Ad Controller (Toss Ad SDK Slot) ---
+    // --- Interstitial Ad Controller (앱인토스 전면형 광고 SDK 연동) ---
     let interstitialCountdown = 3;
     let interstitialTimer = null;
     let pendingModalCallback = null;
 
+    /**
+     * 채점 버튼 → 전면형 광고 → 성적표.
+     *  · 토스 앱 웹뷰: SDK 3.10.0 loadFullScreenAd/showFullScreenAd 로 실제 광고 노출
+     *  · 일반 브라우저·deed.page: 기존 목업 전면 광고 모달로 시뮬레이션
+     *  · 광고 로드/표시 실패·타임아웃: 광고 없이 곧바로 성적표 (채점이 막히지 않음)
+     */
     function showInterstitialAd(callback) {
-      pendingModalCallback = callback;
+      const proceed = function (result) {
+        const reason = (result && result.reason) || '';
+        if (reason === 'web' || reason === 'unsupported') {
+          openMockInterstitialAd(callback);
+          return;
+        }
+        if (!result || result.shown !== true) {
+          showToast('광고를 불러오지 못해 바로 결과를 보여드려요', 'ℹ️');
+        }
+        callback();
+      };
 
-      // 1. If Toss Official Ad SDK is loaded in Toss In-app environment
-      if (window.toss && window.toss.ads && typeof window.toss.ads.showInterstitial === 'function') {
-        window.toss.ads.showInterstitial({
-          adUnitId: 'ait-taxi-interstitial-result-01'
-        }).then(() => {
-          if (pendingModalCallback) { pendingModalCallback(); pendingModalCallback = null; }
-        }).catch((err) => {
-          console.warn('Toss interstitial ad error or skipped:', err);
-          if (pendingModalCallback) { pendingModalCallback(); pendingModalCallback = null; }
-        });
+      const bridge = window.TaxiAds;
+      if (!bridge || typeof bridge.showInterstitial !== 'function') {
+        openMockInterstitialAd(callback);
         return;
       }
 
-      // 2. High-converting Simulator Interstitial Modal for Web preview & Verification
+      try {
+        bridge.showInterstitial(proceed);
+      } catch (e) {
+        openMockInterstitialAd(callback);
+      }
+    }
+
+    // 웹 미리보기 전용 목업 전면 광고 (실제 광고 아님)
+    function openMockInterstitialAd(callback) {
+      pendingModalCallback = callback;
+
       const modal = document.getElementById('interstitialModal');
       const closeBtn = document.getElementById('btnInterstitialClose');
       interstitialCountdown = 3;
@@ -5595,22 +5648,6 @@
     function handleClickBannerAd() {
       const ad = ROTATING_ADS[currentAdIndex];
       showToast(`[광고 이동] ${ad.title}`, '🔗');
-      // In Toss production: window.toss.ads.onBannerClick()
-    }
-
-    // --- Toss Ads SDK Hook ---
-    function initTossAdsSDK() {
-      // Toss developer console ad unit placeholder
-      if (window.toss && window.toss.ads) {
-        try {
-          window.toss.ads.showBanner({
-            adUnitId: "TOSS_TAXICBT_BOTTOM_BANNER",
-            position: "BOTTOM"
-          });
-        } catch (e) {
-          console.log("Toss Ads SDK fallback to web banner");
-        }
-      }
     }
 
     // --- Exit Modal & Android Back Button (Toss Review Essential) ---
@@ -5688,7 +5725,10 @@
     updateWrongBadge();
     initSpeedQuiz();
     startBannerAdRotation();
-    initTossAdsSDK();
+    // 광고(전면형·배너)는 src/ads.js 모듈이 앱인토스 SDK 3.10.0 으로 초기화합니다.
   </script>
+
+  <!-- 앱인토스 인앱 광고 (전면형 + 배너) — SDK 3.10.0 -->
+  <script type="module" src="./src/ads.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # 🚕 택시면허 (taxi-driver-exam) — 택시운전자격시험 3초 벼락치기 CBT v4.0
 
-> **"출퇴근길 딱 10문제 풀고 1초 만에 1원 받기! 최신 기출 실전 모의고사!"**
+> **"출퇴근길 딱 10문제 풀고 1초 만에 1원 받기! 최신 기출 실전 모의고사!"** (v4.1 — 인앱 광고 SDK 연동)
 > 앱인토스(Apps in Toss) WebView 미니앱 · appName `taxi-driver-exam` · 표시명 **택시면허**
 
 ---
@@ -34,7 +34,9 @@
 
 ```
 taxi-driver-exam/
-├── index.html               # 미니앱 본체 (단일 파일 HTML/CSS/JS, v4.0)
+├── index.html               # 미니앱 본체 (단일 파일 HTML/CSS/JS, v4.1)
+├── src/ads.js               # 앱인토스 인앱 광고(전면형·배너) 연동 모듈
+├── scripts/inline-bundle.mjs# vite 산출물을 단일 index.html로 인라인
 ├── icon.png                 # 512×512 앱 아이콘 (콘솔 등록용)
 ├── public/icon.png          # 번들에 함께 포함되는 아이콘
 ├── apps-in-toss.config.ts   # 앱인토스 SDK 3.x 설정 (appName, webBundleDir 등)
@@ -42,6 +44,22 @@ taxi-driver-exam/
 ├── package.json
 └── package-lock.json
 ```
+
+---
+
+## 4-1. 인앱 광고 연동 (SDK 3.10.0, v4.1)
+
+`src/ads.js` 가 `@apps-in-toss/web-framework` 3.10.0 의 광고 API를 직접 사용합니다.
+
+| 구분 | 광고 그룹 ID | API | 진입 지점 |
+| --- | --- | --- | --- |
+| 전면형(Interstitial) | `ait.v2.live.25d0edef1a194483` | `loadFullScreenAd` / `showFullScreenAd` | 모의고사 `🎬 광고 보고 채점 결과 확인하기` |
+| 배너(Banner) | `ait.v2.live.a803b0a902dc4434` | `TossAds.initialize` → `TossAds.attachBanner` | 모든 화면 하단 도크 `#tossBannerSlot` |
+
+- **전면형**: 앱 시작 시 미리 `load` → 채점 버튼에서 `show` → `dismissed` 후 성적표 표시 → 다음 광고를 다시 `load` (`load → show → load` 규칙 유지).
+- **배너**: `TossAds.initialize({ callbacks: { onInitialized } })` 성공 후 `attachBanner(adGroupId, '#tossBannerSlot', { theme:'auto', tone:'grey', variant:'card' })`. `onAdRendered` 에서 슬롯을 노출하고 목업 배너를 숨깁니다.
+- **폴백(필수)**: ① 토스 앱 웹뷰가 아니면(deed.page·PC 브라우저) 전면 광고는 목업 모달로 시뮬레이션하고 하단 목업 배너를 그대로 노출, ② 광고 로드가 2.6초 안에 오지 않거나 `failedToShow`·오류·타임아웃(25초)이면 **광고 없이 곧바로 성적표를 열고** 안내 토스트만 띄웁니다(채점이 막히지 않음), ③ `onNoFill`·`onAdFailedToRender` 이면 목업 배너로 복귀해 빈 하단 띠가 남지 않습니다.
+- 모든 SDK 호출은 `try/catch` + `isSupported()` 가드로 감싸 토스 앱 밖에서도 예외가 페이지로 새지 않습니다.
 
 > SDK 3.x부터 설정 파일명은 `granite.config.ts` → **`apps-in-toss.config.ts`** 로 바뀌었습니다.
 > 표시명(displayName)·아이콘은 번들이 아니라 **앱인토스 콘솔의 앱 정보**에서 설정합니다.
@@ -54,12 +72,13 @@ Node.js 22 이상(LTS) 필요.
 
 ```bash
 npm install
-npm run build          # = vite build && ait build
+npm run build          # = vite build && node scripts/inline-bundle.mjs && ait build
 ```
 
 - `npm install` → `@apps-in-toss/web-framework` 3.10.0 (ait CLI 포함) 설치
-- `vite build` → `dist/index.html` 생성 (본체 HTML을 그대로 번들링)
-- `ait build` → 프로젝트 루트에 **`taxi-driver-exam.ait`** 배포 번들 생성
+- `vite build` → `dist/index.html` + `dist/assets/*.js` (광고 SDK 번들) 생성
+- `node scripts/inline-bundle.mjs` → JS 청크를 `dist/index.html` 안으로 인라인(단일 파일화)
+- `ait build` → 프로젝트 루트에 **`taxitaxi.ait`** 배포 번들 생성
 
 생성된 `.ait` 파일을 [앱인토스 콘솔](https://apps-in-toss.toss.im)의 해당 앱(`taxi-driver-exam`)에 업로드하면 QR 테스트 → 출시 요청이 가능합니다.
 

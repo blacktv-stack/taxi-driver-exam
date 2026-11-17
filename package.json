@@ -5,7 +5,7 @@
   "description": "전국 택시운전자격시험 3초 벼락치기 CBT (앱인토스 미니앱)",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && ait build",
+    "build": "vite build && node scripts/inline-bundle.mjs && ait build",
     "deploy": "ait deploy"
   },
   "dependencies": {
